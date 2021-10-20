@@ -1,3 +1,6 @@
+/*
+ * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
+ */
 package com.symphony.dal.communicator.axis.common;
 
 public enum AxisMonitoringMetric {
@@ -23,8 +26,8 @@ public enum AxisMonitoringMetric {
 
     public static final String SCHEMA_VERSION = "schemaversion";
     public static final String ROTATION_PARAM = "rotation";
-    public static final String DYNAMIC_OVERLAYS= "dynamicoverlays";
-    public static final String MIRRORING_ENABLE= "mirroringenabled";
+    public static final String DYNAMIC_OVERLAYS = "dynamicoverlays";
+    public static final String MIRRORING_ENABLE = "mirroringenabled";
     private final String name;
     private final boolean isHistorical;
 

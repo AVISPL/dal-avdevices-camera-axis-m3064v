@@ -1,7 +1,8 @@
+/*
+ * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
+ */
 package com.symphony.dal.communicator.axis;
 
-import com.avispl.symphony.api.dal.control.Controller;
-import com.avispl.symphony.api.dal.dto.control.ControllableProperty;
 import com.avispl.symphony.api.dal.dto.monitor.*;
 import com.avispl.symphony.api.dal.dto.monitor.aggregator.AggregatedDevice;
 import com.avispl.symphony.api.dal.error.ResourceNotReachableException;
@@ -18,11 +19,13 @@ import com.symphony.dal.communicator.axis.dto.VideoOutput;
 import com.symphony.dal.communicator.axis.dto.metric.Device;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
-public class AxisCommunicator extends RestCommunicator implements Monitorable, Controller {
+/**
+ * This class supports monitoring and controlling from Symphony platform to Axis device
+ */
+public class AxisCommunicator extends RestCommunicator implements Monitorable {
 
     private ExtendedStatistics localExtendedStatistics;
     private Map<String, String> failedMonitor;
@@ -42,18 +45,13 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
         final Map<String, String> stats = new HashMap<>();
         final Map<String, String> dynamic = new HashMap<>();
         failedMonitor = new HashMap<>();
-        if (localExtendedStatistics != null) {
-            populateAxisStatisticsMetric(stats, dynamic);
-        } else {
+        if (localExtendedStatistics == null) {
             localExtendedStatistics = new ExtendedStatistics();
-            populateAxisStatisticsMetric(stats, dynamic);
         }
-        int numberHistorical = 0;
-        for (AxisMonitoringMetric metric : AxisMonitoringMetric.values()) {
-            if (metric.isHistorical()) {
-                numberHistorical++;
-            }
-        }
+        populateAxisStatisticsMetric(stats, dynamic);
+
+        int numberHistorical = getNumberHistorical();
+        // if it is failed to get all the historical stats
         if (failedMonitor.size() == numberHistorical) {
             StringBuilder errBuilder = new StringBuilder();
             for (Map.Entry<String, String> metric : failedMonitor.entrySet()) {
@@ -71,6 +69,16 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
         }
 
         return Collections.singletonList(localExtendedStatistics);
+    }
+
+    private int getNumberHistorical() {
+        int numberHistorical = 0;
+        for (AxisMonitoringMetric metric : AxisMonitoringMetric.values()) {
+            if (metric.isHistorical()) {
+                numberHistorical++;
+            }
+        }
+        return numberHistorical;
     }
 
     private void populateAxisStatisticsMetric(Map<String, String> stats, Map<String, String> dynamic) {
@@ -96,7 +104,6 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
      */
     private String retrieveDataByMetric(AxisMonitoringMetric metric) {
         Objects.requireNonNull(metric);
-
         switch (metric) {
             case VIDEO_SOURCE:
                 return retrieveVideoSource();
@@ -128,8 +135,8 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
      */
     private void retrieveInfoDevice(Map<String, String> stats) {
         ObjectNode request = JsonNodeFactory.instance.objectNode();
-        request.put(AxisRequest.API_VERSION, "1.0");
-        request.put(AxisRequest.CONTEXT, "Client defined request ID");
+        request.put(AxisRequest.API_VERSION, AxisRequest.API_VERSION_VALUE);
+        request.put(AxisRequest.CONTEXT, AxisRequest.REQUEST_CONTEXT);
         request.put(AxisRequest.METHOD, AxisRequest.GET_ALL_PROPERTIES);
         try {
             JsonNode responseData = doPost(AxisStatisticsFactory.getURL(AxisMonitoringMetric.DEVICE_INFO),
@@ -152,7 +159,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
             stats.put(AxisMonitoringMetric.SERIAL_NUMBER, AxisConstant.NONE);
             stats.put(AxisMonitoringMetric.VERSION, AxisConstant.NONE);
             stats.put(AxisMonitoringMetric.WEB_URL, AxisConstant.NONE);
-            logger.debug("get device info error: " + e.getMessage());
+            logger.error("Get device info error: " + e.getMessage());
         }
     }
 
@@ -176,7 +183,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
                 return AxisConstant.NONE;
             }
         } catch (Exception e) {
-            logger.debug("get video source error: " + e.getMessage());
+            logger.error("get video source error: " + e.getMessage());
             failedMonitor.put(AxisMonitoringMetric.VIDEO_SOURCE.toString(), e.getMessage());
             return AxisConstant.NONE;
         }
@@ -196,7 +203,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
                 return responseData.getSuccess().getSchemaVersionsSuccess().getSchemaVersion().getVersionNumber();
             return AxisConstant.NONE;
         } catch (Exception e) {
-            logger.debug("get schemaVersion error: " + e.getMessage());
+            logger.error("get schemaVersion error: " + e.getMessage());
             return AxisConstant.NONE;
         }
     }
@@ -215,7 +222,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
                 return String.valueOf(responseData.getSuccess().getRotationSuccess().getRotation().getDegrees());
             return AxisConstant.NONE;
         } catch (Exception e) {
-            logger.debug("get rotation error: " + e.getMessage());
+            logger.error("Get rotation error: " + e.getMessage());
             return AxisConstant.NONE;
         }
     }
@@ -239,7 +246,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
             }
             return AxisConstant.NONE;
         } catch (Exception e) {
-            logger.debug("get dynamic overlay error: " + e.getMessage());
+            logger.error("Get dynamic overlay error: " + e.getMessage());
             return AxisConstant.NONE;
         }
     }
@@ -258,7 +265,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
                 return responseData.getSuccess().getTextOverlaySuccess().getTextOverlay().getCurrentValue();
             return AxisConstant.NONE;
         } catch (Exception e) {
-            logger.debug("get text overlay error: " + e.getMessage());
+            logger.error("Get text overlay error: " + e.getMessage());
             return AxisConstant.NONE;
         }
     }
@@ -281,7 +288,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
             }
             return AxisConstant.NONE;
         } catch (Exception e) {
-            logger.debug("get mirroring error: " + e.getMessage());
+            logger.error("Get mirroring error: " + e.getMessage());
             return AxisConstant.NONE;
         }
     }
@@ -296,7 +303,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
         try {
             return doGet(AxisStatisticsFactory.getURL(AxisMonitoringMetric.VIDEO_FRAME_RATE));
         } catch (Exception e) {
-            logger.debug("get video frame rate error: " + e.getMessage());
+            logger.error("Get video frame rate error: " + e.getMessage());
             String error = e.getMessage().substring(e.getMessage().lastIndexOf("response") + 10, e.getMessage().length()) + "\n";
             failedMonitor.put(AxisMonitoringMetric.VIDEO_FRAME_RATE.toString(), error);
             return AxisConstant.NONE;
@@ -322,28 +329,9 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
                 return AxisConstant.NONE;
             }
         } catch (Exception e) {
-            logger.debug("get video resolution error: " + e);
+            logger.error("Get video resolution error: " + e);
             failedMonitor.put(AxisMonitoringMetric.VIDEO_RESOLUTION.toString(), e.getMessage());
             return AxisConstant.NONE;
-        }
-    }
-
-    @Override
-    public void controlProperty(ControllableProperty controllableProperty) {
-        String property = controllableProperty.getProperty();
-        String value = String.valueOf(controllableProperty.getValue());
-        logger.debug("controlProperty property" + property);
-        logger.debug("controlProperty value" + value);
-    }
-
-    @Override
-    public void controlProperties(List<ControllableProperty> list) {
-
-        if (CollectionUtils.isEmpty(list)) {
-            throw new IllegalArgumentException("NetGearCommunicator: Controllable properties cannot be null or empty");
-        }
-        for (ControllableProperty controllableProperty : list) {
-            logger.debug("test property: " + controllableProperty);
         }
     }
 

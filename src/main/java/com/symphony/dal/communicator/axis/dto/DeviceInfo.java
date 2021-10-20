@@ -1,8 +1,11 @@
+/*
+ * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
+ */
 package com.symphony.dal.communicator.axis.dto;
 
 /**
  * All properties provided by the BDI (Basic device information) service.
- * */
+ */
 public class DeviceInfo {
 
     public static final String DATA = "data";
