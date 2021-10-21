@@ -19,69 +19,69 @@ import javax.xml.bind.annotation.XmlElement;
 @XmlAccessorType(XmlAccessType.NONE)
 public class VideoOutputs {
 
-    @XmlElement(name = "GetVideoSourcesSuccess")
-    private VideoSources videoSourcesSuccess;
+	@XmlElement(name = "GetVideoSourcesSuccess")
+	private VideoSources videoSourcesSuccess;
 
-    @XmlElement(name = "GetRotationSuccess")
-    private Rotations rotationSuccess;
+	@XmlElement(name = "GetRotationSuccess")
+	private Rotations rotationSuccess;
 
-    @XmlElement(name = "GetDynamicOverlaySuccess")
-    private DynamicOverlay dynamicOverlaySuccess;
+	@XmlElement(name = "GetDynamicOverlaySuccess")
+	private DynamicOverlay dynamicOverlaySuccess;
 
-    @XmlElement(name = "GetTextOverlaySuccess")
-    private TextOverlays textOverlaySuccess;
+	@XmlElement(name = "GetTextOverlaySuccess")
+	private TextOverlays textOverlaySuccess;
 
-    @XmlElement(name = "GetMirroringSuccess")
-    private Mirroring mirroringSuccess;
+	@XmlElement(name = "GetMirroringSuccess")
+	private Mirroring mirroringSuccess;
 
-    @XmlElement(name = "GeneralSuccess")
-    private String generalSuccess;
+	@XmlElement(name = "GeneralSuccess")
+	private String generalSuccess;
 
-    public void setGeneralSuccess(String generalSuccess) {
-        this.generalSuccess = generalSuccess;
-    }
+	public void setGeneralSuccess(String generalSuccess) {
+		this.generalSuccess = generalSuccess;
+	}
 
-    public String getGeneralSuccess() {
-        return generalSuccess;
-    }
+	public String getGeneralSuccess() {
+		return generalSuccess;
+	}
 
-    public void setVideoSourcesSuccess(VideoSources videoSourcesSuccess) {
-        this.videoSourcesSuccess = videoSourcesSuccess;
-    }
+	public void setVideoSourcesSuccess(VideoSources videoSourcesSuccess) {
+		this.videoSourcesSuccess = videoSourcesSuccess;
+	}
 
-    public VideoSources getVideoSourcesSuccess() {
-        return videoSourcesSuccess;
-    }
+	public VideoSources getVideoSourcesSuccess() {
+		return videoSourcesSuccess;
+	}
 
-    public Rotations getRotationSuccess() {
-        return rotationSuccess;
-    }
+	public Rotations getRotationSuccess() {
+		return rotationSuccess;
+	}
 
-    public void setRotationSuccess(Rotations rotationSuccess) {
-        this.rotationSuccess = rotationSuccess;
-    }
+	public void setRotationSuccess(Rotations rotationSuccess) {
+		this.rotationSuccess = rotationSuccess;
+	}
 
-    public DynamicOverlay getDynamicOverlaySuccess() {
-        return dynamicOverlaySuccess;
-    }
+	public DynamicOverlay getDynamicOverlaySuccess() {
+		return dynamicOverlaySuccess;
+	}
 
-    public void setDynamicOverlaySuccess(DynamicOverlay dynamicOverlaySuccess) {
-        this.dynamicOverlaySuccess = dynamicOverlaySuccess;
-    }
+	public void setDynamicOverlaySuccess(DynamicOverlay dynamicOverlaySuccess) {
+		this.dynamicOverlaySuccess = dynamicOverlaySuccess;
+	}
 
-    public TextOverlays getTextOverlaySuccess() {
-        return textOverlaySuccess;
-    }
+	public TextOverlays getTextOverlaySuccess() {
+		return textOverlaySuccess;
+	}
 
-    public void setTextOverlaySuccess(TextOverlays textOverlaySuccess) {
-        this.textOverlaySuccess = textOverlaySuccess;
-    }
+	public void setTextOverlaySuccess(TextOverlays textOverlaySuccess) {
+		this.textOverlaySuccess = textOverlaySuccess;
+	}
 
-    public Mirroring getMirroringSuccess() {
-        return mirroringSuccess;
-    }
+	public Mirroring getMirroringSuccess() {
+		return mirroringSuccess;
+	}
 
-    public void setMirroringSuccess(Mirroring mirroringSuccess) {
-        this.mirroringSuccess = mirroringSuccess;
-    }
+	public void setMirroringSuccess(Mirroring mirroringSuccess) {
+		this.mirroringSuccess = mirroringSuccess;
+	}
 }

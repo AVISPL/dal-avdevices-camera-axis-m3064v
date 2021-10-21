@@ -4,8 +4,10 @@
 package com.symphony.dal.communicator.axis.dto;
 
 import com.symphony.dal.communicator.axis.dto.metric.schemaversion.Success;
-
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Device Schema Version Status  class.
@@ -14,14 +16,14 @@ import javax.xml.bind.annotation.*;
 @XmlAccessorType(XmlAccessType.NONE)
 public class SchemaVersionStatus {
 
-    @XmlElement(name = "Success")
-    private Success success;
+	@XmlElement(name = "Success")
+	private Success success;
 
-    public Success getSuccess() {
-        return success;
-    }
+	public Success getSuccess() {
+		return success;
+	}
 
-    public void setSuccess(Success success) {
-        this.success = success;
-    }
+	public void setSuccess(Success success) {
+		this.success = success;
+	}
 }

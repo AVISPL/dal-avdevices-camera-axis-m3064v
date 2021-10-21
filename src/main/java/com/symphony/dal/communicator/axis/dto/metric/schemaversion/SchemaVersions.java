@@ -7,17 +7,20 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
+/**
+ * Device SchemaVersions class.
+ */
 @XmlAccessorType(XmlAccessType.NONE)
 public class SchemaVersions {
 
-    @XmlElement(name = "SchemaVersion")
-    private SchemaVersionChild schemaVersion;
+	@XmlElement(name = "SchemaVersion")
+	private SchemaVersionChild schemaVersion;
 
-    public void setSchemaVersion(SchemaVersionChild schemaVersion) {
-        this.schemaVersion = schemaVersion;
-    }
+	public void setSchemaVersion(SchemaVersionChild schemaVersion) {
+		this.schemaVersion = schemaVersion;
+	}
 
-    public SchemaVersionChild getSchemaVersion() {
-        return schemaVersion;
-    }
+	public SchemaVersionChild getSchemaVersion() {
+		return schemaVersion;
+	}
 }

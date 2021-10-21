@@ -7,16 +7,20 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
+/**
+ * Device Text Overlays class
+ */
 @XmlAccessorType(XmlAccessType.NONE)
 public class TextOverlays {
-    @XmlElement(name= "String")
-    private TextOverlayChild textOverlay;
 
-    public TextOverlayChild getTextOverlay() {
-        return textOverlay;
-    }
+	@XmlElement(name = "String")
+	private TextOverlayChild textOverlay;
 
-    public void setTextOverlay(TextOverlayChild textOverlay) {
-        this.textOverlay = textOverlay;
-    }
+	public TextOverlayChild getTextOverlay() {
+		return textOverlay;
+	}
+
+	public void setTextOverlay(TextOverlayChild textOverlay) {
+		this.textOverlay = textOverlay;
+	}
 }

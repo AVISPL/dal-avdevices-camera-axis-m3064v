@@ -8,25 +8,25 @@ package com.symphony.dal.communicator.axis.dto;
  */
 public class DeviceInfo {
 
-    public static final String DATA = "data";
-    public static final String PROPERTIES = "properties";
-    private String apiVersion;
-    private String context;
-    private String data;
+	public static final String DATA = "data";
+	public static final String PROPERTIES = "properties";
+	private String apiVersion;
+	private String context;
+	private String data;
 
-    public String getApiVersion() {
-        return apiVersion;
-    }
+	public String getApiVersion() {
+		return apiVersion;
+	}
 
-    public void setApiVersion(String apiVersion) {
-        this.apiVersion = apiVersion;
-    }
+	public void setApiVersion(String apiVersion) {
+		this.apiVersion = apiVersion;
+	}
 
-    public String getContext() {
-        return context;
-    }
+	public String getContext() {
+		return context;
+	}
 
-    public void setContext(String context) {
-        this.context = context;
-    }
+	public void setContext(String context) {
+		this.context = context;
+	}
 }

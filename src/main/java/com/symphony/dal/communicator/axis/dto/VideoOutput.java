@@ -18,25 +18,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.NONE)
 public class VideoOutput {
 
-    @XmlElement(name = "Success")
-    private VideoOutputs success;
+	@XmlElement(name = "Success")
+	private VideoOutputs success;
 
-    @XmlElement(name = "Error")
-    private VideoOutputError error;
+	@XmlElement(name = "Error")
+	private VideoOutputError error;
 
-    public VideoOutputs getSuccess() {
-        return success;
-    }
+	public VideoOutputs getSuccess() {
+		return success;
+	}
 
-    public void setSuccess(VideoOutputs success) {
-        this.success = success;
-    }
+	public void setSuccess(VideoOutputs success) {
+		this.success = success;
+	}
 
-    public VideoOutputError getError() {
-        return error;
-    }
+	public VideoOutputError getError() {
+		return error;
+	}
 
-    public void setError(VideoOutputError error) {
-        this.error = error;
-    }
+	public void setError(VideoOutputError error) {
+		this.error = error;
+	}
 }

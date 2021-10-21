@@ -7,17 +7,20 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
+/**
+ * Device Mirroring class.
+ */
 @XmlAccessorType(XmlAccessType.NONE)
 public class Mirroring {
 
-    @XmlElement(name="MirroringEnabled")
-    private boolean mirroringEnable;
+	@XmlElement(name = "MirroringEnabled")
+	private boolean mirroringEnable;
 
-    public void setMirroringEnable(boolean mirroringEnable) {
-        this.mirroringEnable = mirroringEnable;
-    }
+	public void setMirroringEnable(boolean mirroringEnable) {
+		this.mirroringEnable = mirroringEnable;
+	}
 
-    public boolean isMirroringEnable() {
-        return mirroringEnable;
-    }
+	public boolean isMirroringEnable() {
+		return mirroringEnable;
+	}
 }

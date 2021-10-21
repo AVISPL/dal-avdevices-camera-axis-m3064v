@@ -7,26 +7,31 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
+/**
+ * Device General Error class.
+ */
 @XmlAccessorType(XmlAccessType.NONE)
 public class GeneralError {
-    @XmlElement(name = "ErrorCode")
-    private int errorCode;
-    @XmlElement(name = "ErrorDescription")
-    private String errorDescription;
 
-    public int getErrorCode() {
-        return errorCode;
-    }
+	@XmlElement(name = "ErrorCode")
+	private int errorCode;
 
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
-    }
+	@XmlElement(name = "ErrorDescription")
+	private String errorDescription;
 
-    public String getErrorDescription() {
-        return errorDescription;
-    }
+	public int getErrorCode() {
+		return errorCode;
+	}
 
-    public void setErrorDescription(String errorDescription) {
-        this.errorDescription = errorDescription;
-    }
+	public void setErrorCode(int errorCode) {
+		this.errorCode = errorCode;
+	}
+
+	public String getErrorDescription() {
+		return errorDescription;
+	}
+
+	public void setErrorDescription(String errorDescription) {
+		this.errorDescription = errorDescription;
+	}
 }
