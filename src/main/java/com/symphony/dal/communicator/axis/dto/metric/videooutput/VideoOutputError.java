@@ -15,14 +15,14 @@ import javax.xml.bind.annotation.XmlElement;
 public class VideoOutputError {
 
 	@XmlElement(name = "GeneralError")
-	private GeneralError GeneralError;
+	private GeneralError generalError;
 
 	public GeneralError getGeneralError() {
-		return GeneralError;
+		return generalError;
 	}
 
 	public void setGeneralError(GeneralError generalError) {
-		this.GeneralError = generalError;
+		this.generalError = generalError;
 	}
 
 }

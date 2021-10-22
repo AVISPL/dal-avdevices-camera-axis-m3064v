@@ -14,13 +14,13 @@ import javax.xml.bind.annotation.XmlElement;
 public class SchemaVersionChild {
 
 	@XmlElement(name = "VersionNumber")
-	private String VersionNumber;
+	private String versionNumber;
 
 	@XmlElement(name = "Deprecated")
 	private String deprecated;
 
 	public String getVersionNumber() {
-		return VersionNumber;
+		return versionNumber;
 	}
 
 	public String getDeprecated() {
@@ -28,7 +28,7 @@ public class SchemaVersionChild {
 	}
 
 	public void setVersionNumber(String versionNumber) {
-		VersionNumber = versionNumber;
+		this.versionNumber = versionNumber;
 	}
 
 	public void setDeprecated(String deprecated) {

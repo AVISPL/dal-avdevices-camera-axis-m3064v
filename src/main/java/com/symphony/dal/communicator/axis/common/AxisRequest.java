@@ -13,5 +13,5 @@ public class AxisRequest {
     public static final String IP = "ip";
     public static final String GET_ALL_PROPERTIES = "getAllProperties";
     public static final String CAMERA = "camera";
-
+    public static final String RESPONSE = "response";
 }

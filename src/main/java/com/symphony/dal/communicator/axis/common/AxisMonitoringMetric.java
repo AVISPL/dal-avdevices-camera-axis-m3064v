@@ -3,6 +3,9 @@
  */
 package com.symphony.dal.communicator.axis.common;
 
+/**
+ * List metrics for device monitoring
+ */
 public enum AxisMonitoringMetric {
 
     DEVICE_INFO("DeviceInfo", false),

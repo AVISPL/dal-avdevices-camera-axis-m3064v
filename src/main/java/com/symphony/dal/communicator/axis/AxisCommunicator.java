@@ -24,10 +24,9 @@ import com.symphony.dal.communicator.axis.common.AxisConstant;
 import com.symphony.dal.communicator.axis.common.AxisMonitoringMetric;
 import com.symphony.dal.communicator.axis.common.AxisRequest;
 import com.symphony.dal.communicator.axis.common.AxisStatisticsFactory;
-import com.symphony.dal.communicator.axis.dto.DeviceInfo;
 import com.symphony.dal.communicator.axis.dto.SchemaVersionStatus;
 import com.symphony.dal.communicator.axis.dto.VideoOutput;
-import com.symphony.dal.communicator.axis.dto.metric.Device;
+import com.symphony.dal.communicator.axis.dto.DeviceInfo;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -60,15 +59,14 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable {
 	@Override
 	public List<Statistics> getMultipleStatistics() {
 		final Map<String, String> stats = new HashMap<>();
-		final Map<String, String> dynamic = new HashMap<>();
+		final Map<String, String> dynamicStatistics = new HashMap<>();
 		failedMonitor = new HashMap<>();
 		if (localExtendedStatistics == null) {
 			localExtendedStatistics = new ExtendedStatistics();
 		}
-		populateAxisStatisticsMetric(stats, dynamic);
+		populateAxisStatisticsMetric(stats, dynamicStatistics);
 
 		int numberHistorical = getNoOfHistoricalMetric();
-		// if it is failed to get all the historical stats
 		if (failedMonitor.size() == numberHistorical) {
 			StringBuilder errBuilder = new StringBuilder();
 			for (Map.Entry<String, String> metric : failedMonitor.entrySet()) {
@@ -77,9 +75,9 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable {
 			throw new ResourceNotReachableException(errBuilder.toString());
 		} else {
 
-			AggregatedDevice dynamicStatistics = new AggregatedDevice();
-			dynamicStatistics.setProperties(dynamic);
-			Map<String, String> dynamicProperties = dynamicStatistics.getProperties();
+			AggregatedDevice aggregatedDevice = new AggregatedDevice();
+			aggregatedDevice.setProperties(dynamicStatistics);
+			Map<String, String> dynamicProperties = aggregatedDevice.getProperties();
 
 			localExtendedStatistics.setDynamicStatistics(dynamicProperties);
 			localExtendedStatistics.setStatistics(stats);
@@ -107,14 +105,14 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable {
 	 * Retrieve data and add to stats and dynamic
 	 *
 	 * @param stats list statistics property
-	 * @param dynamic list statistics property
+	 * @param dynamicStatistic list statistics property
 	 */
-	private void populateAxisStatisticsMetric(Map<String, String> stats, Map<String, String> dynamic) {
+	private void populateAxisStatisticsMetric(Map<String, String> stats, Map<String, String> dynamicStatistic) {
 		Objects.requireNonNull(stats);
-		retrieveInfoDevice(stats);
+		retrieveDeviceInfo(stats);
 		for (AxisMonitoringMetric metric : AxisMonitoringMetric.values()) {
 			if (metric.isHistorical()) {
-				dynamic.put(metric.toString(), retrieveDataByMetric(metric));
+				dynamicStatistic.put(metric.toString(), retrieveDataByMetric(metric));
 			} else {
 				if (AxisMonitoringMetric.DEVICE_INFO.equals(metric)) {
 					continue;
@@ -122,6 +120,39 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable {
 				stats.put(metric.toString(), retrieveDataByMetric(metric));
 			}
 		}
+	}
+
+	/**
+	 * @param path url of the request
+	 * @return String full path of the device
+	 */
+	private String buildPath(String path) {
+		Objects.requireNonNull(path);
+
+		String login = getLogin();
+		String password = getPassword();
+
+		StringBuilder stringBuilder = new StringBuilder();
+		stringBuilder.append(AxisConstant.HTTP);
+		if (!isEmpty(login) && !isEmpty(password)) {
+			stringBuilder.append(login);
+			stringBuilder.append(AxisConstant.COLON);
+			stringBuilder.append(password);
+			stringBuilder.append(AxisConstant.AT);
+		}
+		stringBuilder.append(getHost());
+		stringBuilder.append(":5500");
+		stringBuilder.append(path);
+
+		return stringBuilder.toString();
+	}
+
+	/**
+	 * @param stringData field value
+	 * @return (true / false)
+	 */
+	private boolean isEmpty(String stringData) {
+		return stringData == null || stringData.equals("");
 	}
 
 	/**
@@ -159,34 +190,53 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable {
 	 *
 	 * @param stats list statistics property
 	 */
-	private void retrieveInfoDevice(Map<String, String> stats) {
+	private void retrieveDeviceInfo(Map<String, String> stats) {
 		ObjectNode request = JsonNodeFactory.instance.objectNode();
 		request.put(AxisRequest.API_VERSION, AxisRequest.API_VERSION_VALUE);
 		request.put(AxisRequest.CONTEXT, AxisRequest.REQUEST_CONTEXT);
 		request.put(AxisRequest.METHOD, AxisRequest.GET_ALL_PROPERTIES);
 		try {
-			JsonNode responseData = doPost(AxisStatisticsFactory.getURL(AxisMonitoringMetric.DEVICE_INFO),
-					request, JsonNode.class);
-			Gson gson = new Gson();
-			Device deviceInfo = gson.fromJson(responseData.get(DeviceInfo.DATA).get(DeviceInfo.PROPERTIES).toString(), Device.class);
+			JsonNode responseData = doPost(buildPath(AxisStatisticsFactory.getURL(AxisMonitoringMetric.DEVICE_INFO)), request, JsonNode.class);
+			if (responseData != null) {
+				Gson gson = new Gson();
+				DeviceInfo deviceInfo = gson.fromJson(responseData.get(DeviceInfo.DATA).get(DeviceInfo.PROPERTIES).toString(), DeviceInfo.class);
 
-			stats.put(AxisMonitoringMetric.BRAND, deviceInfo.getBrand());
-			stats.put(AxisMonitoringMetric.BUILD_DATE, deviceInfo.getBuildDate());
-			stats.put(AxisMonitoringMetric.HARD_WARE_ID, deviceInfo.getHardwareID());
-			stats.put(AxisMonitoringMetric.DEVICE_NAME, deviceInfo.getProdFullName());
-			stats.put(AxisMonitoringMetric.SERIAL_NUMBER, deviceInfo.getSerialNumber());
-			stats.put(AxisMonitoringMetric.VERSION, deviceInfo.getVersion());
-			stats.put(AxisMonitoringMetric.WEB_URL, deviceInfo.getWebURL());
+				stats.put(AxisMonitoringMetric.BRAND, checkNoneDataDevice(deviceInfo.getBrand()));
+				stats.put(AxisMonitoringMetric.BUILD_DATE, checkNoneDataDevice(deviceInfo.getBuildDate()));
+				stats.put(AxisMonitoringMetric.HARD_WARE_ID, checkNoneDataDevice(deviceInfo.getHardwareID()));
+				stats.put(AxisMonitoringMetric.DEVICE_NAME, checkNoneDataDevice(deviceInfo.getProdFullName()));
+				stats.put(AxisMonitoringMetric.SERIAL_NUMBER, checkNoneDataDevice(deviceInfo.getSerialNumber()));
+				stats.put(AxisMonitoringMetric.VERSION, checkNoneDataDevice(deviceInfo.getVersion()));
+				stats.put(AxisMonitoringMetric.WEB_URL, checkNoneDataDevice(deviceInfo.getWebURL()));
+			} else {
+				statisticDeviceInfoIsNull(stats);
+			}
 		} catch (Exception e) {
-			stats.put(AxisMonitoringMetric.BRAND, AxisConstant.NONE);
-			stats.put(AxisMonitoringMetric.BUILD_DATE, AxisConstant.NONE);
-			stats.put(AxisMonitoringMetric.HARD_WARE_ID, AxisConstant.NONE);
-			stats.put(AxisMonitoringMetric.DEVICE_NAME, AxisConstant.NONE);
-			stats.put(AxisMonitoringMetric.SERIAL_NUMBER, AxisConstant.NONE);
-			stats.put(AxisMonitoringMetric.VERSION, AxisConstant.NONE);
-			stats.put(AxisMonitoringMetric.WEB_URL, AxisConstant.NONE);
-			logger.error("Get device info error: " + e.getMessage());
+			statisticDeviceInfoIsNull(stats);
 		}
+	}
+
+	/**
+	 * @param value value of device info
+	 * @return String (none/value)
+	 */
+	private String checkNoneDataDevice(String value) {
+		return value.equals("") ? AxisConstant.NONE : value;
+	}
+
+	/**
+	 * value of list statistics property of device info is NONE
+	 *
+	 * @param stats list statistics property
+	 */
+	private void statisticDeviceInfoIsNull(Map<String, String> stats) {
+		stats.put(AxisMonitoringMetric.BRAND, AxisConstant.NONE);
+		stats.put(AxisMonitoringMetric.BUILD_DATE, AxisConstant.NONE);
+		stats.put(AxisMonitoringMetric.HARD_WARE_ID, AxisConstant.NONE);
+		stats.put(AxisMonitoringMetric.DEVICE_NAME, AxisConstant.NONE);
+		stats.put(AxisMonitoringMetric.SERIAL_NUMBER, AxisConstant.NONE);
+		stats.put(AxisMonitoringMetric.VERSION, AxisConstant.NONE);
+		stats.put(AxisMonitoringMetric.WEB_URL, AxisConstant.NONE);
 	}
 
 	/**
@@ -196,20 +246,15 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable {
 	 */
 	private String retrieveVideoSource() {
 		try {
-			VideoOutput responseData = doGet(AxisStatisticsFactory.getURL(AxisMonitoringMetric.VIDEO_SOURCE) + "?"
-					+ AxisMonitoringMetric.SCHEMA_VERSION + "=1&" + AxisRequest.CAMERA + "=1", VideoOutput.class);
-			if (responseData.getSuccess() != null) {
-				boolean videoSource = responseData.getSuccess().getVideoSourcesSuccess().getVideoSource().isActive();
-				if (videoSource) {
-					return AxisConstant.ACTIVE;
-				}
-				return AxisConstant.INACTIVE;
-			} else {
-				failedMonitor.put(AxisMonitoringMetric.VIDEO_SOURCE.toString(), responseData.getError().getGeneralError().getErrorDescription());
+			VideoOutput responseData = doGet(buildPath(AxisStatisticsFactory.getURL(AxisMonitoringMetric.VIDEO_SOURCE))
+					+ AxisConstant.QUESTION_MARK + AxisMonitoringMetric.SCHEMA_VERSION + AxisConstant.EQUALS
+					+ AxisConstant.ONE + AxisConstant.AND + AxisRequest.CAMERA + AxisConstant.EQUALS + AxisConstant.ONE, VideoOutput.class);
+			if (responseData == null || responseData.getError() != null) {
 				return AxisConstant.NONE;
 			}
+			boolean videoSource = responseData.getSuccess().getVideoSourcesSuccess().getVideoSource().isActive();
+			return videoSource ? AxisConstant.ACTIVE : AxisConstant.INACTIVE;
 		} catch (Exception e) {
-			logger.error("get video source error: " + e.getMessage());
 			failedMonitor.put(AxisMonitoringMetric.VIDEO_SOURCE.toString(), e.getMessage());
 			return AxisConstant.NONE;
 		}
@@ -222,13 +267,13 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable {
 	 */
 	private String retrieveSchemaVersion() {
 		try {
-			SchemaVersionStatus responseData = doGet(AxisStatisticsFactory.getURL(AxisMonitoringMetric.SCHEMA_VERSIONS), SchemaVersionStatus.class);
-			if (responseData.getSuccess() != null) {
-				return responseData.getSuccess().getSchemaVersionsSuccess().getSchemaVersion().getVersionNumber();
+			SchemaVersionStatus responseData = doGet(buildPath(AxisStatisticsFactory.getURL(AxisMonitoringMetric.SCHEMA_VERSIONS)), SchemaVersionStatus.class);
+			if (responseData == null) {
+				return AxisConstant.NONE;
 			}
-			return AxisConstant.NONE;
+			String schemaVersion = responseData.getSuccess().getSchemaVersionsSuccess().getSchemaVersion().getVersionNumber();
+			return checkNoneDataDevice(schemaVersion);
 		} catch (Exception e) {
-			logger.error("get schemaVersion error: " + e.getMessage());
 			return AxisConstant.NONE;
 		}
 	}
@@ -240,14 +285,13 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable {
 	 */
 	private String retrieveRotation() {
 		try {
-			VideoOutput responseData = doGet(AxisStatisticsFactory.getURL(AxisMonitoringMetric.ROTATION)
-					+ "?" + AxisMonitoringMetric.SCHEMA_VERSION + "=1", VideoOutput.class);
-			if (responseData.getSuccess() != null) {
-				return String.valueOf(responseData.getSuccess().getRotationSuccess().getRotation().getDegrees());
+			VideoOutput responseData = doGet(buildPath(AxisStatisticsFactory.getURL(AxisMonitoringMetric.ROTATION))
+					+ AxisConstant.QUESTION_MARK + AxisMonitoringMetric.SCHEMA_VERSION + AxisConstant.EQUALS + AxisConstant.ONE, VideoOutput.class);
+			if (responseData == null || responseData.getError() != null) {
+				return AxisConstant.NONE;
 			}
-			return AxisConstant.NONE;
+			return checkNoneDataDevice(String.valueOf(responseData.getSuccess().getRotationSuccess().getRotation().getDegrees()));
 		} catch (Exception e) {
-			logger.error("Get rotation error: " + e.getMessage());
 			return AxisConstant.NONE;
 		}
 	}
@@ -259,20 +303,15 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable {
 	 */
 	private String retrieveDynamicOverlay() {
 		try {
-			VideoOutput responseData = doGet(AxisStatisticsFactory.getURL(AxisMonitoringMetric.DYNAMIC_OVERLAY)
-					+ "?" + AxisMonitoringMetric.SCHEMA_VERSION + "=1", VideoOutput.class);
-
-			if (responseData.getSuccess() != null) {
-				boolean dynamicOverlay = responseData.getSuccess().getDynamicOverlaySuccess().isDynamicOverlaysEnabled();
-				if (dynamicOverlay) {
-					return AxisConstant.ENABLE;
-				}
+			VideoOutput responseData = doGet(buildPath(AxisStatisticsFactory.getURL(AxisMonitoringMetric.DYNAMIC_OVERLAY))
+					+ AxisConstant.QUESTION_MARK + AxisMonitoringMetric.SCHEMA_VERSION + AxisConstant.EQUALS + AxisConstant.ONE, VideoOutput.class);
+			if (responseData == null || responseData.getError() != null) {
 				return AxisConstant.DISABLE;
 			}
-			return AxisConstant.NONE;
+			boolean dynamicOverlay = responseData.getSuccess().getDynamicOverlaySuccess().isDynamicOverlaysEnabled();
+			return dynamicOverlay ? AxisConstant.ENABLE : AxisConstant.DISABLE;
 		} catch (Exception e) {
-			logger.error("Get dynamic overlay error: " + e.getMessage());
-			return AxisConstant.NONE;
+			return AxisConstant.DISABLE;
 		}
 	}
 
@@ -283,14 +322,13 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable {
 	 */
 	private String retrieveTextOverlay() {
 		try {
-			VideoOutput responseData = doGet(AxisStatisticsFactory.getURL(AxisMonitoringMetric.TEXT_OVERLAY_CONTENT)
-					+ "?" + AxisMonitoringMetric.SCHEMA_VERSION + "=1", VideoOutput.class);
-			if (responseData.getSuccess() != null) {
-				return responseData.getSuccess().getTextOverlaySuccess().getTextOverlay().getCurrentValue();
+			VideoOutput responseData = doGet(buildPath(AxisStatisticsFactory.getURL(AxisMonitoringMetric.TEXT_OVERLAY_CONTENT))
+					+ AxisConstant.QUESTION_MARK + AxisMonitoringMetric.SCHEMA_VERSION + AxisConstant.EQUALS + AxisConstant.ONE, VideoOutput.class);
+			if (responseData == null || responseData.getError() != null) {
+				return AxisConstant.NONE;
 			}
-			return AxisConstant.NONE;
+			return checkNoneDataDevice(responseData.getSuccess().getTextOverlaySuccess().getTextOverlay().getCurrentValue());
 		} catch (Exception e) {
-			logger.error("Get text overlay error: " + e.getMessage());
 			return AxisConstant.NONE;
 		}
 	}
@@ -302,18 +340,14 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable {
 	 */
 	private String retrieveMirroring() {
 		try {
-			VideoOutput responseData = doGet(AxisStatisticsFactory.getURL(AxisMonitoringMetric.MIRRORING)
-					+ "?" + AxisMonitoringMetric.SCHEMA_VERSION + "=1", VideoOutput.class);
-			if (responseData.getSuccess() != null) {
-				boolean mirroringEnable = responseData.getSuccess().getMirroringSuccess().isMirroringEnable();
-				if (mirroringEnable) {
-					return AxisConstant.ENABLE;
-				}
+			VideoOutput responseData = doGet(buildPath(AxisStatisticsFactory.getURL(AxisMonitoringMetric.MIRRORING)) + AxisConstant.QUESTION_MARK
+					+ AxisMonitoringMetric.SCHEMA_VERSION + AxisConstant.EQUALS + AxisConstant.ONE, VideoOutput.class);
+			if (responseData == null || responseData.getError() == null) {
 				return AxisConstant.DISABLE;
 			}
-			return AxisConstant.NONE;
+			boolean mirroringEnable = responseData.getSuccess().getMirroringSuccess().isMirroringEnable();
+			return mirroringEnable ? AxisConstant.ENABLE : AxisConstant.DISABLE;
 		} catch (Exception e) {
-			logger.error("Get mirroring error: " + e.getMessage());
 			return AxisConstant.NONE;
 		}
 	}
@@ -325,10 +359,9 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable {
 	 */
 	private String retrieveVideoFrameRate() {
 		try {
-			return doGet(AxisStatisticsFactory.getURL(AxisMonitoringMetric.VIDEO_FRAME_RATE));
+			return checkNoneDataDevice(doGet(buildPath(AxisStatisticsFactory.getURL(AxisMonitoringMetric.VIDEO_FRAME_RATE))));
 		} catch (Exception e) {
-			logger.error("Get video frame rate error: " + e.getMessage());
-			String error = e.getMessage().substring(e.getMessage().lastIndexOf("response") + 10, e.getMessage().length()) + "\n";
+			String error = e.getMessage().substring(e.getMessage().lastIndexOf(AxisRequest.RESPONSE) + 10, e.getMessage().length()) + "\n";
 			failedMonitor.put(AxisMonitoringMetric.VIDEO_FRAME_RATE.toString(), error);
 			return AxisConstant.NONE;
 		}
@@ -341,18 +374,21 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable {
 	 */
 	private String retrieveResolution() {
 		try {
-			String responseData = doGet(AxisStatisticsFactory.getURL(AxisMonitoringMetric.VIDEO_RESOLUTION)
-					+ "?" + AxisMonitoringMetric.SCHEMA_VERSION + "=1");
-			if (responseData.lastIndexOf("image") > 0) {
-				String width = responseData.substring(responseData.indexOf("=") + 2, responseData.indexOf("\n"));
-				String height = responseData.substring(responseData.lastIndexOf("=") + 2, responseData.lastIndexOf("\n"));
+			String responseData = doGet(buildPath(AxisStatisticsFactory.getURL(AxisMonitoringMetric.VIDEO_RESOLUTION))
+					+ AxisConstant.QUESTION_MARK + AxisMonitoringMetric.SCHEMA_VERSION + AxisConstant.EQUALS + AxisConstant.ONE);
+			if (responseData == null) {
+				failedMonitor.put(AxisMonitoringMetric.VIDEO_RESOLUTION.toString(), responseData);
+				return AxisConstant.NONE;
+			}
+			if (responseData.lastIndexOf(AxisConstant.IMAGE) > 0) {
+				String width = responseData.substring(responseData.indexOf(AxisConstant.EQUALS) + 2, responseData.indexOf("\n"));
+				String height = responseData.substring(responseData.lastIndexOf(AxisConstant.EQUALS) + 2, responseData.lastIndexOf("\n"));
 				return width + " x " + height;
 			} else {
 				failedMonitor.put(AxisMonitoringMetric.VIDEO_RESOLUTION.toString(), responseData);
 				return AxisConstant.NONE;
 			}
 		} catch (Exception e) {
-			logger.error("Get video resolution error: " + e);
 			failedMonitor.put(AxisMonitoringMetric.VIDEO_RESOLUTION.toString(), e.getMessage());
 			return AxisConstant.NONE;
 		}
