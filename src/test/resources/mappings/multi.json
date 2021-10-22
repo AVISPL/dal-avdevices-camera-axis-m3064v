@@ -1,0 +1,264 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi"
+      },
+      "response": {
+        "status": 200,
+        "body": "60",
+        "headers": {
+          "Content-Type": "text/plain"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/videooutput/getschemaversions.cgi"
+      },
+      "response": {
+        "status": 200,
+        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <OrientationResponse schemaversion=\"1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNameSpaceSchemaLocation=\"http://www.axis.com/vapix/http_cgi/recording_group.xsd\" >\n      <Success>\n        <GetSchemaVersionsSuccess>\n          <SchemaVersion>\n            <VersionNumber>1.0</VersionNumber>\n            <Deprecated>true</Deprecated>\n          </SchemaVersion>\n        </GetSchemaVersionsSuccess>\n      </Success>\n    </OrientationResponse>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/videooutput/getvideosources.cgi?schemaversion=1&camera=1"
+      },
+      "response": {
+        "status": 200,
+        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <VideoOutputResponse>\n    <Success>\n      <GetVideoSourcesSuccess>\n        <VideoSource>\n          <Name>Axis video</Name>\n          <Id>123456789</Id>\n          <Active>true</Active>\n        </VideoSource>\n      </GetVideoSourcesSuccess>\n    </Success>\n    </VideoOutputResponse>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/videooutput/getmirroring.cgi?schemaversion=1"
+      },
+      "response": {
+        "status": 200,
+        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <VideoOutputResponse>\n      <Success>\n        <GetMirroringSuccess>\n          <MirroringEnabled>true</MirroringEnabled>\n        </GetMirroringSuccess>\n      </Success>\n    </VideoOutputResponse>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/videooutput/getrotation.cgi?schemaversion=1"
+      },
+      "response": {
+        "status": 200,
+        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <VideoOutputResponse>\n      <Success>\n        <GetRotationSuccess>\n          <Rotation>\n            <Degrees>35</Degrees>\n            <QuadViewSupport>true</QuadViewSupport>\n            <Active>true</Active>\n          </Rotation>\n        </GetRotationSuccess>\n      </Success>\n    </VideoOutputResponse>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/videooutput/gettextoverlay.cgi?schemaversion=1"
+      },
+      "response": {
+        "status": 200,
+        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <VideoOutputResponse>\n      <Success>\n        <GetTextOverlaySuccess>        \n          <String>\n            <CurrentValue>The overlay text</CurrentValue>\n          </String>         \n        </GetTextOverlaySuccess>\n      </Success>\n    </VideoOutputResponse>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/imagesize.cgi?schemaversion=1"
+      },
+      "response": {
+        "status": 200,
+        "body": "image width = 192\n    image height = 144\n",
+        "headers": {
+          "Content-Type": "text/plain"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/videooutput/getdynamicoverlays.cgi?schemaversion=1"
+      },
+      "response": {
+        "status": 200,
+        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n  <VideoOutputResponse>\n  <Success>\n    <GetDynamicOverlaySuccess>\n      <DynamicOverlaysEnabled>true</DynamicOverlaysEnabled>\n    </GetDynamicOverlaySuccess>\n  </Success>\n  </VideoOutputResponse>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/axis-cgi/basicdeviceinfo.cgi"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n      \"apiVersion\": \"1.0\",\n      \"context\": \"Client defined request ID\",\n      \"brand\": \"AXIS\",\n      \"data\": {\n      \"propertyList\": {\n          \"Archtecture\": \"mips\",\n          \"Brand\": \"AXIS\",\n          \"BuildDate\": \"Feb 14 2018 13:08\",\n          \"HardwareID\": \"714.4\",\n          \"ProdFullName\": \"AXIS Q3505 Mk II Fixed Dome Network Camera\",\n          \"ProdNbr\": \"Q3505 Mk II\",\n          \"ProdShortName\": \"AXIS Q3505 Mk II\",\n          \"ProdType\": \"Network Camera\",\n          \"ProdVariant\": \"\",\n          \"SerialNumber\": \"ACCC8E78B977\",\n          \"Soc\": \"Axis Artpec-5\",\n          \"SocSerialNumber\": \"00000000-00000000-44123C08-C840037D\",\n          \"Version\": \"8.20.1\",\n          \"WebURL\": \"http://www.axis.com\"\n        }\n      }\n    }",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/video-frame-rate-test"
+      },
+      "response": {
+        "status": 400,
+        "body": "Haven't video frame rate",
+        "headers": {
+          "Content-Type": "text/plain"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/video-resolution?schemaversion=1"
+      },
+      "response": {
+        "status": 200,
+        "body": "Haven't video resolution \n",
+        "headers": {
+          "Content-Type": "text/plain"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/video-source?schemaversion=1&camera=1"
+      },
+      "response": {
+        "status": 200,
+        "body": "<VideoOutputResponse>\n  <Error>\n    <GeneralError>\n      <ErrorCode>10</ErrorCode>\n      <ErrorDescription>Haven't video source</ErrorDescription>\n    </GeneralError>\n  </Error>\n</VideoOutputResponse>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/schema-version-test"
+      },
+      "response": {
+        "status": 400,
+        "body": "",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/mirroring-test?schemaversion=1"
+      },
+      "response": {
+        "status": 400,
+        "body": "",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/rotation-test?schemaversion=1"
+      },
+      "response": {
+        "status": 400,
+        "body": "",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/text-overlay-test?schemaversion=1"
+      },
+      "response": {
+        "status": 400,
+        "body": "",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/video-source?schemaversion=1"
+      },
+      "response": {
+        "status": 400,
+        "body": "Haven't video source",
+        "headers": {
+          "Content-Type": "text/plain"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/dynamic-overlay-test?schemaversion=1"
+      },
+      "response": {
+        "status": 400,
+        "body": "",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/video-resolution-test?schemaversion=1"
+      },
+      "response": {
+        "status": 400,
+        "body": "",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/device-info-test"
+      },
+      "response": {
+        "status": 400,
+        "body": "",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}
