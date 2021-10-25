@@ -27,6 +27,7 @@ import com.symphony.dal.communicator.axis.common.AxisStatisticsFactory;
 import com.symphony.dal.communicator.axis.dto.SchemaVersionStatus;
 import com.symphony.dal.communicator.axis.dto.VideoOutput;
 import com.symphony.dal.communicator.axis.dto.DeviceInfo;
+import com.symphony.dal.communicator.axis.dto.metric.videooutput.errorcode.GeneralError;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -249,7 +250,13 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable {
 			VideoOutput responseData = doGet(buildPath(AxisStatisticsFactory.getURL(AxisMonitoringMetric.VIDEO_SOURCE))
 					+ AxisConstant.QUESTION_MARK + AxisMonitoringMetric.SCHEMA_VERSION + AxisConstant.EQUALS
 					+ AxisConstant.ONE + AxisConstant.AND + AxisRequest.CAMERA + AxisConstant.EQUALS + AxisConstant.ONE, VideoOutput.class);
-			if (responseData == null || responseData.getError() != null) {
+			if (responseData == null) {
+				failedMonitor.put(AxisMonitoringMetric.VIDEO_SOURCE.toString(), AxisConstant.NO_RESPONSE_ERR);
+				return AxisConstant.NONE;
+			}
+			if (responseData.getError() != null) {
+				GeneralError generalErr = responseData.getError().getGeneralError();
+				failedMonitor.put(AxisMonitoringMetric.VIDEO_SOURCE.toString(), generalErr.getErrorDescription());
 				return AxisConstant.NONE;
 			}
 			boolean videoSource = responseData.getSuccess().getVideoSourcesSuccess().getVideoSource().isActive();
@@ -342,7 +349,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable {
 		try {
 			VideoOutput responseData = doGet(buildPath(AxisStatisticsFactory.getURL(AxisMonitoringMetric.MIRRORING)) + AxisConstant.QUESTION_MARK
 					+ AxisMonitoringMetric.SCHEMA_VERSION + AxisConstant.EQUALS + AxisConstant.ONE, VideoOutput.class);
-			if (responseData == null || responseData.getError() == null) {
+			if (responseData == null || responseData.getError() != null) {
 				return AxisConstant.DISABLE;
 			}
 			boolean mirroringEnable = responseData.getSuccess().getMirroringSuccess().isMirroringEnable();
