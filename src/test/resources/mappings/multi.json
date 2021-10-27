@@ -3,104 +3,143 @@
     {
       "request": {
         "method": "GET",
-        "url": "/axis-cgi/param.cgi"
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Text.TextEnabled=yes"
       },
       "response": {
         "status": 200,
-        "body": "60",
+        "body": "OK",
         "headers": {
-          "Content-Type": "text/plain"
+          "Content-Type": "application/json"
         }
       }
     },
     {
       "request": {
         "method": "GET",
-        "url": "/axis-cgi/videooutput/getschemaversions.cgi"
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Text.TextEnabled=no"
       },
       "response": {
         "status": 200,
-        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <OrientationResponse schemaversion=\"1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNameSpaceSchemaLocation=\"http://www.axis.com/vapix/http_cgi/recording_group.xsd\" >\n      <Success>\n        <GetSchemaVersionsSuccess>\n          <SchemaVersion>\n            <VersionNumber>1.0</VersionNumber>\n            <Deprecated>true</Deprecated>\n          </SchemaVersion>\n        </GetSchemaVersionsSuccess>\n      </Success>\n    </OrientationResponse>",
+        "body": "OK",
         "headers": {
-          "Content-Type": "text/xml"
+          "Content-Type": "application/json"
         }
       }
     },
     {
       "request": {
         "method": "GET",
-        "url": "/axis-cgi/videooutput/getvideosources.cgi?schemaversion=1&camera=1"
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Text.String=The%20text%20overlay"
       },
       "response": {
         "status": 200,
-        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <VideoOutputResponse>\n    <Success>\n      <GetVideoSourcesSuccess>\n        <VideoSource>\n          <Name>Axis video</Name>\n          <Id>123456789</Id>\n          <Active>true</Active>\n        </VideoSource>\n      </GetVideoSourcesSuccess>\n    </Success>\n    </VideoOutputResponse>",
+        "body": "OK",
         "headers": {
-          "Content-Type": "text/xml"
+          "Content-Type": "application/json"
         }
       }
     },
     {
       "request": {
         "method": "GET",
-        "url": "/axis-cgi/videooutput/getmirroring.cgi?schemaversion=1"
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Text.String=none"
       },
       "response": {
-        "status": 200,
-        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <VideoOutputResponse>\n      <Success>\n        <GetMirroringSuccess>\n          <MirroringEnabled>true</MirroringEnabled>\n        </GetMirroringSuccess>\n      </Success>\n    </VideoOutputResponse>",
+        "status": 400,
+        "body": "Error",
         "headers": {
-          "Content-Type": "text/xml"
+          "Content-Type": "application/json"
         }
       }
     },
     {
       "request": {
         "method": "GET",
-        "url": "/axis-cgi/videooutput/getrotation.cgi?schemaversion=1"
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=100"
       },
       "response": {
-        "status": 200,
-        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <VideoOutputResponse>\n      <Success>\n        <GetRotationSuccess>\n          <Rotation>\n            <Degrees>35</Degrees>\n            <QuadViewSupport>true</QuadViewSupport>\n            <Active>true</Active>\n          </Rotation>\n        </GetRotationSuccess>\n      </Success>\n    </VideoOutputResponse>",
+        "status": 400,
+        "body": "Error",
         "headers": {
-          "Content-Type": "text/xml"
+          "Content-Type": "application/json"
         }
       }
     },
     {
       "request": {
         "method": "GET",
-        "url": "/axis-cgi/videooutput/gettextoverlay.cgi?schemaversion=1"
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=0"
       },
       "response": {
         "status": 200,
-        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n    <VideoOutputResponse>\n      <Success>\n        <GetTextOverlaySuccess>        \n          <String>\n            <CurrentValue>The overlay text</CurrentValue>\n          </String>         \n        </GetTextOverlaySuccess>\n      </Success>\n    </VideoOutputResponse>",
+        "body": "OK",
         "headers": {
-          "Content-Type": "text/xml"
+          "Content-Type": "application/json"
         }
       }
     },
     {
       "request": {
         "method": "GET",
-        "url": "/axis-cgi/imagesize.cgi?schemaversion=1"
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=90"
       },
       "response": {
         "status": 200,
-        "body": "image width = 192\n    image height = 144\n",
+        "body": "OK",
         "headers": {
-          "Content-Type": "text/plain"
+          "Content-Type": "application/json"
         }
       }
     },
     {
       "request": {
         "method": "GET",
-        "url": "/axis-cgi/videooutput/getdynamicoverlays.cgi?schemaversion=1"
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=180"
       },
       "response": {
         "status": 200,
-        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n  <VideoOutputResponse>\n  <Success>\n    <GetDynamicOverlaySuccess>\n      <DynamicOverlaysEnabled>true</DynamicOverlaysEnabled>\n    </GetDynamicOverlaySuccess>\n  </Success>\n  </VideoOutputResponse>",
+        "body": "OK",
         "headers": {
-          "Content-Type": "text/xml"
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=270"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Appearance.MirrorEnabled=yes"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Appearance.MirrorEnabled=no"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
         }
       }
     },
@@ -119,38 +158,50 @@
     },
     {
       "request": {
-        "method": "GET",
-        "url": "/video-frame-rate-test"
+        "method": "POST",
+        "url": "/device-error"
       },
       "response": {
         "status": 400,
-        "body": "Haven't video frame rate",
-        "headers": {
-          "Content-Type": "text/plain"
+        "body": "", "headers": {
+          "Content-Type": "application/json"
         }
       }
     },
     {
       "request": {
-        "method": "GET",
-        "url": "/video-resolution?schemaversion=1"
+        "method": "POST",
+        "url": "/device-error-null"
       },
       "response": {
         "status": 200,
-        "body": "Haven't video resolution \n",
+        "body": "{\n      \"apiVersion\": \"1.0\",\n      \"context\": \"Client defined request ID\",\n      \"brand\": \"AXIS\",\n      \"data\": {\n      \"propertyList\": {\n          \"Archtecture\": \"\",\n          \"Brand\": \"\",\n          \"BuildDate\": \"\",\n          \"HardwareID\": \"\",\n          \"ProdFullName\": \"\",\n          \"ProdNbr\": \"\",\n          \"ProdShortName\": \"\",\n          \"ProdType\": \"\",\n          \"ProdVariant\": \"\",\n          \"SerialNumber\": \"\",\n          \"Soc\": \"\",\n          \"SocSerialNumber\": \"\",\n          \"Version\": \"\",\n          \"WebURL\": \"\"\n        }\n      }\n    }",
         "headers": {
-          "Content-Type": "text/plain"
+          "Content-Type": "application/json"
         }
       }
     },
     {
       "request": {
-        "method": "GET",
-        "url": "/video-source?schemaversion=1&camera=1"
+        "method": "POST",
+        "url": "/device-error-null-body"
       },
       "response": {
         "status": 200,
-        "body": "<VideoOutputResponse>\n  <Error>\n    <GeneralError>\n      <ErrorCode>10</ErrorCode>\n      <ErrorDescription>Haven't video source</ErrorDescription>\n    </GeneralError>\n  </Error>\n</VideoOutputResponse>",
+        "body": "",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/videooutput/getschemaversions.cgi"
+      },
+      "response": {
+        "status": 200,
+        "body": "<VideoOutputResponse xmlns=\"http://www.axis.com/vapix/http_cgi/videooutput1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" SchemaVersion=\"1.6.0\" xsi:schemaLocation=\"http://www.axis.com/vapix/http_cgi/videooutput1 http://www.axis.com/vapix/http_cgi/videooutput1\">\n<Success>\n<GetSchemaVersionsSuccess>\n<SchemaVersion>\n<VersionNumber>1.6.0</VersionNumber>\n<Deprecated/>\n</SchemaVersion>\n</GetSchemaVersionsSuccess>\n</Success>\n</VideoOutputResponse>",
         "headers": {
           "Content-Type": "text/xml"
         }
@@ -159,7 +210,20 @@
     {
       "request": {
         "method": "GET",
-        "url": "/schema-version-test"
+        "url": "/schema-version-error-null"
+      },
+      "response": {
+        "status": 200,
+        "body": "",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/schema-version-error"
       },
       "response": {
         "status": 400,
@@ -172,11 +236,11 @@
     {
       "request": {
         "method": "GET",
-        "url": "/mirroring-test?schemaversion=1"
+        "url": "/schema-version-error"
       },
       "response": {
         "status": 400,
-        "body": "",
+        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n  <RecordingGroupResponse schemaversion=\"1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNameSpaceSchemaLocation=\"http://www.axis.com/vapix/http_cgi/recording_group.xsd\">\n    <GeneralError>\n      <ErrorCode>[code]</ErrorCode>\n      <ErrorDescription>[Description]</ErrorDescription>\n    </GeneralError>\n  </RecordingGroupResponse>",
         "headers": {
           "Content-Type": "text/xml"
         }
@@ -184,12 +248,12 @@
     },
     {
       "request": {
-        "method": "GET",
-        "url": "/rotation-test?schemaversion=1"
+        "method": "POST",
+        "url": "/rotation"
       },
       "response": {
-        "status": 400,
-        "body": "",
+        "status": 200,
+        "body":"<?xml version=\"1.0\" encoding=\"utf8\" ?>\n  <parameterDefinitions xmlns=\"http://www.axis.com/ParameterDefinitionsSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.axis.com/ParameterDefinitionsSchema http://172.31.254.207/pub/parameterdefinitions.xsd\" version=\"1.0\">\n  <model>AXIS M3064-V</model>\n  <firmwareVersion>9.80.2.2</firmwareVersion>\n  <group name=\"ImageSource\">\n  <group name=\"I0\">\n  <parameter name=\"Rotation\" value=\"0\" securityLevel=\"7714\" niceName=\"Rotation\">\n  <type>\n  <enum>\n  <entry value=\"0\" niceValue=\"0\"/>\n  <entry value=\"90\" niceValue=\"90\"/>\n  <entry value=\"180\" niceValue=\"180\"/>\n  <entry value=\"270\" niceValue=\"270\"/>\n  </enum>\n  </type>\n  </parameter>\n  </group>\n  </group>\n  </parameterDefinitions>",
         "headers": {
           "Content-Type": "text/xml"
         }
@@ -197,12 +261,12 @@
     },
     {
       "request": {
-        "method": "GET",
-        "url": "/text-overlay-test?schemaversion=1"
+        "method": "POST",
+        "url": "/rotation-error-null"
       },
       "response": {
-        "status": 400,
-        "body": "",
+        "status": 200,
+        "body":"",
         "headers": {
           "Content-Type": "text/xml"
         }
@@ -210,34 +274,8 @@
     },
     {
       "request": {
-        "method": "GET",
-        "url": "/video-source?schemaversion=1"
-      },
-      "response": {
-        "status": 400,
-        "body": "Haven't video source",
-        "headers": {
-          "Content-Type": "text/plain"
-        }
-      }
-    },
-    {
-      "request": {
-        "method": "GET",
-        "url": "/dynamic-overlay-test?schemaversion=1"
-      },
-      "response": {
-        "status": 400,
-        "body": "",
-        "headers": {
-          "Content-Type": "text/xml"
-        }
-      }
-    },
-    {
-      "request": {
-        "method": "GET",
-        "url": "/video-resolution-test?schemaversion=1"
+        "method": "POST",
+        "url": "/rotation-error"
       },
       "response": {
         "status": 400,
@@ -250,13 +288,182 @@
     {
       "request": {
         "method": "POST",
-        "url": "/device-info-test"
+        "url": "/mirroring"
+      },
+      "response": {
+        "status": 200,
+        "body":"<?xml version=\"1.0\" encoding=\"utf8\" ?>\n<parameterDefinitions xmlns=\"http://www.axis.com/ParameterDefinitionsSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.axis.com/ParameterDefinitionsSchema http://172.31.254.207/pub/parameterdefinitions.xsd\" version=\"1.0\">\n<model>AXIS M3064-V</model>\n<firmwareVersion>9.80.2.2</firmwareVersion>\n<group name=\"Image\">\n<group name=\"I0\">\n<group name=\"Appearance\">\n<parameter name=\"MirrorEnabled\" value=\"no\" securityLevel=\"7714 \" niceName=\"Mirror enabled\">\n<type>\n<bool true=\"yes\" false=\"no\"/>\n</type>\n</parameter>\n</group>\n</group>\n</group>\n</parameterDefinitions>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/mirroring-error"
+      },
+      "response": {
+        "status": 400,
+        "body":"",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/text-overlay-content"
+      },
+      "response": {
+        "status": 200,
+        "body":"<?xml version=\"1.0\" encoding=\"utf8\" ?>\n<parameterDefinitions xmlns=\"http://www.axis.com/ParameterDefinitionsSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.axis.com/ParameterDefinitionsSchema http://172.31.254.207/pub/parameterdefinitions.xsd\" version=\"1.0\">\n<model>AXIS M3064-V</model>\n<firmwareVersion>9.80.2.2</firmwareVersion>\n<group name=\"Image\">\n<group name=\"I0\">\n<group name=\"Text\">\n<parameter name=\"String\" value=\"new text\" securityLevel=\"7744\" niceName=\"String\">\n<type>\n<string maxlen=\"80\"/>\n</type>\n</parameter>\n</group>\n</group>\n</group>\n</parameterDefinitions>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/text-overlay-content-error"
+      },
+      "response": {
+        "status": 400,
+        "body":"",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/videooutput/getdynamicoverlays.cgi?schemaversion=1"
+      },
+      "response": {
+        "status": 200,
+        "body": "<VideoOutputResponse xmlns=\"http://www.axis.com/vapix/http_cgi/videooutput1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" SchemaVersion=\"1.6.0\" xsi:schemaLocation=\"http://www.axis.com/vapix/http_cgi/videooutput1 http://www.axis.com/vapix/http_cgi/videooutput1\">\n<Success>\n<GetDynamicOverlaysSuccess>\n<DynamicOverlaysEnabled>false</DynamicOverlaysEnabled>\n</GetDynamicOverlaysSuccess>\n</Success>\n</VideoOutputResponse>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/videooutput/getvideosources.cgi?schemaversion=1&camera=1"
+      },
+      "response": {
+        "status": 200,
+        "body": "<VideoOutputResponse xmlns=\"http://www.axis.com/vapix/http_cgi/videooutput1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" SchemaVersion=\"1.6.0\" xsi:schemaLocation=\"http://www.axis.com/vapix/http_cgi/videooutput1 http://www.axis.com/vapix/http_cgi/videooutput1\">\n<Success>\n<GetVideoSourcesSuccess>\n<VideoSource>\n<Name>View ABC</Name>\n<Id>1</Id>\n<Active>false</Active>\n</VideoSource>\n<VideoSource>\n<Name>View area 2</Name>\n<Id>2</Id>\n<Active>false</Active>\n</VideoSource>\n</GetVideoSourcesSuccess>\n</Success>\n</VideoOutputResponse>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/video-source-error?schemaversion=1&camera=1"
       },
       "response": {
         "status": 400,
         "body": "",
         "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/video-frame-rate"
+      },
+      "response": {
+        "status": 200,
+        "body":"Image.I0.Stream.FPS=25",
+        "headers": {
+          "Content-Type": "text/plain"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/video-frame-rate-error-null"
+      },
+      "response": {
+        "status": 200,
+        "body":null,
+        "headers": {
           "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/video-frame-rate-error"
+      },
+      "response": {
+        "status": 400,
+        "body":"",
+        "headers": {
+          "Content-Type": "text/plain"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/video-resolution"
+      },
+      "response": {
+        "status": 200,
+        "body":"<?xml version=\"1.0\" encoding=\"utf8\" ?>\n<parameterDefinitions xmlns=\"http://www.axis.com/ParameterDefinitionsSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.axis.com/ParameterDefinitionsSchema http://172.31.254.207/pub/parameterdefinitions.xsd\" version=\"1.0\">\n<model>AXIS M3064-V</model>\n<firmwareVersion>9.80.2.2</firmwareVersion>\n<group name=\"Image\">\n<group name=\"I0\">\n<group name=\"Appearance\">\n<parameter name=\"Resolution\" value=\"1280x720\" securityLevel=\"7714\" niceName=\"Resolution\">\n<type>\n<enum>\n<entry value=\"800x600\" niceValue=\"800x600 (4:3)\" />\n<entry value=\"640x480\" niceValue=\"640x480 (4:3)\" />\n<entry value=\"320x240\" niceValue=\"320x240 (4:3)\" />\n<entry value=\"1280x720\" niceValue=\"1280x720 (16:9)\" />\n<entry value=\"1024x576\" niceValue=\"1024x576 (16:9)\" />\n<entry value=\"640x360\" niceValue=\"640x360 (16:9)\" />\n</enum>\n</type>\n</parameter>\n</group>\n</group>\n</group>\n</parameterDefinitions>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/video-resolution-error"
+      },
+      "response": {
+        "status": 400,
+        "body":"",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/text-overlay-enable"
+      },
+      "response": {
+        "status": 200,
+        "body":"<?xml version=\"1.0\" encoding=\"utf8\" ?>\n<parameterDefinitions xmlns=\"http://www.axis.com/ParameterDefinitionsSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.axis.com/ParameterDefinitionsSchema http://172.31.254.207/pub/parameterdefinitions.xsd\" version=\"1.0\">\n<model>AXIS M3064-V</model>\n<firmwareVersion>9.80.2.2</firmwareVersion>\n<group name=\"Image\">\n<group name=\"I0\">\n<group name=\"Text\">\n<parameter name=\"TextEnabled\" value=\"no\" securityLevel=\"7744\" niceName=\"Text enabled\">\n<type>\n<bool true=\"yes\" false=\"no\"/>\n</type>\n</parameter>\n</group>\n</group>\n</group>\n</parameterDefinitions>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/text-overlay-enable-error"
+      },
+      "response": {
+        "status": 400,
+        "body":"",
+        "headers": {
+          "Content-Type": "text/xml"
         }
       }
     }

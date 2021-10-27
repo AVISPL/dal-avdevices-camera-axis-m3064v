@@ -4,8 +4,8 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.symphony.dal.communicator.axis</groupId>
-    <artifactId>AXIS-M3064-V</artifactId>
+    <groupId>com.avispl.symphony.dal.device.axis.m3064</groupId>
+    <artifactId>symphony-dal-communicator-axis-m3064</artifactId>
     <version>1.0.0</version>
 
     <properties>
@@ -52,8 +52,8 @@
         <dependency>
             <groupId>org.icmp4j</groupId>
             <artifactId>icmp4j</artifactId>
-            <scope>system</scope>
             <systemPath>${basedir}/lib/icmp4j-1018.jar</systemPath>
+            <scope>system</scope>
             <version>1018</version>
         </dependency>
         <!--provided scope-->
