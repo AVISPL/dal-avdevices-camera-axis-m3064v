@@ -6,6 +6,9 @@ package com.avispl.symphony.dal.device.axis.m3064.common;
 
 /**
  * AxisPayloadBody class provides the body for POST requests in both the monitoring and controlling process
+ *
+ * @author Ivan
+ * @since 1.0
  */
 public class AxisPayloadBody {
 

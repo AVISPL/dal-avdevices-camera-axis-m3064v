@@ -7,6 +7,9 @@ import java.util.Objects;
 
 /**
  * AxisStatisticsUtil class support getting the URL by metric
+ *
+ * @author Ivan
+ * @since 1.0
  */
 public class AxisStatisticsUtil {
 

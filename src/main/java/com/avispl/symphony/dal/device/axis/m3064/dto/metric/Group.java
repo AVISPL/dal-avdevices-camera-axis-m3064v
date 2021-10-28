@@ -12,6 +12,9 @@ import javax.xml.bind.annotation.XmlElement;
 
 /**
  * Device Group class is the member data of ParameterDefinitions
+ *
+ * @author Ivan
+ * @since 1.0
  */
 @XmlAccessorType(XmlAccessType.NONE)
 public class Group {

@@ -12,6 +12,9 @@ import javax.xml.bind.annotation.XmlElement;
 
 /**
  * Device GroupChild class is item of Group
+ *
+ * @author Ivan
+ * @since 1.0
  */
 @XmlAccessorType(XmlAccessType.NONE)
 public class GroupChild {

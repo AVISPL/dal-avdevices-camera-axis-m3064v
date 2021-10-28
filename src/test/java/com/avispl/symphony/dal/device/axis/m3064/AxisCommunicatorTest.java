@@ -29,6 +29,9 @@ import java.util.Map;
 /**
  * Unit test for AxisCommunicator
  * ExtendedStatistics and DynamicStatistics retrieve data success
+ *
+ * @author Ivan
+ * @since 1.0
  */
 public class AxisCommunicatorTest {
 

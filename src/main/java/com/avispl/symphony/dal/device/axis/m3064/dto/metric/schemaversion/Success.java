@@ -10,6 +10,9 @@ import javax.xml.bind.annotation.XmlElement;
 
 /**
  * Supported XML schema versions of the device if getting successfully
+ *
+ * @author Ivan
+ * @since 1.0
  * */
 @XmlAccessorType(XmlAccessType.NONE)
 public class Success {

@@ -5,6 +5,9 @@ package com.avispl.symphony.dal.device.axis.m3064.common;
 
 /**
  * AxisControllingMetric class defined the enum for controlling process
+ *
+ * @author Ivan
+ * @since 1.0
  */
 public enum AxisControllingMetric {
 

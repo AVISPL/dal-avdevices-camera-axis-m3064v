@@ -11,6 +11,9 @@ import javax.xml.bind.annotation.XmlElement;
 
 /**
  * Device ChildGroupItem class is the member data of GroupChild
+ *
+ * @author Ivan
+ * @since 1.0
  */
 @XmlAccessorType(XmlAccessType.NONE)
 public class ChildGroupItem {

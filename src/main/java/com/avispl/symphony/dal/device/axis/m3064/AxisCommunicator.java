@@ -75,6 +75,7 @@ import org.springframework.util.CollectionUtils;
  *
  * @author Ivan
  * @version 1.0
+ * @since 1.0
  * */
 public class AxisCommunicator extends RestCommunicator implements Monitorable, Controller {
 

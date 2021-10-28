@@ -9,6 +9,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 
 /**
  * Device ParameterChildItem class is the member data of ChildGroupItem
+ *
+ * @author Ivan
+ * @since 1.0
  */
 @XmlAccessorType(XmlAccessType.NONE)
 public class ParameterChildItem {

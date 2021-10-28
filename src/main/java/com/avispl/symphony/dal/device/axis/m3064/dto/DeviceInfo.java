@@ -9,6 +9,9 @@ import com.google.gson.annotations.SerializedName;
 
 /**
  * All properties provided by the BDI (Basic device information) service.
+ *
+ * @author Ivan
+ * @since 1.0
  */
 public class DeviceInfo {
 

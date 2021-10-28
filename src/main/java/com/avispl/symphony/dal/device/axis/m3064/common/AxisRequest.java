@@ -5,6 +5,9 @@ package com.avispl.symphony.dal.device.axis.m3064.common;
 
 /**
  * AxisRequest class defined the constant for monitoring device info
+ *
+ * @author Ivan
+ * @since 1.0
  */
 public class AxisRequest {
 
