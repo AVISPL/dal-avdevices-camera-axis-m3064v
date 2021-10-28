@@ -3,6 +3,9 @@
  */
 package com.avispl.symphony.dal.device.axis.m3064.common;
 
+/**
+ * AxisControllingMetric class defined the enum for controlling process
+ */
 public enum AxisControllingMetric {
 
 	ROTATION("VideoOutputControl#Rotation"),

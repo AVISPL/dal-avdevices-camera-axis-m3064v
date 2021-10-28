@@ -42,6 +42,40 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.CollectionUtils;
 
+/**
+ * An implementation of RestCommunicator to provide communication and interaction with AXIS M3064-V Camera.
+ * Supported features are:
+ *
+ * Monitoring:
+ * 	- Schema versions
+ * 	- Video resolution
+ * 	- Video frame rate
+ * 	- Brand
+ * 	- Build day
+ * 	- Device name
+ * 	- Hardware ID
+ * 	- Serial number
+ * 	- Version
+ * 	- Web URL
+ *
+ * Controlling:
+ *  - Mirroring
+ *  - Rotation
+ *  - Text overlay
+ *  - Text overlay content
+ *  - Saturation
+ *  - Contrast
+ *  - Brightness
+ *  - Sharpness
+ *  - Wide dynamic range
+ *  - White balance
+ *  - IR-cut filter
+ *  - Text overlay size
+ *  - Text overlay appearance
+ *
+ * @author Ivan
+ * @version 1.0
+ * */
 public class AxisCommunicator extends RestCommunicator implements Monitorable, Controller {
 
 	private ExtendedStatistics localExtendedStatistics;

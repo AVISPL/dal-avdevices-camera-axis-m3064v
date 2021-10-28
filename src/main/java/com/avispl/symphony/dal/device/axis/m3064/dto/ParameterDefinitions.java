@@ -11,6 +11,9 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * ParameterDefinitions is the definition of the response from Axis device when using param.cgi
+ */
 @XmlRootElement(name = "parameterDefinitions", namespace = AxisConstant.NAME_SPACE)
 @XmlAccessorType(XmlAccessType.NONE)
 public class ParameterDefinitions {

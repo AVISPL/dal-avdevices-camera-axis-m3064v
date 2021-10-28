@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * Device GroupChildItem class
+ * Device ChildGroupItem class is the member data of GroupChild
  */
 @XmlAccessorType(XmlAccessType.NONE)
 public class ChildGroupItem {

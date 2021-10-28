@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Device Schema Version Status class.
+ * SchemaVersionStatus represent for the response from getting the schema version
  */
 @XmlRootElement(name = "VideoOutputResponse", namespace = AxisConstant.NAME_SPACE_OUTPUT)
 @XmlAccessorType(XmlAccessType.NONE)

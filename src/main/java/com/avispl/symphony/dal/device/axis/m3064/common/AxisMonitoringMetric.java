@@ -3,6 +3,9 @@
  */
 package com.avispl.symphony.dal.device.axis.m3064.common;
 
+/**
+ * AxisMonitoringMetric class defined the enum for the monitoring process
+ */
 public enum AxisMonitoringMetric {
 
 	DEVICE_INFO("DeviceInfo", false),

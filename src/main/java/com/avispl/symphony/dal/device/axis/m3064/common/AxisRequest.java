@@ -3,6 +3,9 @@
  */
 package com.avispl.symphony.dal.device.axis.m3064.common;
 
+/**
+ * AxisRequest class defined the constant for monitoring device info
+ */
 public class AxisRequest {
 
 	public static final String API_VERSION = "apiVersion";

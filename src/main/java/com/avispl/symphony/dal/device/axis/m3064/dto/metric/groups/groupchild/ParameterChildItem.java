@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 
 /**
- * Device ParameterChildItem class
+ * Device ParameterChildItem class is the member data of ChildGroupItem
  */
 @XmlAccessorType(XmlAccessType.NONE)
 public class ParameterChildItem {

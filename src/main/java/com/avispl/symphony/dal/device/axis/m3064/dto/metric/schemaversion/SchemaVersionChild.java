@@ -8,6 +8,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
+/**
+ * SchemaVersionChild is the member data of SchemaVersions
+ */
 @XmlAccessorType(XmlAccessType.NONE)
 public class SchemaVersionChild {
 

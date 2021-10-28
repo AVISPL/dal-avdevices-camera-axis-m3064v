@@ -5,6 +5,9 @@ package com.avispl.symphony.dal.device.axis.m3064.common;
 
 import java.util.Objects;
 
+/**
+ * AxisStatisticsUtil class support getting the URL by metric
+ */
 public class AxisStatisticsUtil {
 
 	public static String getMonitorURL(AxisMonitoringMetric axisMonitoringMetric) {

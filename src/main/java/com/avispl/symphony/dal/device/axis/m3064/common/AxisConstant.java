@@ -3,6 +3,9 @@
  */
 package com.avispl.symphony.dal.device.axis.m3064.common;
 
+/**
+ * AxisConstant class provides the constant during the monitoring and controlling process
+ */
 public final class AxisConstant {
 
 	public static final String HTTP = "http://";

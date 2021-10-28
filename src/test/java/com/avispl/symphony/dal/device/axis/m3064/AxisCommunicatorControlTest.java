@@ -24,7 +24,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import com.avispl.symphony.api.dal.dto.control.ControllableProperty;
 
 /**
- * Unit Test for metric control
+ * Unit Test for controlling metric
  */
 @RunWith(MockitoJUnitRunner.class)
 public class AxisCommunicatorControlTest {
