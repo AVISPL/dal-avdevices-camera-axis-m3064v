@@ -43,5 +43,6 @@ public final class AxisConstant {
 	public static final String ERROR_MESSAGE = ". Error message: ";
 	public static final String UNDERSCORE = "_";
 	public static final String NEWLINE = "\n";
+	public static final String FPS = " fps";
 
 }

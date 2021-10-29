@@ -772,7 +772,13 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 				failedMonitor.put(AxisMonitoringMetric.VIDEO_FRAME_RATE.getName(), AxisConstant.NO_RESPONSE_ERR);
 				return AxisConstant.NONE;
 			}
-			return checkNoneData(responseData.substring(responseData.lastIndexOf(AxisConstant.EQUALS_SIGN) + 1));
+			String fpsValue = checkNoneData(responseData.substring(responseData.lastIndexOf(AxisConstant.EQUALS_SIGN) + 1));
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.append(fpsValue);
+			if (!AxisConstant.NONE.equals(fpsValue)) {
+				stringBuilder.append(AxisConstant.FPS);
+			}
+			return stringBuilder.toString();
 		} catch (Exception e) {
 			failedMonitor.put(AxisMonitoringMetric.VIDEO_FRAME_RATE.getName(), e.getMessage());
 			return AxisConstant.NONE;

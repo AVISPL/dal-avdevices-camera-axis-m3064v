@@ -101,7 +101,7 @@ public class AxisCommunicatorTest {
 			ExtendedStatistics extendedStatistic = (ExtendedStatistics) axisCommunicator.getMultipleStatistics().get(0);
 			Map<String, String> dynamicStatistic = extendedStatistic.getDynamicStatistics();
 
-			Assert.assertEquals("25", dynamicStatistic.get(AxisMonitoringMetric.VIDEO_FRAME_RATE.getName()));
+			Assert.assertEquals("25 fps", dynamicStatistic.get(AxisMonitoringMetric.VIDEO_FRAME_RATE.getName()));
 			Assert.assertEquals("1280x720", dynamicStatistic.get(AxisMonitoringMetric.VIDEO_RESOLUTION.getName()));
 		}
 	}
