@@ -4,6 +4,8 @@
 package com.avispl.symphony.dal.device.axis.m3064.common;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -45,8 +47,11 @@ public enum TextOverlayAppearanceDropdown {
 	}
 
 	public static String[] names() {
-		Map<String, String> nameToValueMap = TextOverlayAppearanceDropdown.getNameToValueMap();
-		return nameToValueMap.keySet().toArray(new String[nameToValueMap.size()]);
+		List<String> list = new LinkedList<>();
+		for (TextOverlayAppearanceDropdown textOverlayAppearanceDropdown : TextOverlayAppearanceDropdown.values()) {
+			list.add(textOverlayAppearanceDropdown.getName());
+		}
+		return list.toArray(new String[list.size()]);
 	}
 
 	public String getName() {
