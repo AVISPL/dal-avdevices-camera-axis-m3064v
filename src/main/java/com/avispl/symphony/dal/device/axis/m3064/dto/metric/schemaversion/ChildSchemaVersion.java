@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlElement;
  * @since 1.0
  */
 @XmlAccessorType(XmlAccessType.NONE)
-public class SchemaVersionChild {
+public class ChildSchemaVersion {
 
 	@XmlElement(name = "VersionNumber", namespace = AxisConstant.NAME_SPACE_OUTPUT)
 	private String versionNumber;

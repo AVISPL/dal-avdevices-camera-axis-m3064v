@@ -14,7 +14,16 @@ public enum AxisControllingMetric {
 	ROTATION("VideoOutputControl#Rotation"),
 	MIRRORING("VideoOutputControl#Mirroring"),
 	TEXT_OVERLAY_CONTENT("VideoOutputControl#TextOverlayContent"),
-	TEXT_OVERLAY_ENABLE("VideoOutputControl#TextOverlayEnable");
+	TEXT_OVERLAY_ENABLE("VideoOutputControl#TextOverlayEnable"),
+	SATURATION("VideoOutputControl#Saturation"),
+	CONTRAST("VideoOutputControl#Contrast"),
+	BRIGHTNESS("VideoOutputControl#Brightness"),
+	SHARPNESS("VideoOutputControl#Sharpness"),
+	WIDE_DYNAMIC_RANGE("VideoOutputControl#WideDynamicRange"),
+	WHITE_BALANCE("VideoOutputControl#WhiteBalance"),
+	IR_CUT_FILTER("VideoOutputControl#IRCutFilter"),
+	TEXT_OVERLAY_SIZE("VideoOutputControl#TextOverlaySize"),
+	TEXT_OVERLAY_APPEARANCE("VideoOutputControl#TextOverlayAppearance");
 
 	public static AxisControllingMetric getByName(String name) {
 		for (AxisControllingMetric metric : AxisControllingMetric.values()) {

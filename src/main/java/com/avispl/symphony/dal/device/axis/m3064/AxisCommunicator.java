@@ -25,6 +25,11 @@ import com.avispl.symphony.dal.device.axis.m3064.common.AxisMonitoringMetric;
 import com.avispl.symphony.dal.device.axis.m3064.common.AxisPayloadBody;
 import com.avispl.symphony.dal.device.axis.m3064.common.AxisRequest;
 import com.avispl.symphony.dal.device.axis.m3064.common.AxisStatisticsUtil;
+import com.avispl.symphony.dal.device.axis.m3064.common.IRCutFilterDropdown;
+import com.avispl.symphony.dal.device.axis.m3064.common.RotationDropdown;
+import com.avispl.symphony.dal.device.axis.m3064.common.TextOverlayAppearanceDropdown;
+import com.avispl.symphony.dal.device.axis.m3064.common.TextOverlaySizeDropdown;
+import com.avispl.symphony.dal.device.axis.m3064.common.WhiteBalanceDropdown;
 import com.avispl.symphony.dal.device.axis.m3064.dto.DeviceInfo;
 import com.avispl.symphony.dal.device.axis.m3064.dto.ParameterDefinitions;
 import com.avispl.symphony.dal.device.axis.m3064.dto.SchemaVersionStatus;
@@ -35,7 +40,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.gson.Gson;
 
-import com.avispl.symphony.dal.device.axis.m3064.dto.metric.groups.groupchild.ParameterChildItem;
+import com.avispl.symphony.dal.device.axis.m3064.dto.metric.groups.groupchild.ChildParameterItem;
 import com.avispl.symphony.dal.util.StringUtils;
 
 import org.springframework.http.HttpHeaders;
@@ -47,36 +52,36 @@ import org.springframework.util.CollectionUtils;
  * Supported features are:
  *
  * Monitoring:
- * 	- Schema versions
- * 	- Video resolution
- * 	- Video frame rate
- * 	- Brand
- * 	- Build day
- * 	- Device name
- * 	- Hardware ID
- * 	- Serial number
- * 	- Version
- * 	- Web URL
+ * - Schema versions
+ * - Video resolution
+ * - Video frame rate
+ * - Brand
+ * - Build day
+ * - Device name
+ * - Hardware ID
+ * - Serial number
+ * - Version
+ * - Web URL
  *
  * Controlling:
- *  - Mirroring
- *  - Rotation
- *  - Text overlay
- *  - Text overlay content
- *  - Saturation
- *  - Contrast
- *  - Brightness
- *  - Sharpness
- *  - Wide dynamic range
- *  - White balance
- *  - IR-cut filter
- *  - Text overlay size
- *  - Text overlay appearance
+ * - Mirroring
+ * - Rotation
+ * - Text overlay
+ * - Text overlay content
+ * - Saturation
+ * - Contrast
+ * - Brightness
+ * - Sharpness
+ * - Wide dynamic range
+ * - White balance
+ * - IR-cut filter
+ * - Text overlay size
+ * - Text overlay appearance
  *
  * @author Ivan
  * @version 1.0
  * @since 1.0
- * */
+ */
 public class AxisCommunicator extends RestCommunicator implements Monitorable, Controller {
 
 	private ExtendedStatistics localExtendedStatistics;
@@ -116,17 +121,129 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 			case ROTATION:
 				setControlRotation(value);
 				break;
+			case TEXT_OVERLAY_CONTENT:
+				setControlTextOverlay(value);
+				break;
+			case TEXT_OVERLAY_APPEARANCE:
+				setControlAppearance(value);
+				break;
+			case WIDE_DYNAMIC_RANGE:
+				setControlWideDynamicRange(Integer.parseInt(value));
+				break;
 			case TEXT_OVERLAY_ENABLE:
 				setControlTextOverlayEnable(Integer.parseInt(value));
 				break;
 			case MIRRORING:
 				setControlMirroring(Integer.parseInt(value));
 				break;
-			case TEXT_OVERLAY_CONTENT:
-				setControlTextOverlay(value);
+			case BRIGHTNESS:
+				setControlSlider(AxisControllingMetric.BRIGHTNESS, AxisPayloadBody.SET_BRIGHTNESS, (int) Float.parseFloat(value));
+				break;
+			case CONTRAST:
+				setControlSlider(AxisControllingMetric.CONTRAST, AxisPayloadBody.SET_CONTRAST, (int) Float.parseFloat(value));
+				break;
+			case SATURATION:
+				setControlSlider(AxisControllingMetric.SATURATION, AxisPayloadBody.SET_SATURATION, (int) Float.parseFloat(value));
+				break;
+			case SHARPNESS:
+				setControlSlider(AxisControllingMetric.SHARPNESS, AxisPayloadBody.SET_SHARPNESS, (int) Float.parseFloat(value));
+				break;
+			case WHITE_BALANCE:
+				Map<String, String> mapNameWhiteBalance = WhiteBalanceDropdown.getNameToValueMap();
+				setControlDropdown(AxisControllingMetric.WHITE_BALANCE, AxisPayloadBody.SET_WHITE_BALANCE, mapNameWhiteBalance.get(value));
+				break;
+			case IR_CUT_FILTER:
+				Map<String, String> mapNameIRCutFilter = IRCutFilterDropdown.getNameToValueMap();
+				setControlDropdown(AxisControllingMetric.IR_CUT_FILTER, AxisPayloadBody.SET_IR_CUT_FILTER, mapNameIRCutFilter.get(value));
+				break;
+			case TEXT_OVERLAY_SIZE:
+				Map<String, String> mapNameOverLayTextSize = TextOverlaySizeDropdown.getNameToValueMap();
+				setControlDropdown(AxisControllingMetric.TEXT_OVERLAY_SIZE, AxisPayloadBody.SET_TEXT_OVERLAY_SIZE, mapNameOverLayTextSize.get(value));
 				break;
 			default:
 				throw new IllegalStateException("Unexpected value: " + property);
+		}
+	}
+
+	/**
+	 * Set value for metric of device
+	 *
+	 * @param axisControllingMetric is metric of the device
+	 * @param payloadBody is payload action to set the value
+	 * @param value is real value current of metric
+	 */
+	private void setControlSlider(AxisControllingMetric axisControllingMetric, String payloadBody, int value) {
+		try {
+			String responseData = doGet(buildDeviceFullPath(
+					AxisStatisticsUtil.getControlURL(axisControllingMetric)) + AxisConstant.QUESTION_MARK + payloadBody + AxisConstant.EQUALS_SIGN + value);
+			if (!AxisConstant.OKE.equals(responseData)) {
+				throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR + axisControllingMetric.getName());
+			}
+		} catch (Exception e) {
+			throw new ResourceNotReachableException(AxisConstant.ERR_SET_CONTROL + axisControllingMetric.getName() + AxisConstant.WITH_PROPERTY + value + AxisConstant.ERROR_MESSAGE + e.getMessage());
+		}
+	}
+
+	/**
+	 * Set value for metric of device
+	 *
+	 * @param axisControllingMetric is metric of the device
+	 * @param payloadBody is payload action to set the value
+	 * @param value is real value current of metric
+	 */
+	private void setControlDropdown(AxisControllingMetric axisControllingMetric, String payloadBody, String value) {
+		try {
+			String responseData = doGet(buildDeviceFullPath(
+					AxisStatisticsUtil.getControlURL(axisControllingMetric)) + AxisConstant.QUESTION_MARK + payloadBody + AxisConstant.EQUALS_SIGN + value);
+			if (!AxisConstant.OKE.equals(responseData)) {
+				throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR + axisControllingMetric.getName());
+			}
+		} catch (Exception e) {
+			throw new ResourceNotReachableException(AxisConstant.ERR_SET_CONTROL + axisControllingMetric.getName() + AxisConstant.WITH_PROPERTY + value + AxisConstant.ERROR_MESSAGE + e.getMessage());
+		}
+	}
+
+	/**
+	 * Set value for metric of device like saturation, contrast, brightness, sharpness
+	 *
+	 * @param value is real value current of metric
+	 */
+	private void setControlAppearance(String value) {
+		try {
+			Map<String, String> nameToValueTextOverlayMap = TextOverlayAppearanceDropdown.getNameToValueMap();
+			String textOverlayValue = nameToValueTextOverlayMap.get(value);
+			String colorName = textOverlayValue.substring(0, textOverlayValue.indexOf(AxisConstant.UNDERSCORE));
+			String bgColorName = textOverlayValue.substring(textOverlayValue.indexOf(AxisConstant.UNDERSCORE) + 1);
+			String responseData = doGet(buildDeviceFullPath(
+					AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_APPEARANCE)) + AxisConstant.QUESTION_MARK + AxisPayloadBody.SET_TEXT_OVERLAY_APPEARANCE_COLOR
+					+ AxisConstant.EQUALS_SIGN + colorName + AxisPayloadBody.SET_TEXT_OVERLAY_APPEARANCE_BG_COLOR + AxisConstant.EQUALS_SIGN + bgColorName);
+			if (!AxisConstant.OKE.equals(responseData)) {
+				throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR + AxisControllingMetric.TEXT_OVERLAY_APPEARANCE.getName());
+			}
+		} catch (Exception e) {
+			throw new ResourceNotReachableException(
+					AxisConstant.ERR_SET_CONTROL + AxisControllingMetric.TEXT_OVERLAY_APPEARANCE.getName() + AxisConstant.WITH_PROPERTY + value + AxisConstant.ERROR_MESSAGE + e.getMessage());
+		}
+	}
+
+	/**
+	 * Set value for metric of device
+	 *
+	 * @param value is real value current of metric
+	 */
+	private void setControlWideDynamicRange(int value) {
+		try {
+			String param = value == 1 ? AxisConstant.ON : AxisConstant.OFF;
+			String responseData = doGet(
+					buildDeviceFullPath(AxisStatisticsUtil.getControlURL(AxisControllingMetric.WIDE_DYNAMIC_RANGE)) + AxisConstant.QUESTION_MARK + AxisPayloadBody.SET_WIDE_DYNAMIC_RANGE
+							+ AxisConstant.EQUALS_SIGN
+							+ param);
+			if (!AxisConstant.OKE.equals(responseData)) {
+				throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR + AxisControllingMetric.WIDE_DYNAMIC_RANGE.getName());
+			}
+		} catch (Exception e) {
+			throw new ResourceNotReachableException(
+					AxisConstant.ERR_SET_CONTROL + AxisControllingMetric.WIDE_DYNAMIC_RANGE.getName() + AxisConstant.WITH_PROPERTY + value + AxisConstant.ERROR_MESSAGE + e.getMessage());
 		}
 	}
 
@@ -184,14 +301,45 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 					advancedControllableProperties.add(controlSwitch(control, stats, AxisControllingMetric.MIRRORING));
 					break;
 				case ROTATION:
-					String[] dropdown = AxisConstant.ROTATION_DROPDOWN;
-					advancedControllableProperties.add(controlPropertiesByRotation(control, stats, dropdown));
+					String[] dropdown = RotationDropdown.names();
+					advancedControllableProperties.add(controlDropdown(control, stats, dropdown, AxisControllingMetric.ROTATION));
+					break;
+				case WHITE_BALANCE:
+					String[] dropdownWhiteBalance = WhiteBalanceDropdown.names();
+					advancedControllableProperties.add(controlDropdown(control, stats, dropdownWhiteBalance, AxisControllingMetric.WHITE_BALANCE));
+					break;
+				case IR_CUT_FILTER:
+					String[] dropdownIRCutFilter = IRCutFilterDropdown.names();
+					advancedControllableProperties.add(controlDropdown(control, stats, dropdownIRCutFilter, AxisControllingMetric.IR_CUT_FILTER));
+					break;
+				case TEXT_OVERLAY_APPEARANCE:
+					String[] dropdownTextOverlayAppearance = TextOverlayAppearanceDropdown.names();
+					advancedControllableProperties.add(controlDropdown(control, stats, dropdownTextOverlayAppearance, AxisControllingMetric.TEXT_OVERLAY_APPEARANCE));
+					break;
+				case TEXT_OVERLAY_SIZE:
+					String[] dropdownTextOverlaySize = TextOverlaySizeDropdown.names();
+					advancedControllableProperties.add(controlDropdown(control, stats, dropdownTextOverlaySize, AxisControllingMetric.TEXT_OVERLAY_SIZE));
 					break;
 				case TEXT_OVERLAY_CONTENT:
 					advancedControllableProperties.add(controlPropertiesByTextOverlayContent(control, stats));
 					break;
 				case TEXT_OVERLAY_ENABLE:
 					advancedControllableProperties.add(controlSwitch(control, stats, AxisControllingMetric.TEXT_OVERLAY_ENABLE));
+					break;
+				case WIDE_DYNAMIC_RANGE:
+					advancedControllableProperties.add(controlSwitch(control, stats, AxisControllingMetric.WIDE_DYNAMIC_RANGE));
+					break;
+				case BRIGHTNESS:
+					advancedControllableProperties.add(createControlSlider(control, stats, AxisControllingMetric.BRIGHTNESS));
+					break;
+				case CONTRAST:
+					advancedControllableProperties.add(createControlSlider(control, stats, AxisControllingMetric.CONTRAST));
+					break;
+				case SATURATION:
+					advancedControllableProperties.add(createControlSlider(control, stats, AxisControllingMetric.SATURATION));
+					break;
+				case SHARPNESS:
+					advancedControllableProperties.add(createControlSlider(control, stats, AxisControllingMetric.SHARPNESS));
 					break;
 				default:
 					return Collections.emptyList();
@@ -216,6 +364,35 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
+	 * Add controlProperties for controlling metric
+	 *
+	 * @return AdvancedControllableProperty slider instance
+	 */
+	private AdvancedControllableProperty createSlider(String name, Float value) {
+		AdvancedControllableProperty.Slider slider = new AdvancedControllableProperty.Slider();
+		slider.setLabelEnd(String.valueOf(AxisConstant.SLIDER_RANGE_END));
+		slider.setLabelStart(String.valueOf(AxisConstant.SLIDER_RANGE_START));
+		slider.setRangeEnd(Float.valueOf(AxisConstant.SLIDER_RANGE_END));
+		slider.setRangeStart(Float.valueOf(AxisConstant.SLIDER_RANGE_START));
+
+		return new AdvancedControllableProperty(name, new Date(), slider, value);
+	}
+
+	/**
+	 * Add controlProperties for controlling metric
+	 *
+	 * @param control list control property
+	 * @return AdvancedControllableProperty switch instance
+	 */
+	private AdvancedControllableProperty createControlSlider(Map<String, String> control, Map<String, String> stats, AxisControllingMetric axisControllingMetric) {
+		stats.put(axisControllingMetric.getName(), control.get(axisControllingMetric.getName()));
+		if (!control.get(axisControllingMetric.getName()).equals(AxisConstant.NONE)) {
+			return createSlider(axisControllingMetric.getName(), Float.valueOf(control.get(axisControllingMetric.getName())));
+		}
+		return null;
+	}
+
+	/**
 	 * Add controlProperties for metric text overlay content
 	 *
 	 * @param control list control property
@@ -228,14 +405,14 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * Add controlProperties for metric text overlay rotation
+	 * Add controlDropdown
 	 *
 	 * @return AdvancedControllableProperty Dropdown instance
 	 */
-	private AdvancedControllableProperty controlPropertiesByRotation(Map<String, String> control, Map<String, String> stats, String[] options) {
-		stats.put(AxisControllingMetric.ROTATION.getName(), control.get(AxisControllingMetric.ROTATION.getName()));
-		if (!control.get(AxisControllingMetric.ROTATION.getName()).equals(AxisConstant.NONE)) {
-			return createDropdown(AxisControllingMetric.ROTATION.getName(), options, control.get(AxisControllingMetric.ROTATION.getName()));
+	private AdvancedControllableProperty controlDropdown(Map<String, String> control, Map<String, String> stats, String[] options, AxisControllingMetric axisControllingMetric) {
+		stats.put(axisControllingMetric.getName(), control.get(axisControllingMetric.getName()));
+		if (!control.get(axisControllingMetric.getName()).equals(AxisConstant.NONE)) {
+			return createDropdown(axisControllingMetric.getName(), options, control.get(axisControllingMetric.getName()));
 		}
 		return null;
 	}
@@ -387,6 +564,24 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 				return retrieveRotation();
 			case TEXT_OVERLAY_ENABLE:
 				return retrieveTextOverlayEnable();
+			case BRIGHTNESS:
+				return retrieveMultipleMetric(metric, AxisPayloadBody.GET_BRIGHTNESS);
+			case CONTRAST:
+				return retrieveMultipleMetric(metric, AxisPayloadBody.GET_CONTRAST);
+			case SATURATION:
+				return retrieveMultipleMetric(metric, AxisPayloadBody.GET_SATURATION);
+			case SHARPNESS:
+				return retrieveMultipleMetric(metric, AxisPayloadBody.GET_SHARPNESS);
+			case WIDE_DYNAMIC_RANGE:
+				return retrieveWideDynamicRange();
+			case WHITE_BALANCE:
+				return retrieveWhiteBalance();
+			case IR_CUT_FILTER:
+				return retrieveIRCutFilter();
+			case TEXT_OVERLAY_APPEARANCE:
+				return retrieveTextOverlayAppearance();
+			case TEXT_OVERLAY_SIZE:
+				return retrieveTextOverlaySize();
 			default:
 				return AxisConstant.NONE;
 		}
@@ -519,7 +714,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 			if (responseData == null) {
 				return AxisConstant.NONE;
 			}
-			ParameterChildItem parameter = responseData.getGroup().getGroupChild().getGroupChildItem().getParameter();
+			ChildParameterItem parameter = responseData.getGroup().getGroupChild().getChildGroupItem().getParameter();
 			return checkNoneData(parameter.getValue());
 		} catch (Exception e) {
 			return AxisConstant.NONE;
@@ -539,7 +734,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 			if (responseData == null) {
 				return AxisConstant.NONE;
 			}
-			ParameterChildItem parameter = responseData.getGroup().getGroupChild().getGroupChildItem().getParameter();
+			ChildParameterItem parameter = responseData.getGroup().getGroupChild().getChildGroupItem().getParameter();
 			return parameter.getValue();
 		} catch (Exception e) {
 			return AxisConstant.NONE;
@@ -558,7 +753,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 			if (responseData == null) {
 				return AxisConstant.NONE;
 			}
-			ParameterChildItem parameter = responseData.getGroup().getGroupChild().getGroupChildItem().getParameter();
+			ChildParameterItem parameter = responseData.getGroup().getGroupChild().getChildGroupItem().getParameter();
 			return parameter.getValue();
 		} catch (Exception e) {
 			return AxisConstant.NONE;
@@ -577,8 +772,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 				failedMonitor.put(AxisMonitoringMetric.VIDEO_FRAME_RATE.getName(), AxisConstant.NO_RESPONSE_ERR);
 				return AxisConstant.NONE;
 			}
-			int len = responseData.length();
-			return checkNoneData(responseData.substring(responseData.lastIndexOf(AxisConstant.EQUALS_SIGN) + 1, len));
+			return checkNoneData(responseData.substring(responseData.lastIndexOf(AxisConstant.EQUALS_SIGN) + 1));
 		} catch (Exception e) {
 			failedMonitor.put(AxisMonitoringMetric.VIDEO_FRAME_RATE.getName(), e.getMessage());
 			return AxisConstant.NONE;
@@ -598,7 +792,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 				failedMonitor.put(AxisMonitoringMetric.VIDEO_RESOLUTION.getName(), AxisConstant.NO_RESPONSE_ERR);
 				return AxisConstant.NONE;
 			}
-			ParameterChildItem parameter = responseData.getGroup().getGroupChild().getGroupChildItem().getParameter();
+			ChildParameterItem parameter = responseData.getGroup().getGroupChild().getChildGroupItem().getParameter();
 			return checkNoneData(parameter.getValue());
 		} catch (Exception e) {
 			failedMonitor.put(AxisMonitoringMetric.VIDEO_RESOLUTION.getName(), e.getMessage());
@@ -616,11 +810,12 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 			String responseData = doGet(buildDeviceFullPath(
 					AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_CONTENT) + AxisConstant.QUESTION_MARK + AxisPayloadBody.SET_TEXT_OVERLAY_CONTENT + AxisConstant.EQUALS_SIGN
 							+ value));
-			if (!responseData.equals(AxisConstant.OKE)) {
-				throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR);
+			if (!AxisConstant.OKE.equals(responseData)) {
+				throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR + AxisControllingMetric.TEXT_OVERLAY_CONTENT.getName());
 			}
 		} catch (Exception e) {
-			throw new ResourceNotReachableException(e.getMessage());
+			throw new ResourceNotReachableException(
+					AxisConstant.ERR_SET_CONTROL + AxisControllingMetric.TEXT_OVERLAY_CONTENT.getName() + AxisConstant.WITH_PROPERTY + value + AxisConstant.ERROR_MESSAGE + e.getMessage());
 		}
 	}
 
@@ -635,11 +830,12 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 			String responseData = doGet(
 					buildDeviceFullPath(AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_ENABLE) + AxisConstant.QUESTION_MARK + AxisPayloadBody.SET_TEXT_ENABLE + AxisConstant.EQUALS_SIGN
 							+ param));
-			if (!responseData.equals(AxisConstant.OKE)) {
-				throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR);
+			if (!AxisConstant.OKE.equals(responseData)) {
+				throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR + AxisControllingMetric.TEXT_OVERLAY_ENABLE.getName());
 			}
 		} catch (Exception e) {
-			throw new ResourceNotReachableException(e.getMessage());
+			throw new ResourceNotReachableException(
+					AxisConstant.ERR_SET_CONTROL + AxisControllingMetric.TEXT_OVERLAY_ENABLE.getName() + AxisConstant.WITH_PROPERTY + value + AxisConstant.ERROR_MESSAGE + e.getMessage());
 		}
 	}
 
@@ -654,11 +850,12 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 			String responseData = doGet(
 					buildDeviceFullPath(AxisStatisticsUtil.getControlURL(AxisControllingMetric.MIRRORING)) + AxisConstant.QUESTION_MARK + AxisPayloadBody.SET_MIRRORING_ENABLE + AxisConstant.EQUALS_SIGN
 							+ param);
-			if (!responseData.equals(AxisConstant.OKE)) {
-				throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR);
+			if (!AxisConstant.OKE.equals(responseData)) {
+				throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR + AxisControllingMetric.MIRRORING.getName());
 			}
 		} catch (Exception e) {
-			throw new ResourceNotReachableException(e.getMessage());
+			throw new ResourceNotReachableException(
+					AxisConstant.ERR_SET_CONTROL + AxisControllingMetric.MIRRORING.getName() + AxisConstant.WITH_PROPERTY + value + AxisConstant.ERROR_MESSAGE + e.getMessage());
 		}
 	}
 
@@ -671,11 +868,131 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 		try {
 			String responseData = doGet(
 					buildDeviceFullPath(AxisStatisticsUtil.getControlURL(AxisControllingMetric.ROTATION)) + AxisConstant.QUESTION_MARK + AxisPayloadBody.SET_ROTATION + AxisConstant.EQUALS_SIGN + value);
-			if (!responseData.equals(AxisConstant.OKE)) {
-				throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR);
+			if (!AxisConstant.OKE.equals(responseData)) {
+				throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR + AxisControllingMetric.ROTATION.getName());
 			}
 		} catch (Exception e) {
-			throw new ResourceNotReachableException(e.getMessage());
+			throw new ResourceNotReachableException(
+					AxisConstant.ERR_SET_CONTROL + AxisControllingMetric.ROTATION.getName() + AxisConstant.WITH_PROPERTY + value + AxisConstant.ERROR_MESSAGE + e.getMessage());
+		}
+	}
+
+	/**
+	 * Retrieve multiple information like saturation, contrast, brightness, sharpness
+	 *
+	 * @return saturation, contrast, brightness, sharpness information
+	 */
+	private String retrieveMultipleMetric(AxisControllingMetric axisControllingMetric, String payloadBody) {
+		try {
+			String responseData = doPost(buildDeviceFullPath(AxisStatisticsUtil.getControlURL(axisControllingMetric)), payloadBody);
+			if (responseData == null || responseData.contains(AxisConstant.ERROR)) {
+				return AxisConstant.NONE;
+			}
+			return checkNoneData(responseData.substring(responseData.lastIndexOf(AxisConstant.EQUALS_SIGN) + 1, responseData.length() - 1));
+		} catch (Exception e) {
+			return AxisConstant.NONE;
+		}
+	}
+
+	/**
+	 * Retrieve wide dynamic range information
+	 *
+	 * @return wide dynamic range information
+	 */
+	private String retrieveWideDynamicRange() {
+		try {
+			String responseData = doPost(buildDeviceFullPath(AxisStatisticsUtil.getControlURL(AxisControllingMetric.WIDE_DYNAMIC_RANGE)), AxisPayloadBody.GET_WIDE_DYNAMIC_RANGE);
+			if (responseData == null || responseData.contains(AxisConstant.ERROR)) {
+				return AxisConstant.NONE;
+			}
+			String wideDynamicRange = responseData.substring(responseData.lastIndexOf(AxisConstant.EQUALS_SIGN) + 1, responseData.length() - 1);
+			String result = AxisConstant.NONE;
+			if (AxisConstant.ON.equals(wideDynamicRange)) {
+				result = AxisConstant.YES;
+			}
+			if (AxisConstant.OFF.equals(wideDynamicRange)) {
+				result = AxisConstant.NO;
+			}
+			return result;
+		} catch (Exception e) {
+			return AxisConstant.NONE;
+		}
+	}
+
+	/**
+	 * Retrieve white balance information
+	 *
+	 * @return white balance information
+	 */
+	private String retrieveWhiteBalance() {
+		try {
+			String responseData = doPost(buildDeviceFullPath(AxisStatisticsUtil.getControlURL(AxisControllingMetric.WHITE_BALANCE)), AxisPayloadBody.GET_WHITE_BALANCE);
+			if (responseData == null || responseData.contains(AxisConstant.ERROR)) {
+				return AxisConstant.NONE;
+			}
+			String whiteBalanceName = responseData.substring(responseData.lastIndexOf(AxisConstant.EQUALS_SIGN) + 1, responseData.length() - 1);
+			Map<String, String> mapName = WhiteBalanceDropdown.getValueToNameMap();
+			return mapName.get(whiteBalanceName);
+		} catch (Exception e) {
+			return AxisConstant.NONE;
+		}
+	}
+
+	/**
+	 * Retrieve IR-cut filter information
+	 *
+	 * @return IR-cut filter information
+	 */
+	private String retrieveIRCutFilter() {
+		try {
+			String responseData = doPost(buildDeviceFullPath(AxisStatisticsUtil.getControlURL(AxisControllingMetric.IR_CUT_FILTER)), AxisPayloadBody.GET_IR_CUT_FILTER);
+			if (responseData == null || responseData.contains(AxisConstant.ERROR)) {
+				return AxisConstant.NONE;
+			}
+			String iRCutFilterName = responseData.substring(responseData.lastIndexOf(AxisConstant.EQUALS_SIGN) + 1, responseData.length() - 1);
+			Map<String, String> mapName = IRCutFilterDropdown.getValueToNameMap();
+			return mapName.get(iRCutFilterName);
+		} catch (Exception e) {
+			return AxisConstant.NONE;
+		}
+	}
+
+	/**
+	 * Retrieve text overlay size information
+	 *
+	 * @return text overlay size information
+	 */
+	private String retrieveTextOverlaySize() {
+		try {
+			String responseData = doPost(buildDeviceFullPath(AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_SIZE)), AxisPayloadBody.GET_TEXT_OVERLAY_SIZE);
+			if (responseData == null || responseData.contains(AxisConstant.ERROR)) {
+				return AxisConstant.NONE;
+			}
+			String textOverlayName = responseData.substring(responseData.lastIndexOf(AxisConstant.EQUALS_SIGN) + 1, responseData.length() - 1);
+			Map<String, String> mapName = TextOverlaySizeDropdown.getValueToNameMap();
+			return mapName.get(textOverlayName);
+		} catch (Exception e) {
+			return AxisConstant.NONE;
+		}
+	}
+
+	/**
+	 * Retrieve text overlay appearance information
+	 *
+	 * @return text overlay appearance information
+	 */
+	private String retrieveTextOverlayAppearance() {
+		try {
+			String responseData = doPost(buildDeviceFullPath(AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_APPEARANCE)), AxisPayloadBody.GET_TEXT_OVERLAY_APPEARANCE);
+			if (responseData == null || responseData.contains(AxisConstant.ERROR)) {
+				return AxisConstant.NONE;
+			}
+			String nameColor = responseData.substring(responseData.indexOf(AxisConstant.EQUALS_SIGN) + 1, responseData.indexOf(AxisConstant.NEWLINE));
+			String bgColor = responseData.substring(responseData.lastIndexOf(AxisConstant.EQUALS_SIGN) + 1, responseData.lastIndexOf(AxisConstant.NEWLINE));
+			Map<String, String> mapName = TextOverlayAppearanceDropdown.getValueToNameMap();
+			return mapName.get(nameColor + AxisConstant.UNDERSCORE + bgColor);
+		} catch (Exception e) {
+			return AxisConstant.NONE;
 		}
 	}
 }

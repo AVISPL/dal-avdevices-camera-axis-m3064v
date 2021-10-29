@@ -18,9 +18,6 @@ public class DeviceInfo {
 	public static final String DATA = "data";
 	public static final String PROPERTIES = "propertyList";
 
-	@SerializedName("Archtecture")
-	private String architecture;
-
 	@SerializedName("Brand")
 	private String brand;
 
@@ -43,14 +40,6 @@ public class DeviceInfo {
 	private String webURL;
 
 	public DeviceInfo() {
-	}
-
-	public String getArchitecture() {
-		return architecture;
-	}
-
-	public void setArchitecture(String architecture) {
-		this.architecture = architecture;
 	}
 
 	public String getBrand() {
@@ -118,8 +107,7 @@ public class DeviceInfo {
 			return false;
 		}
 		DeviceInfo that = (DeviceInfo) o;
-		return Objects.equals(architecture, that.architecture)
-				&& Objects.equals(brand, that.brand)
+		return Objects.equals(brand, that.brand)
 				&& Objects.equals(buildDate, that.buildDate)
 				&& Objects.equals(hardwareID, that.hardwareID)
 				&& Objects.equals(prodFullName, that.prodFullName)
@@ -129,13 +117,12 @@ public class DeviceInfo {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(architecture, brand, buildDate, hardwareID, prodFullName, serialNumber, version, webURL);
+		return Objects.hash(brand, buildDate, hardwareID, prodFullName, serialNumber, version, webURL);
 	}
 
 	@Override
 	public String toString() {
-		return "DeviceInfo{" +
-				"architecture='" + architecture + '\'' +
+		return "DeviceInfo{" + '\'' +
 				", brand='" + brand + '\'' +
 				", buildDate='" + buildDate + '\'' +
 				", hardwareID='" + hardwareID + '\'' +

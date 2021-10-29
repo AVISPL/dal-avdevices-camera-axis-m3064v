@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @since 1.0
  */
 @XmlAccessorType(XmlAccessType.NONE)
-public class ParameterChildItem {
+public class ChildParameterItem {
 
 	@XmlAttribute(name = "value")
 	private String value;

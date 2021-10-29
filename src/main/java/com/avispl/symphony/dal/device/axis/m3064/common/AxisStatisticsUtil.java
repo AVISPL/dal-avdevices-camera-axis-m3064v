@@ -35,6 +35,15 @@ public class AxisStatisticsUtil {
 			case ROTATION:
 			case MIRRORING:
 			case TEXT_OVERLAY_ENABLE:
+			case BRIGHTNESS:
+			case CONTRAST:
+			case SATURATION:
+			case SHARPNESS:
+			case WHITE_BALANCE:
+			case IR_CUT_FILTER:
+			case TEXT_OVERLAY_APPEARANCE:
+			case TEXT_OVERLAY_SIZE:
+			case WIDE_DYNAMIC_RANGE:
 				return AxisURL.URL_PARAM_CGI;
 			default:
 				throw new IllegalArgumentException("Do not support axisStatisticsMetric: " + axisControllingMetric.name());

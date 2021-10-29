@@ -12,25 +12,22 @@ import javax.xml.bind.annotation.XmlElement;
 
 /**
  * Device GroupChild class is item of Group
- *
- * @author Ivan
- * @since 1.0
  */
 @XmlAccessorType(XmlAccessType.NONE)
-public class GroupChild {
+public class ChildGroup {
 
 	@XmlElement(name = "parameter", namespace = AxisConstant.NAME_SPACE)
 	private Parameter parameter;
 
 	@XmlElement(name = "group", namespace = AxisConstant.NAME_SPACE)
-	private ChildGroupItem groupChildItem;
+	private ChildGroupItem childGroupItem;
 
-	public ChildGroupItem getGroupChildItem() {
-		return groupChildItem;
+	public ChildGroupItem getChildGroupItem() {
+		return childGroupItem;
 	}
 
-	public void setGroupChildItem(ChildGroupItem groupChildItem) {
-		this.groupChildItem = groupChildItem;
+	public void setChildGroupItem(ChildGroupItem childGroupItem) {
+		this.childGroupItem = childGroupItem;
 	}
 
 	public Parameter getParameter() {

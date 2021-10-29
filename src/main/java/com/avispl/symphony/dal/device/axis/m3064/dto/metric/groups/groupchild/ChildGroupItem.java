@@ -19,13 +19,13 @@ import javax.xml.bind.annotation.XmlElement;
 public class ChildGroupItem {
 
 	@XmlElement(name = "parameter", namespace = AxisConstant.NAME_SPACE)
-	private ParameterChildItem parameter;
+	private ChildParameterItem parameter;
 
-	public ParameterChildItem getParameter() {
+	public ChildParameterItem getParameter() {
 		return parameter;
 	}
 
-	public void setParameter(ParameterChildItem parameter) {
+	public void setParameter(ChildParameterItem parameter) {
 		this.parameter = parameter;
 	}
 }

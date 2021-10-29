@@ -44,6 +44,8 @@ public class AxisCommunicatorTest {
 	public void setUp() throws Exception {
 		axisCommunicator.setHost("127.0.0.1");
 		axisCommunicator.setProtocol("http");
+		axisCommunicator.setLogin("root");
+		axisCommunicator.setPassword("1234");
 		axisCommunicator.setPort(80);
 		axisCommunicator.init();
 	}
@@ -119,10 +121,19 @@ public class AxisCommunicatorTest {
 			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.ROTATION)).thenReturn("/rotation");
 			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_CONTENT)).thenReturn("/text-overlay-content");
 			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_ENABLE)).thenReturn("/text-overlay-enable");
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.IR_CUT_FILTER)).thenReturn("/ir-cut-filter");
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_APPEARANCE)).thenReturn("/text-overlay-appearance");
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_SIZE)).thenReturn("/text-overlay-size");
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.WHITE_BALANCE)).thenReturn("/white-balance");
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.WIDE_DYNAMIC_RANGE)).thenReturn("/wide-dynamic-range");
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.SHARPNESS)).thenReturn("/sharpness");
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.SATURATION)).thenReturn("/saturation");
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.CONTRAST)).thenReturn("/contrast");
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.BRIGHTNESS)).thenReturn("/brightness");
 
 			ExtendedStatistics extendedStatistic = (ExtendedStatistics) axisCommunicator.getMultipleStatistics().get(0);
 			List<AdvancedControllableProperty> controllableProperties = extendedStatistic.getControllableProperties();
-			Assert.assertEquals(4, controllableProperties.size());
+			Assert.assertEquals(13, controllableProperties.size());
 			for (AdvancedControllableProperty property : controllableProperties) {
 				if (property.getName().equals(AxisControllingMetric.TEXT_OVERLAY_CONTENT.getName())) {
 					Assert.assertEquals("new text", property.getValue());
@@ -136,11 +147,36 @@ public class AxisCommunicatorTest {
 				if (property.getName().equals(AxisControllingMetric.TEXT_OVERLAY_ENABLE.getName())) {
 					Assert.assertEquals(0, property.getValue());
 				}
+				if (property.getName().equals(AxisControllingMetric.SHARPNESS.getName())) {
+					Assert.assertEquals(50F, property.getValue());
+				}
+				if (property.getName().equals(AxisControllingMetric.CONTRAST.getName())) {
+					Assert.assertEquals(50F, property.getValue());
+				}
+				if (property.getName().equals(AxisControllingMetric.BRIGHTNESS.getName())) {
+					Assert.assertEquals(50F, property.getValue());
+				}
+				if (property.getName().equals(AxisControllingMetric.WHITE_BALANCE.getName())) {
+					Assert.assertEquals("Auto", property.getValue());
+				}
+				if (property.getName().equals(AxisControllingMetric.WIDE_DYNAMIC_RANGE.getName())) {
+					Assert.assertEquals(1, property.getValue());
+				}
+				if (property.getName().equals(AxisControllingMetric.TEXT_OVERLAY_APPEARANCE.getName())) {
+					Assert.assertEquals("White on Black", property.getValue());
+				}
+				if (property.getName().equals(AxisControllingMetric.TEXT_OVERLAY_SIZE.getName())) {
+					Assert.assertEquals("Small", property.getValue());
+				}
+				if (property.getName().equals(AxisControllingMetric.SATURATION.getName())) {
+					Assert.assertEquals(50F, property.getValue());
+				}
+				if (property.getName().equals(AxisControllingMetric.IR_CUT_FILTER.getName())) {
+					Assert.assertEquals("Auto", property.getValue());
+				}
 			}
 		}
 	}
-
-	//test the metric get data is none
 
 	/**
 	 * Test AxisCommunicator#getMultipleStatistics success
@@ -169,7 +205,7 @@ public class AxisCommunicatorTest {
 	 * Expect device info get data success but device info is null
 	 */
 	@Test
-	public void testAxisCommunicatorDeviceInfoIsNullField() {
+	public void testAxisCommunicatorDeviceInfoIsNullFailed() {
 		try (MockedStatic<AxisStatisticsUtil> mock = Mockito.mockStatic(AxisStatisticsUtil.class)) {
 			mock.when(() -> AxisStatisticsUtil.getMonitorURL(AxisMonitoringMetric.DEVICE_INFO)).thenReturn("/device-error-null");
 			mock.when(() -> AxisStatisticsUtil.getMonitorURL(AxisMonitoringMetric.VIDEO_RESOLUTION)).thenReturn("/video-resolution");
@@ -320,7 +356,6 @@ public class AxisCommunicatorTest {
 		}
 	}
 
-	//test response data is null
 	/**
 	 * Test AxisCommunicator#getMultipleStatistics success
 	 * Expect device info get data success but device info is null body response
@@ -373,6 +408,159 @@ public class AxisCommunicatorTest {
 			Map<String, String> stats = extendedStatistic.getStatistics();
 
 			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisControllingMetric.ROTATION.getName()));
+		}
+	}
+
+	/**
+	 * Test AxisCommunicator#getMultipleStatistics success
+	 * Expect get data success
+	 */
+	@Test
+	public void testAxisCommunicatorRetrieveSaturationSuccessfully() {
+		try (MockedStatic<AxisStatisticsUtil> mock = Mockito.mockStatic(AxisStatisticsUtil.class)) {
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.SATURATION)).thenReturn("/saturation");
+			mock.when(() -> AxisStatisticsUtil.getMonitorURL(AxisMonitoringMetric.VIDEO_RESOLUTION)).thenReturn("/video-resolution");
+
+			ExtendedStatistics extendedStatistic = (ExtendedStatistics) axisCommunicator.getMultipleStatistics().get(0);
+			Map<String, String> stats = extendedStatistic.getStatistics();
+
+			Assert.assertEquals("50", stats.get(AxisControllingMetric.SATURATION.getName()));
+		}
+	}
+
+	/**
+	 * Test AxisCommunicator#getMultipleStatistics success
+	 * Expect get data success
+	 */
+	@Test
+	public void testAxisCommunicatorRetrieveContrastSuccessfully() {
+		try (MockedStatic<AxisStatisticsUtil> mock = Mockito.mockStatic(AxisStatisticsUtil.class)) {
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.CONTRAST)).thenReturn("/contrast");
+			mock.when(() -> AxisStatisticsUtil.getMonitorURL(AxisMonitoringMetric.VIDEO_RESOLUTION)).thenReturn("/video-resolution");
+
+			ExtendedStatistics extendedStatistic = (ExtendedStatistics) axisCommunicator.getMultipleStatistics().get(0);
+			Map<String, String> stats = extendedStatistic.getStatistics();
+
+			Assert.assertEquals("50", stats.get(AxisControllingMetric.CONTRAST.getName()));
+		}
+	}
+
+	/**
+	 * Test AxisCommunicator#getMultipleStatistics success
+	 * Expect get data success
+	 */
+	@Test
+	public void testAxisCommunicatorRetrieveSharpnessSuccessfully() {
+		try (MockedStatic<AxisStatisticsUtil> mock = Mockito.mockStatic(AxisStatisticsUtil.class)) {
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.SHARPNESS)).thenReturn("/sharpness");
+			mock.when(() -> AxisStatisticsUtil.getMonitorURL(AxisMonitoringMetric.VIDEO_RESOLUTION)).thenReturn("/video-resolution");
+
+			ExtendedStatistics extendedStatistic = (ExtendedStatistics) axisCommunicator.getMultipleStatistics().get(0);
+			Map<String, String> stats = extendedStatistic.getStatistics();
+
+			Assert.assertEquals("50", stats.get(AxisControllingMetric.SHARPNESS.getName()));
+		}
+	}
+
+	/**
+	 * Test AxisCommunicator#getMultipleStatistics success
+	 * Expect get data success
+	 */
+	@Test
+	public void testAxisCommunicatorRetrieveWideDynamicRangesSuccessfully() {
+		try (MockedStatic<AxisStatisticsUtil> mock = Mockito.mockStatic(AxisStatisticsUtil.class)) {
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.WIDE_DYNAMIC_RANGE)).thenReturn("/wide-dynamic-range");
+			mock.when(() -> AxisStatisticsUtil.getMonitorURL(AxisMonitoringMetric.VIDEO_RESOLUTION)).thenReturn("/video-resolution");
+
+			ExtendedStatistics extendedStatistic = (ExtendedStatistics) axisCommunicator.getMultipleStatistics().get(0);
+			Map<String, String> stats = extendedStatistic.getStatistics();
+
+			Assert.assertEquals("yes", stats.get(AxisControllingMetric.WIDE_DYNAMIC_RANGE.getName()));
+		}
+	}
+
+	/**
+	 * Test AxisCommunicator#getMultipleStatistics success
+	 * Expect get data success
+	 */
+	@Test
+	public void testAxisCommunicatorRetrieveWhiteBalanceSuccessfully() {
+		try (MockedStatic<AxisStatisticsUtil> mock = Mockito.mockStatic(AxisStatisticsUtil.class)) {
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.WHITE_BALANCE)).thenReturn("/white-balance");
+			mock.when(() -> AxisStatisticsUtil.getMonitorURL(AxisMonitoringMetric.VIDEO_RESOLUTION)).thenReturn("/video-resolution");
+
+			ExtendedStatistics extendedStatistic = (ExtendedStatistics) axisCommunicator.getMultipleStatistics().get(0);
+			Map<String, String> stats = extendedStatistic.getStatistics();
+
+			Assert.assertEquals("Auto", stats.get(AxisControllingMetric.WHITE_BALANCE.getName()));
+		}
+	}
+
+	/**
+	 * Test AxisCommunicator#getMultipleStatistics success
+	 * Expect get data success
+	 */
+	@Test
+	public void testAxisCommunicatorRetrieveIRCutFilterSuccessfully() {
+		try (MockedStatic<AxisStatisticsUtil> mock = Mockito.mockStatic(AxisStatisticsUtil.class)) {
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.IR_CUT_FILTER)).thenReturn("/ir-cut-filter");
+			mock.when(() -> AxisStatisticsUtil.getMonitorURL(AxisMonitoringMetric.VIDEO_RESOLUTION)).thenReturn("/video-resolution");
+
+			ExtendedStatistics extendedStatistic = (ExtendedStatistics) axisCommunicator.getMultipleStatistics().get(0);
+			Map<String, String> stats = extendedStatistic.getStatistics();
+
+			Assert.assertEquals("Auto", stats.get(AxisControllingMetric.IR_CUT_FILTER.getName()));
+		}
+	}
+
+	/**
+	 * Test AxisCommunicator#getMultipleStatistics success
+	 * Expect get data success
+	 */
+	@Test
+	public void testAxisCommunicatorRetrieveTextOverlaySizeSuccessfully() {
+		try (MockedStatic<AxisStatisticsUtil> mock = Mockito.mockStatic(AxisStatisticsUtil.class)) {
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_SIZE)).thenReturn("/text-overlay-size");
+			mock.when(() -> AxisStatisticsUtil.getMonitorURL(AxisMonitoringMetric.VIDEO_RESOLUTION)).thenReturn("/video-resolution");
+
+			ExtendedStatistics extendedStatistic = (ExtendedStatistics) axisCommunicator.getMultipleStatistics().get(0);
+			Map<String, String> stats = extendedStatistic.getStatistics();
+
+			Assert.assertEquals("Small", stats.get(AxisControllingMetric.TEXT_OVERLAY_SIZE.getName()));
+		}
+	}
+
+	/**
+	 * Test AxisCommunicator#getMultipleStatistics success
+	 * Expect get data success
+	 */
+	@Test
+	public void testAxisCommunicatorRetrieveTextOverlayAppearanceSuccessfully() {
+		try (MockedStatic<AxisStatisticsUtil> mock = Mockito.mockStatic(AxisStatisticsUtil.class)) {
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_APPEARANCE)).thenReturn("/text-overlay-appearance");
+			mock.when(() -> AxisStatisticsUtil.getMonitorURL(AxisMonitoringMetric.VIDEO_RESOLUTION)).thenReturn("/video-resolution");
+
+			ExtendedStatistics extendedStatistic = (ExtendedStatistics) axisCommunicator.getMultipleStatistics().get(0);
+			Map<String, String> stats = extendedStatistic.getStatistics();
+
+			Assert.assertEquals("White on Black", stats.get(AxisControllingMetric.TEXT_OVERLAY_APPEARANCE.getName()));
+		}
+	}
+
+	/**
+	 * Test AxisCommunicator#getMultipleStatistics success
+	 * Expect get text overlay appearance none data
+	 */
+	@Test
+	public void testAxisCommunicatorRetrieveTextOverlayAppearanceFailed() {
+		try (MockedStatic<AxisStatisticsUtil> mock = Mockito.mockStatic(AxisStatisticsUtil.class)) {
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_APPEARANCE)).thenReturn("/text-overlay-appearance-null");
+			mock.when(() -> AxisStatisticsUtil.getMonitorURL(AxisMonitoringMetric.VIDEO_RESOLUTION)).thenReturn("/video-resolution");
+
+			ExtendedStatistics extendedStatistic = (ExtendedStatistics) axisCommunicator.getMultipleStatistics().get(0);
+			Map<String, String> stats = extendedStatistic.getStatistics();
+
+			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisControllingMetric.TEXT_OVERLAY_APPEARANCE.getName()));
 		}
 	}
 }

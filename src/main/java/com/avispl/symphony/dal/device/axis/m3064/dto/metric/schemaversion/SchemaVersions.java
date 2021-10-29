@@ -18,13 +18,13 @@ import javax.xml.bind.annotation.XmlElement;
 public class SchemaVersions {
 
 	@XmlElement(name = "SchemaVersion", namespace = AxisConstant.NAME_SPACE_OUTPUT)
-	private SchemaVersionChild schemaVersion;
+	private ChildSchemaVersion schemaVersion;
 
-	public void setSchemaVersion(SchemaVersionChild schemaVersion) {
+	public void setSchemaVersion(ChildSchemaVersion schemaVersion) {
 		this.schemaVersion = schemaVersion;
 	}
 
-	public SchemaVersionChild getSchemaVersion() {
+	public ChildSchemaVersion getSchemaVersion() {
 		return schemaVersion;
 	}
 }

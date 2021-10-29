@@ -120,6 +120,240 @@
     {
       "request": {
         "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.ColorLevel=50"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.Brightness=40"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.Brightness=120"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.Brightnes' to '120'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.ColorLevel=120"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.ColorLevel' to '120'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.Contrast=120"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.Contrast' to '120'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.Sharpness=50"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.Sharpness=120"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.Sharpness' to '120'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.WDR=on"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.WhiteBalance=auto"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/white-balance?action=update&ImageSource.I0.Sensor.WhiteBalance=auto"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/dynamic-range?action=update&ImageSource.I0.Sensor.WDR=off"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.WDR' to 'off'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/dynamic-range?action=update&ImageSource.I0.Sensor.WDR=on"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.WDR' to 'on'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.DayNight.IrCutFilter=auto"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/air-cut-filter?action=update&ImageSource.I0.DayNight.IrCutFilter=auto"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.IrCutFilter' to 'auto'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Text.TextSize=small"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/text-overlay-size?action=update&Image.I0.Text.TextSize=small"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.TextSize' to 'small'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Text.Color=white&Image.I0.Text.BGColor=black"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/text-overlay-appearance?action=update&Image.I0.Text.Color=white&Image.I0.Text.BGColor=black"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'Image.I0.Text.Color=white&Image.I0.Text.BGColor=black' to ''!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
         "url": "/axis-cgi/param.cgi?action=update&Image.I0.Appearance.MirrorEnabled=yes"
       },
       "response": {
@@ -464,6 +698,136 @@
         "body":"",
         "headers": {
           "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/saturation"
+      },
+      "response": {
+        "status": 200,
+        "body": "ImageSource.I0.Sensor.ColorLevel=50\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/contrast"
+      },
+      "response": {
+        "status": 200,
+        "body": "ImageSource.I0.Sensor.Contrast=50\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/brightness"
+      },
+      "response": {
+        "status": 200,
+        "body": "ImageSource.I0.Sensor.Brightness=50\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/sharpness"
+      },
+      "response": {
+        "status": 200,
+        "body": "ImageSource.I0.Sensor.Sharpness=50\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/wide-dynamic-range"
+      },
+      "response": {
+        "status": 200,
+        "body": "ImageSource.I0.Sensor.WhiteBalance=on\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/white-balance"
+      },
+      "response": {
+        "status": 200,
+        "body": "ImageSource.I0.Sensor.WDR=auto\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/ir-cut-filter"
+      },
+      "response": {
+        "status": 200,
+        "body": "ImageSource.I0.DayNight.IrCutFilter=auto\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/text-overlay-size"
+      },
+      "response": {
+        "status": 200,
+        "body": "Image.I0.Text.TextSize=small\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/text-overlay-appearance"
+      },
+      "response": {
+        "status": 200,
+        "body": "Image.I0.Text.Color=white\nImage.I0.Text.BGColor=black\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/text-overlay-appearance-null"
+      },
+      "response": {
+        "status": 200,
+        "body": " #Error: Error setting 'root.ImageSource.I0.Sensor.TextSize' to 'small'!",
+        "headers": {
+          "Content-Type": "application/json"
         }
       }
     }

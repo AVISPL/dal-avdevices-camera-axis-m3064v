@@ -15,7 +15,7 @@ public enum AxisMonitoringMetric {
 	VIDEO_RESOLUTION("VideoResolution", true),
 	VIDEO_FRAME_RATE("VideoFrameRate", true),
 	SCHEMA_VERSIONS("SchemaVersions", false);
-	
+
 	private final String name;
 	private final boolean isHistorical;
 
