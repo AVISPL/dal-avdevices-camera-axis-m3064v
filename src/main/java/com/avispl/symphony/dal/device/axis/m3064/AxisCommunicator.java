@@ -130,7 +130,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 			case WIDE_DYNAMIC_RANGE:
 				setControlWideDynamicRange(Integer.parseInt(value));
 				break;
-			case TEXT_OVERLAY_ENABLE:
+			case TEXT_OVERLAY:
 				setControlTextOverlayEnable(Integer.parseInt(value));
 				break;
 			case MIRRORING:
@@ -323,8 +323,8 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 				case TEXT_OVERLAY_CONTENT:
 					advancedControllableProperties.add(controlPropertiesByTextOverlayContent(control, stats));
 					break;
-				case TEXT_OVERLAY_ENABLE:
-					advancedControllableProperties.add(controlSwitch(control, stats, AxisControllingMetric.TEXT_OVERLAY_ENABLE));
+				case TEXT_OVERLAY:
+					advancedControllableProperties.add(controlSwitch(control, stats, AxisControllingMetric.TEXT_OVERLAY));
 					break;
 				case WIDE_DYNAMIC_RANGE:
 					advancedControllableProperties.add(controlSwitch(control, stats, AxisControllingMetric.WIDE_DYNAMIC_RANGE));
@@ -562,7 +562,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 				return retrieveMirroring();
 			case ROTATION:
 				return retrieveRotation();
-			case TEXT_OVERLAY_ENABLE:
+			case TEXT_OVERLAY:
 				return retrieveTextOverlayEnable();
 			case BRIGHTNESS:
 				return retrieveMultipleMetric(metric, AxisPayloadBody.GET_BRIGHTNESS);
@@ -708,7 +708,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	 */
 	private String retrieveTextOverlayEnable() {
 		try {
-			ParameterDefinitions responseData = doPost(buildDeviceFullPath(AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_ENABLE)),
+			ParameterDefinitions responseData = doPost(buildDeviceFullPath(AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY)),
 					AxisPayloadBody.ACTION + AxisPayloadBody.GET_TEXT_OVERLAY_ENABLE,
 					ParameterDefinitions.class);
 			if (responseData == null) {
@@ -834,14 +834,14 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 		try {
 			String param = value == 1 ? AxisConstant.YES : AxisConstant.NO;
 			String responseData = doGet(
-					buildDeviceFullPath(AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_ENABLE) + AxisConstant.QUESTION_MARK + AxisPayloadBody.SET_TEXT_ENABLE + AxisConstant.EQUALS_SIGN
+					buildDeviceFullPath(AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY) + AxisConstant.QUESTION_MARK + AxisPayloadBody.SET_TEXT_ENABLE + AxisConstant.EQUALS_SIGN
 							+ param));
 			if (!AxisConstant.OKE.equals(responseData)) {
-				throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR + AxisControllingMetric.TEXT_OVERLAY_ENABLE.getName());
+				throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR + AxisControllingMetric.TEXT_OVERLAY.getName());
 			}
 		} catch (Exception e) {
 			throw new ResourceNotReachableException(
-					AxisConstant.ERR_SET_CONTROL + AxisControllingMetric.TEXT_OVERLAY_ENABLE.getName() + AxisConstant.WITH_PROPERTY + value + AxisConstant.ERROR_MESSAGE + e.getMessage());
+					AxisConstant.ERR_SET_CONTROL + AxisControllingMetric.TEXT_OVERLAY.getName() + AxisConstant.WITH_PROPERTY + value + AxisConstant.ERROR_MESSAGE + e.getMessage());
 		}
 	}
 

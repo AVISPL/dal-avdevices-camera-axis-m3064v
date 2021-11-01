@@ -59,7 +59,7 @@ public class AxisCommunicatorControlTest {
 	@Test
 	public void testTextOverlayEnableWithValueIsEnable() throws Exception {
 		ControllableProperty controllableProperty = new ControllableProperty();
-		controllableProperty.setProperty(AxisControllingMetric.TEXT_OVERLAY_ENABLE.getName());
+		controllableProperty.setProperty(AxisControllingMetric.TEXT_OVERLAY.getName());
 		controllableProperty.setValue(1);
 		axisCommunicator.controlProperty(controllableProperty);
 		Mockito.verify(axisCommunicator, times(1)).doGet("http://127.0.0.1/axis-cgi/param.cgi?action=update&Image.I0.Text.TextEnabled=yes");
@@ -74,7 +74,7 @@ public class AxisCommunicatorControlTest {
 	@Test
 	public void testTextOverlayEnableWithValueIsDisable() throws Exception {
 		ControllableProperty controllableProperty = new ControllableProperty();
-		controllableProperty.setProperty(AxisControllingMetric.TEXT_OVERLAY_ENABLE.getName());
+		controllableProperty.setProperty(AxisControllingMetric.TEXT_OVERLAY.getName());
 		controllableProperty.setValue(0);
 		axisCommunicator.controlProperty(controllableProperty);
 		Mockito.verify(axisCommunicator, times(1)).doGet("http://127.0.0.1/axis-cgi/param.cgi?action=update&Image.I0.Text.TextEnabled=no");

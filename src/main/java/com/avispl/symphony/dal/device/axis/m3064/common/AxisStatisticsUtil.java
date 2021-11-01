@@ -34,7 +34,7 @@ public class AxisStatisticsUtil {
 			case TEXT_OVERLAY_CONTENT:
 			case ROTATION:
 			case MIRRORING:
-			case TEXT_OVERLAY_ENABLE:
+			case TEXT_OVERLAY:
 			case BRIGHTNESS:
 			case CONTRAST:
 			case SATURATION:

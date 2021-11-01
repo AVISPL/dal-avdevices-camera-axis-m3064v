@@ -14,7 +14,7 @@ public enum AxisControllingMetric {
 	ROTATION("VideoOutputControl#Rotation"),
 	MIRRORING("VideoOutputControl#Mirroring"),
 	TEXT_OVERLAY_CONTENT("VideoOutputControl#TextOverlayContent"),
-	TEXT_OVERLAY_ENABLE("VideoOutputControl#TextOverlayEnable"),
+	TEXT_OVERLAY("VideoOutputControl#TextOverlay"),
 	SATURATION("VideoOutputControl#Saturation"),
 	CONTRAST("VideoOutputControl#Contrast"),
 	BRIGHTNESS("VideoOutputControl#Brightness"),

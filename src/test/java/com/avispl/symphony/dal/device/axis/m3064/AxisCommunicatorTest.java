@@ -120,7 +120,7 @@ public class AxisCommunicatorTest {
 			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.MIRRORING)).thenReturn("/mirroring");
 			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.ROTATION)).thenReturn("/rotation");
 			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_CONTENT)).thenReturn("/text-overlay-content");
-			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_ENABLE)).thenReturn("/text-overlay-enable");
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY)).thenReturn("/text-overlay-enable");
 			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.IR_CUT_FILTER)).thenReturn("/ir-cut-filter");
 			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_APPEARANCE)).thenReturn("/text-overlay-appearance");
 			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_SIZE)).thenReturn("/text-overlay-size");
@@ -144,7 +144,7 @@ public class AxisCommunicatorTest {
 				if (property.getName().equals(AxisControllingMetric.MIRRORING.getName())) {
 					Assert.assertEquals(0, property.getValue());
 				}
-				if (property.getName().equals(AxisControllingMetric.TEXT_OVERLAY_ENABLE.getName())) {
+				if (property.getName().equals(AxisControllingMetric.TEXT_OVERLAY.getName())) {
 					Assert.assertEquals(0, property.getValue());
 				}
 				if (property.getName().equals(AxisControllingMetric.SHARPNESS.getName())) {
@@ -332,12 +332,12 @@ public class AxisCommunicatorTest {
 	public void testAxisCommunicatorRetrieveTestOverlayEnableIsEmpty() {
 		try (MockedStatic<AxisStatisticsUtil> mock = Mockito.mockStatic(AxisStatisticsUtil.class)) {
 			mock.when(() -> AxisStatisticsUtil.getMonitorURL(AxisMonitoringMetric.VIDEO_RESOLUTION)).thenReturn("/video-resolution");
-			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_ENABLE)).thenReturn("/text-overlay-enable-error");
+			mock.when(() -> AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY)).thenReturn("/text-overlay-enable-error");
 
 			ExtendedStatistics extendedStatistic = (ExtendedStatistics) axisCommunicator.getMultipleStatistics().get(0);
 			Map<String, String> stats = extendedStatistic.getStatistics();
 
-			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisControllingMetric.TEXT_OVERLAY_ENABLE.getName()));
+			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisControllingMetric.TEXT_OVERLAY.getName()));
 		}
 	}
 
