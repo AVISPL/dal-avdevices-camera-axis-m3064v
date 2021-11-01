@@ -20,11 +20,21 @@ public class SchemaVersions {
 	@XmlElement(name = "SchemaVersion", namespace = AxisConstant.NAME_SPACE_OUTPUT)
 	private ChildSchemaVersion schemaVersion;
 
-	public void setSchemaVersion(ChildSchemaVersion schemaVersion) {
-		this.schemaVersion = schemaVersion;
-	}
-
+	/**
+	 * Retrieves {@code {@link #schemaVersion}}
+	 *
+	 * @return value of {@link #schemaVersion}
+	 */
 	public ChildSchemaVersion getSchemaVersion() {
 		return schemaVersion;
+	}
+
+	/**
+	 * Sets {@code schemaVersion}
+	 *
+	 * @param schemaVersion the {@code com.avispl.symphony.dal.device.axis.m3064.dto.metric.schemaversion.ChildSchemaVersion} field
+	 */
+	public void setSchemaVersion(ChildSchemaVersion schemaVersion) {
+		this.schemaVersion = schemaVersion;
 	}
 }

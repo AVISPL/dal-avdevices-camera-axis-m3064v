@@ -20,11 +20,22 @@ public class ChildSchemaVersion {
 	@XmlElement(name = "VersionNumber", namespace = AxisConstant.NAME_SPACE_OUTPUT)
 	private String versionNumber;
 
+	/**
+	 * Retrieves {@code {@link #versionNumber}}
+	 *
+	 * @return value of {@link #versionNumber}
+	 */
 	public String getVersionNumber() {
 		return versionNumber;
 	}
 
+	/**
+	 * Sets {@code versionNumber}
+	 *
+	 * @param versionNumber the {@code java.lang.String} field
+	 */
 	public void setVersionNumber(String versionNumber) {
 		this.versionNumber = versionNumber;
 	}
+
 }

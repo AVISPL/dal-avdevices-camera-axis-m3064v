@@ -22,10 +22,20 @@ public class Parameter {
 	@XmlAttribute(name = "value")
 	private String value;
 
+	/**
+	 * Retrieves {@code {@link #value}}
+	 *
+	 * @return value of {@link #value}
+	 */
 	public String getValue() {
 		return value;
 	}
 
+	/**
+	 * Sets {@code value}
+	 *
+	 * @param value the {@code java.lang.String} field
+	 */
 	public void setValue(String value) {
 		this.value = value;
 	}

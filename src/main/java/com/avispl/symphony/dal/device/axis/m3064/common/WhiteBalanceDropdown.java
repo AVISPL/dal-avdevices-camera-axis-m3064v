@@ -33,14 +33,27 @@ public enum WhiteBalanceDropdown {
 		this.value = value;
 	}
 
-	public static String[] names() {
-		List<String> list = new LinkedList<>();
-		for (WhiteBalanceDropdown whiteBalanceDropdown : WhiteBalanceDropdown.values()) {
-			list.add(whiteBalanceDropdown.getName());
-		}
-		return list.toArray(new String[list.size()]);
+	/**
+	 * Retrieves {@code {@link #name}}
+	 *
+	 * @return value of {@link #name}
+	 */
+	public String getName() {
+		return name;
 	}
 
+	/**
+	 * Retrieves {@code {@link #value}}
+	 *
+	 * @return value of {@link #value}
+	 */
+	public String getValue() {
+		return value;
+	}
+
+	/**
+	 * Retrieves name to value map of WhiteBalanceDropdown
+	 */
 	public static Map<String, String> getNameToValueMap() {
 		Map<String, String> nameToValue = new HashMap<>();
 		for (WhiteBalanceDropdown whiteBalanceControl : WhiteBalanceDropdown.values()) {
@@ -49,6 +62,9 @@ public enum WhiteBalanceDropdown {
 		return nameToValue;
 	}
 
+	/**
+	 * Retrieves value to name map of WhiteBalanceDropdown
+	 */
 	public static Map<String, String> getValueToNameMap() {
 		Map<String, String> valueToName = new HashMap<>();
 		for (WhiteBalanceDropdown whiteBalanceControl : WhiteBalanceDropdown.values()) {
@@ -57,11 +73,14 @@ public enum WhiteBalanceDropdown {
 		return valueToName;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public String getValue() {
-		return value;
+	/**
+	 * Retrieves all name of WhiteBalanceDropdown
+	 */
+	public static String[] names() {
+		List<String> list = new LinkedList<>();
+		for (WhiteBalanceDropdown whiteBalanceDropdown : WhiteBalanceDropdown.values()) {
+			list.add(whiteBalanceDropdown.getName());
+		}
+		return list.toArray(new String[list.size()]);
 	}
 }

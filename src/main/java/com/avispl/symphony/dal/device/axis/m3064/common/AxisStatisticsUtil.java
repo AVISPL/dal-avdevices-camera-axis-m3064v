@@ -13,6 +13,9 @@ import java.util.Objects;
  */
 public class AxisStatisticsUtil {
 
+	/**
+	 * Retrieves the URL for monitoring process
+	 */
 	public static String getMonitorURL(AxisMonitoringMetric axisMonitoringMetric) {
 		Objects.requireNonNull(axisMonitoringMetric);
 		switch (axisMonitoringMetric) {
@@ -28,6 +31,9 @@ public class AxisStatisticsUtil {
 		}
 	}
 
+	/**
+	 * Retrieves the URL for controlling process
+	 */
 	public static String getControlURL(AxisControllingMetric axisControllingMetric) {
 		Objects.requireNonNull(axisControllingMetric);
 		switch (axisControllingMetric) {

@@ -29,14 +29,27 @@ public enum IRCutFilterDropdown {
 		this.value = value;
 	}
 
+	/**
+	 * Retrieves {@code {@link #name}}
+	 *
+	 * @return value of {@link #name}
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Retrieves {@code {@link #value}}
+	 *
+	 * @return value of {@link #value}
+	 */
 	public String getValue() {
 		return value;
 	}
 
+	/**
+	 * Retrieves name to value map of IRCut metric
+	 */
 	public static Map<String, String> getNameToValueMap() {
 		Map<String, String> nameToValue = new HashMap<>();
 		for (IRCutFilterDropdown iRCutFilterDropdown : IRCutFilterDropdown.values()) {
@@ -45,6 +58,9 @@ public enum IRCutFilterDropdown {
 		return nameToValue;
 	}
 
+	/**
+	 * Retrieves value to name map of IRCut metric
+	 */
 	public static Map<String, String> getValueToNameMap() {
 		Map<String, String> valueToName = new HashMap<>();
 		for (IRCutFilterDropdown iRCutFilterDropdown : IRCutFilterDropdown.values()) {
@@ -53,6 +69,9 @@ public enum IRCutFilterDropdown {
 		return valueToName;
 	}
 
+	/**
+	 * Retrieves all name of IRCut metric
+	 */
 	public static String[] names() {
 		List<String> list = new LinkedList<>();
 		for (IRCutFilterDropdown irCutFilterDropdown : IRCutFilterDropdown.values()) {

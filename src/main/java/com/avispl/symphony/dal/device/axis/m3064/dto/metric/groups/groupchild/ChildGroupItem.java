@@ -21,10 +21,20 @@ public class ChildGroupItem {
 	@XmlElement(name = "parameter", namespace = AxisConstant.NAME_SPACE)
 	private ChildParameterItem parameter;
 
+	/**
+	 * Retrieves {@code {@link #parameter}}
+	 *
+	 * @return value of {@link #parameter}
+	 */
 	public ChildParameterItem getParameter() {
 		return parameter;
 	}
 
+	/**
+	 * Sets {@code parameter}
+	 *
+	 * @param parameter the {@code com.avispl.symphony.dal.device.axis.m3064.dto.metric.groups.groupchild.ChildParameterItem} field
+	 */
 	public void setParameter(ChildParameterItem parameter) {
 		this.parameter = parameter;
 	}

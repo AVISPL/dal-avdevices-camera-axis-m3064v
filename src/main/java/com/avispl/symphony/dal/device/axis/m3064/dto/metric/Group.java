@@ -22,11 +22,22 @@ public class Group {
 	@XmlElement(name = "group", namespace = AxisConstant.NAME_SPACE)
 	private ChildGroup groupChild;
 
+	/**
+	 * Retrieves {@code {@link #groupChild}}
+	 *
+	 * @return value of {@link #groupChild}
+	 */
 	public ChildGroup getGroupChild() {
 		return groupChild;
 	}
 
+	/**
+	 * Sets {@code groupChild}
+	 *
+	 * @param groupChild the {@code com.avispl.symphony.dal.device.axis.m3064.dto.metric.groups.ChildGroup} field
+	 */
 	public void setGroupChild(ChildGroup groupChild) {
 		this.groupChild = groupChild;
 	}
+
 }

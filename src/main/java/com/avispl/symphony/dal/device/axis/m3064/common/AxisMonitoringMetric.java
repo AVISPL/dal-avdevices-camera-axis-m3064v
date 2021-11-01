@@ -24,11 +24,21 @@ public enum AxisMonitoringMetric {
 		this.isHistorical = isHistorical;
 	}
 
-	public boolean isHistorical() {
-		return isHistorical;
+	/**
+	 * Retrieves {@code {@link #name}}
+	 *
+	 * @return value of {@link #name}
+	 */
+	public String getName() {
+		return name;
 	}
 
-	public String getName() {
-		return this.name;
+	/**
+	 * Retrieves {@code {@link #isHistorical}}
+	 *
+	 * @return value of {@link #isHistorical}
+	 */
+	public boolean isHistorical() {
+		return isHistorical;
 	}
 }

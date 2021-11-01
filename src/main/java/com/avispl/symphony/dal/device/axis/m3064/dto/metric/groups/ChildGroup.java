@@ -22,19 +22,39 @@ public class ChildGroup {
 	@XmlElement(name = "group", namespace = AxisConstant.NAME_SPACE)
 	private ChildGroupItem childGroupItem;
 
-	public ChildGroupItem getChildGroupItem() {
-		return childGroupItem;
-	}
-
-	public void setChildGroupItem(ChildGroupItem childGroupItem) {
-		this.childGroupItem = childGroupItem;
-	}
-
+	/**
+	 * Retrieves {@code {@link #parameter}}
+	 *
+	 * @return value of {@link #parameter}
+	 */
 	public Parameter getParameter() {
 		return parameter;
 	}
 
+	/**
+	 * Sets {@code parameter}
+	 *
+	 * @param parameter the {@code com.avispl.symphony.dal.device.axis.m3064.dto.metric.groups.group.Parameter} field
+	 */
 	public void setParameter(Parameter parameter) {
 		this.parameter = parameter;
+	}
+
+	/**
+	 * Retrieves {@code {@link #childGroupItem}}
+	 *
+	 * @return value of {@link #childGroupItem}
+	 */
+	public ChildGroupItem getChildGroupItem() {
+		return childGroupItem;
+	}
+
+	/**
+	 * Sets {@code childGroupItem}
+	 *
+	 * @param childGroupItem the {@code com.avispl.symphony.dal.device.axis.m3064.dto.metric.groups.groupchild.ChildGroupItem} field
+	 */
+	public void setChildGroupItem(ChildGroupItem childGroupItem) {
+		this.childGroupItem = childGroupItem;
 	}
 }
