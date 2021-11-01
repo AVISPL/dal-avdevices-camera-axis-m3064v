@@ -11,19 +11,19 @@ package com.avispl.symphony.dal.device.axis.m3064.common;
  */
 public enum AxisControllingMetric {
 
-	ROTATION("VideoOutputControl#Rotation"),
-	MIRRORING("VideoOutputControl#Mirroring"),
-	TEXT_OVERLAY_CONTENT("VideoOutputControl#TextOverlayContent"),
-	TEXT_OVERLAY("VideoOutputControl#TextOverlay"),
-	SATURATION("VideoOutputControl#Saturation"),
-	CONTRAST("VideoOutputControl#Contrast"),
-	BRIGHTNESS("VideoOutputControl#Brightness"),
-	SHARPNESS("VideoOutputControl#Sharpness"),
-	WIDE_DYNAMIC_RANGE("VideoOutputControl#WideDynamicRange"),
-	WHITE_BALANCE("VideoOutputControl#WhiteBalance"),
-	IR_CUT_FILTER("VideoOutputControl#IRCutFilter"),
-	TEXT_OVERLAY_SIZE("VideoOutputControl#TextOverlaySize"),
-	TEXT_OVERLAY_APPEARANCE("VideoOutputControl#TextOverlayAppearance");
+	ROTATION("Orientation#Rotation"),
+	MIRRORING("Orientation#Mirroring"),
+	SATURATION("Appearance#Saturation"),
+	CONTRAST("Appearance#Contrast"),
+	BRIGHTNESS("Appearance#Brightness"),
+	SHARPNESS("Appearance#Sharpness"),
+	WIDE_DYNAMIC_RANGE("Sensor#WideDynamicRange"),
+	WHITE_BALANCE("Sensor#WhiteBalance"),
+	IR_CUT_FILTER("Sensor#IRCutFilter"),
+	TEXT_OVERLAY("TextOverlay#TextOverlay"),
+	TEXT_OVERLAY_CONTENT("TextOverlay#TextOverlayContent"),
+	TEXT_OVERLAY_SIZE("TextOverlay#TextOverlaySize"),
+	TEXT_OVERLAY_APPEARANCE("TextOverlay#TextOverlayAppearance");
 
 	public static AxisControllingMetric getByName(String name) {
 		for (AxisControllingMetric metric : AxisControllingMetric.values()) {

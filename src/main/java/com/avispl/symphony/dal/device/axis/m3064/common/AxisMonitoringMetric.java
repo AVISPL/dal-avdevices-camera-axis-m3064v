@@ -11,7 +11,7 @@ package com.avispl.symphony.dal.device.axis.m3064.common;
  */
 public enum AxisMonitoringMetric {
 
-	DEVICE_INFO("DeviceInfo", false),
+	DEVICE_INFO("DeviceInformation", false),
 	VIDEO_RESOLUTION("VideoResolution", true),
 	VIDEO_FRAME_RATE("VideoFrameRate", true),
 	SCHEMA_VERSIONS("SchemaVersions", false);
