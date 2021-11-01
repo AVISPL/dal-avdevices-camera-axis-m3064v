@@ -1,7 +1,6 @@
 /*
  * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
  */
-
 package com.avispl.symphony.dal.device.axis.m3064.dto.metric.groups.groupchild;
 
 import com.avispl.symphony.dal.device.axis.m3064.common.AxisConstant;
