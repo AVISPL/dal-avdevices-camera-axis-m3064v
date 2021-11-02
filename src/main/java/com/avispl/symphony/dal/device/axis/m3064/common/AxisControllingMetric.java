@@ -25,6 +25,21 @@ public enum AxisControllingMetric {
 	TEXT_OVERLAY_SIZE("TextOverlay#TextOverlaySize"),
 	TEXT_OVERLAY_APPEARANCE("TextOverlay#TextOverlayAppearance");
 
+	private final String name;
+
+	AxisControllingMetric(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * Retrieves {@code {@link #name}}
+	 *
+	 * @return value of {@link #name}
+	 */
+	public String getName() {
+		return name;
+	}
+
 	public static AxisControllingMetric getByName(String name) {
 		for (AxisControllingMetric metric : AxisControllingMetric.values()) {
 			if (metric.getName().equals(name)) {
@@ -32,15 +47,5 @@ public enum AxisControllingMetric {
 			}
 		}
 		throw new IllegalArgumentException("Can not find the enum with name: " + name);
-	}
-
-	private final String name;
-
-	AxisControllingMetric(String name) {
-		this.name = name;
-	}
-
-	public String getName() {
-		return this.name;
 	}
 }

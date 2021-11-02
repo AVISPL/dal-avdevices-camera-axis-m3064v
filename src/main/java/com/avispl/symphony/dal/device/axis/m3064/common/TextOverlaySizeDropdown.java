@@ -19,6 +19,7 @@ public enum TextOverlaySizeDropdown {
 	SMALL("Small", "small"),
 	MEDIUM("Medium", "medium"),
 	LARGE("Large", "large");
+
 	private final String name;
 
 	private final String value;
@@ -28,22 +29,27 @@ public enum TextOverlaySizeDropdown {
 		this.value = value;
 	}
 
-	public String getValue() {
-		return value;
-	}
-
+	/**
+	 * Retrieves {@code {@link #name}}
+	 *
+	 * @return value of {@link #name}
+	 */
 	public String getName() {
 		return name;
 	}
 
-	public static String[] names() {
-		List<String> list = new LinkedList<>();
-		for (TextOverlaySizeDropdown textOverlaySizeDropdown : TextOverlaySizeDropdown.values()) {
-			list.add(textOverlaySizeDropdown.getName());
-		}
-		return list.toArray(new String[list.size()]);
+	/**
+	 * Retrieves {@code {@link #value}}
+	 *
+	 * @return value of {@link #value}
+	 */
+	public String getValue() {
+		return value;
 	}
 
+	/**
+	 * Retrieves name to value map of TextOverlaySizeDropdown
+	 */
 	public static Map<String, String> getNameToValueMap() {
 		Map<String, String> nameToValue = new HashMap<>();
 		for (TextOverlaySizeDropdown textOverlaySizeDropdown : TextOverlaySizeDropdown.values()) {
@@ -52,11 +58,25 @@ public enum TextOverlaySizeDropdown {
 		return nameToValue;
 	}
 
+	/**
+	 * Retrieves value to name map of TextOverlaySizeDropdown
+	 */
 	public static Map<String, String> getValueToNameMap() {
 		Map<String, String> valueToName = new HashMap<>();
 		for (TextOverlaySizeDropdown textOverlaySizeDropdown : TextOverlaySizeDropdown.values()) {
 			valueToName.put(textOverlaySizeDropdown.getValue(), textOverlaySizeDropdown.getName());
 		}
 		return valueToName;
+	}
+
+	/**
+	 * Retrieves all name of TextOverlaySizeDropdown
+	 */
+	public static String[] names() {
+		List<String> list = new LinkedList<>();
+		for (TextOverlaySizeDropdown textOverlaySizeDropdown : TextOverlaySizeDropdown.values()) {
+			list.add(textOverlaySizeDropdown.getName());
+		}
+		return list.toArray(new String[list.size()]);
 	}
 }

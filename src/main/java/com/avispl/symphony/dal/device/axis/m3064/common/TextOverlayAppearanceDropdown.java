@@ -30,6 +30,27 @@ public enum TextOverlayAppearanceDropdown {
 		this.value = value;
 	}
 
+	/**
+	 * Retrieves {@code {@link #name}}
+	 *
+	 * @return value of {@link #name}
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Retrieves {@code {@link #value}}
+	 *
+	 * @return value of {@link #value}
+	 */
+	public String getValue() {
+		return value;
+	}
+
+	/**
+	 * Retrieves name to value map of TextOverlayAppearanceDropdown
+	 */
 	public static Map<String, String> getNameToValueMap() {
 		Map<String, String> nameToValue = new HashMap<>();
 		for (TextOverlayAppearanceDropdown textOverlayAppearanceDropdown : TextOverlayAppearanceDropdown.values()) {
@@ -38,6 +59,9 @@ public enum TextOverlayAppearanceDropdown {
 		return nameToValue;
 	}
 
+	/**
+	 * Retrieves value to name map of TextOverlayAppearanceDropdown
+	 */
 	public static Map<String, String> getValueToNameMap() {
 		Map<String, String> valueToName = new HashMap<>();
 		for (TextOverlayAppearanceDropdown textOverlayAppearanceDropdown : TextOverlayAppearanceDropdown.values()) {
@@ -46,19 +70,14 @@ public enum TextOverlayAppearanceDropdown {
 		return valueToName;
 	}
 
+	/**
+	 * Retrieves all name of TextOverlayAppearanceDropdown
+	 */
 	public static String[] names() {
 		List<String> list = new LinkedList<>();
 		for (TextOverlayAppearanceDropdown textOverlayAppearanceDropdown : TextOverlayAppearanceDropdown.values()) {
 			list.add(textOverlayAppearanceDropdown.getName());
 		}
 		return list.toArray(new String[list.size()]);
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getValue() {
-		return value;
 	}
 }

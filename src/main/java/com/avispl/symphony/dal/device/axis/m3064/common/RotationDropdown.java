@@ -25,10 +25,18 @@ public enum RotationDropdown {
 
 	private final String name;
 
+	/**
+	 * Retrieves {@code {@link #name}}
+	 *
+	 * @return value of {@link #name}
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Retrieves all name of RotationDropDown
+	 */
 	public static String[] names() {
 		List<String> list = new LinkedList<>();
 		for (RotationDropdown rotationDropdown : RotationDropdown.values()) {
