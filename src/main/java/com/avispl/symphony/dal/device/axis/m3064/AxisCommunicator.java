@@ -36,9 +36,9 @@ import com.avispl.symphony.dal.device.axis.m3064.dto.SchemaVersionStatus;
 import com.avispl.symphony.dal.device.axis.m3064.dto.metric.groups.group.Parameter;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.google.gson.Gson;
 
 import com.avispl.symphony.dal.device.axis.m3064.dto.metric.groups.groupchild.ChildParameterItem;
 import com.avispl.symphony.dal.util.StringUtils;
@@ -624,8 +624,8 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 		try {
 			JsonNode responseData = doPost(buildDeviceFullPath(AxisStatisticsUtil.getMonitorURL(AxisMonitoringMetric.DEVICE_INFO)), request, JsonNode.class);
 			if (responseData != null) {
-				Gson gson = new Gson();
-				DeviceInfo deviceInfo = gson.fromJson(responseData.get(DeviceInfo.DATA).get(DeviceInfo.PROPERTIES).toString(), DeviceInfo.class);
+				ObjectMapper mapper =new ObjectMapper();
+				DeviceInfo deviceInfo =mapper.readerFor(DeviceInfo.class).readValue(responseData.get(DeviceInfo.DATA).get(DeviceInfo.PROPERTIES).toString());
 
 				stats.put(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.BRAND, checkNoneData(deviceInfo.getBrand()));
 				stats.put(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.BUILD_DATE, checkNoneData(deviceInfo.getBuildDate()));

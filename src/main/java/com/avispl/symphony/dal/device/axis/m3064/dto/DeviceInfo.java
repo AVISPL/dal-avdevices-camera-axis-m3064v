@@ -5,7 +5,8 @@ package com.avispl.symphony.dal.device.axis.m3064.dto;
 
 import java.util.Objects;
 
-import com.google.gson.annotations.SerializedName;
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * All properties provided by the BDI (Basic device information) service.
@@ -13,30 +14,31 @@ import com.google.gson.annotations.SerializedName;
  * @author Ivan
  * @since 1.0
  */
+@JsonIgnoreProperties( { "Archtecture", "ProdNbr", "ProdShortName", "ProdType", "ProdVariant", "Soc", "SocSerialNumber" })
 public class DeviceInfo {
 
 	public static final String DATA = "data";
 	public static final String PROPERTIES = "propertyList";
 
-	@SerializedName("Brand")
+	@JsonAlias("Brand")
 	private String brand;
 
-	@SerializedName("BuildDate")
+	@JsonAlias("BuildDate")
 	private String buildDate;
 
-	@SerializedName("HardwareID")
+	@JsonAlias("HardwareID")
 	private String hardwareID;
 
-	@SerializedName("ProdFullName")
+	@JsonAlias("ProdFullName")
 	private String prodFullName;
 
-	@SerializedName("SerialNumber")
+	@JsonAlias("SerialNumber")
 	private String serialNumber;
 
-	@SerializedName("Version")
+	@JsonAlias("Version")
 	private String version;
 
-	@SerializedName("WebURL")
+	@JsonAlias("WebURL")
 	private String webURL;
 
 	public DeviceInfo() {
