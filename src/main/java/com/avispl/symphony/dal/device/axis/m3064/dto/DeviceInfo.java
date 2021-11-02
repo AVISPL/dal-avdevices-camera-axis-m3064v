@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @author Ivan
  * @since 1.0
  */
-@JsonIgnoreProperties( { "Archtecture", "ProdNbr", "ProdShortName", "ProdType", "ProdVariant", "Soc", "SocSerialNumber" })
+@JsonIgnoreProperties( { "Architecture", "ProdNbr", "ProdShortName", "ProdType", "ProdVariant", "Soc", "SocSerialNumber" })
 public class DeviceInfo {
 
 	public static final String DATA = "data";
