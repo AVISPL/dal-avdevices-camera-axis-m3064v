@@ -747,11 +747,11 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 		try {
 			SystemParameterDefinitions response = doGet(buildDeviceFullPath(AxisURL.URL_PARAM_CGI) + AxisConstant.QUESTION_MARK + AxisPayloadBody.ACTION + AxisPayloadBody.GET_PROTOCOL,
 					SystemParameterDefinitions.class);
-			SystemChildGroupList[] systemChildGroup1 = response.getGroup().getGroupChildren().getSystemChildGroupLists();
-			for (int i = 0; i < systemChildGroup1.length; i++) {
-				SystemChildGroupList systemChildGroup11 = systemChildGroup1[i];
-				if (AxisConstant.BOA_GROUP_POLICY.equals(systemChildGroup11.getName())) {
-					SystemParameter[] paramSystems = systemChildGroup11.getSystemParameters();
+			SystemChildGroupList[] systemChildGroup = response.getGroup().getGroupChildren().getSystemChildGroupLists();
+			for (int i = 0; i < systemChildGroup.length; i++) {
+				SystemChildGroupList systemChildGroupItem = systemChildGroup[i];
+				if (AxisConstant.BOA_GROUP_POLICY.equals(systemChildGroupItem.getName())) {
+					SystemParameter[] paramSystems = systemChildGroupItem.getSystemParameters();
 					String deviceAdminProtocol = getAdminProtocol(paramSystems);
 					if (deviceAdminProtocol == null) {
 						throw new IllegalStateException("Protocol not found");
