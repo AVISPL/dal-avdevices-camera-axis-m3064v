@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
+ * Copyright (c) 2021 AVI-SPL, Inc. All Rights Reserved.
  */
 package com.avispl.symphony.dal.device.axis.m3064.common;
 
@@ -12,6 +12,7 @@ import java.util.Map;
  * WhiteBalanceDropdown class defined the enum for controlling process
  *
  * @author Ivan
+ * @version 1.0
  * @since 1.0
  */
 public enum WhiteBalanceDropdown {
@@ -28,6 +29,12 @@ public enum WhiteBalanceDropdown {
 
 	private final String value;
 
+	/**
+	 * WhiteBalanceDropdown instantiation
+	 *
+	 * @param name {@code {@link #name}}
+	 * @param value {@code {@link #value}}
+	 */
 	WhiteBalanceDropdown(String name, String value) {
 		this.name = name;
 		this.value = value;
@@ -53,6 +60,7 @@ public enum WhiteBalanceDropdown {
 
 	/**
 	 * Retrieves name to value map of WhiteBalanceDropdown
+	 * @return Map<String,String> are name and value
 	 */
 	public static Map<String, String> getNameToValueMap() {
 		Map<String, String> nameToValue = new HashMap<>();
@@ -64,6 +72,8 @@ public enum WhiteBalanceDropdown {
 
 	/**
 	 * Retrieves value to name map of WhiteBalanceDropdown
+	 *
+	 * @return Map<String,String> are value and name
 	 */
 	public static Map<String, String> getValueToNameMap() {
 		Map<String, String> valueToName = new HashMap<>();
@@ -75,6 +85,7 @@ public enum WhiteBalanceDropdown {
 
 	/**
 	 * Retrieves all name of WhiteBalanceDropdown
+	 * @return list name of white balance dropdown
 	 */
 	public static String[] names() {
 		List<String> list = new LinkedList<>();

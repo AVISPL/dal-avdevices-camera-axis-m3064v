@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
+ * Copyright (c) 2021 AVI-SPL, Inc. All Rights Reserved.
  */
 package com.avispl.symphony.dal.device.axis.m3064.common;
 
@@ -10,6 +10,7 @@ import java.util.List;
  * RotationDropdown class defined the enum for controlling process
  *
  * @author Ivan
+ * @version 1.0
  * @since 1.0
  */
 public enum RotationDropdown {
@@ -19,6 +20,11 @@ public enum RotationDropdown {
 	ONE_HUNDRED_EIGHTY("180"),
 	TWO_HUNDRED_SEVENTY("270");
 
+	/**
+	 * RotationDropdown instantiation
+	 *
+	 * @param name {@code {@link #name}}
+	 */
 	RotationDropdown(String name) {
 		this.name = name;
 	}
@@ -36,6 +42,7 @@ public enum RotationDropdown {
 
 	/**
 	 * Retrieves all name of RotationDropDown
+	 * @return list name of rotation
 	 */
 	public static String[] names() {
 		List<String> list = new LinkedList<>();

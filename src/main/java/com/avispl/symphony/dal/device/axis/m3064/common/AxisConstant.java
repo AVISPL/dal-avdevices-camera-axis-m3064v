@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
+ * Copyright (c) 2021 AVI-SPL, Inc. All Rights Reserved.
  */
 package com.avispl.symphony.dal.device.axis.m3064.common;
 
@@ -7,11 +7,13 @@ package com.avispl.symphony.dal.device.axis.m3064.common;
  * AxisConstant class provides the constant during the monitoring and controlling process
  *
  * @author Ivan
+ * @version 1.0
  * @since 1.0
  */
 public final class AxisConstant {
 
 	public static final String HTTP = "http://";
+	public static final String HTTPS = "https://";
 	public static final String COLON = ":";
 	public static final String NONE = "None";
 	public static final String AT = "@";
@@ -36,6 +38,7 @@ public final class AxisConstant {
 	public static final String DEVICE_NAME = "#DeviceName";
 	public static final String NO_SET_ERR = "The request is failed. Can not control the value: ";
 	public static final String NO_RESPONSE_ERR = "The request success but it has no response body";
+	public static final String ERR_PROTOCOL = "The device is being down. Can not request the data from device";
 	public static final String NAME_SPACE = "http://www.axis.com/ParameterDefinitionsSchema";
 	public static final String NAME_SPACE_OUTPUT = "http://www.axis.com/vapix/http_cgi/videooutput1";
 	public static final String ERR_SET_CONTROL = "Error when controlling: ";
@@ -44,5 +47,9 @@ public final class AxisConstant {
 	public static final String UNDERSCORE = "_";
 	public static final String NEWLINE = "\n";
 	public static final String FPS = " fps";
+	public static final String BOA_GROUP_POLICY = "BoaGroupPolicy";
+	public static final String ADMIN = "admin";
+	public static final String BOTH = "both";
+	public static final String PROTOCOL_PREFIX = "://";
 
 }

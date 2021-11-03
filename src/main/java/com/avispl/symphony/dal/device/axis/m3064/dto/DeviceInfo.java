@@ -1,5 +1,5 @@
 /*
- *  * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
+ *  * Copyright (c) 2021 AVI-SPL, Inc. All Rights Reserved.
  */
 package com.avispl.symphony.dal.device.axis.m3064.dto;
 
@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * All properties provided by the BDI (Basic device information) service.
  *
  * @author Ivan
+ * @version 1.0
  * @since 1.0
  */
 @JsonIgnoreProperties( { "Architecture", "ProdNbr", "ProdShortName", "ProdType", "ProdVariant", "Soc", "SocSerialNumber" })
@@ -41,6 +42,9 @@ public class DeviceInfo {
 	@JsonAlias("WebURL")
 	private String webURL;
 
+	/**
+	 * DeviceInfo instantiation
+	 */
 	public DeviceInfo() {
 	}
 

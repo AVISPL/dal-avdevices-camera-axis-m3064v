@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
+ * Copyright (c) 2021 AVI-SPL, Inc. All Rights Reserved.
  */
 package com.avispl.symphony.dal.device.axis.m3064.dto.metric.groups.groupchild;
 
@@ -8,9 +8,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 
 /**
- * Device ParameterChildItem class is the member data of ChildGroupItem
+ * Device ChildParameterItem class is the member data of ChildGroupItem
  *
  * @author Ivan
+ * @version 1.0
  * @since 1.0
  */
 @XmlAccessorType(XmlAccessType.NONE)

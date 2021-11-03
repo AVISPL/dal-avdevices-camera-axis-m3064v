@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
+ * Copyright (c) 2021 AVI-SPL, Inc. All Rights Reserved.
  */
 package com.avispl.symphony.dal.device.axis.m3064.dto;
 
@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * ParameterDefinitions is the definition of the response from Axis device when using param.cgi
  *
  * @author Ivan
+ * @version 1.0
  * @since 1.0
  */
 @XmlRootElement(name = "parameterDefinitions", namespace = AxisConstant.NAME_SPACE)

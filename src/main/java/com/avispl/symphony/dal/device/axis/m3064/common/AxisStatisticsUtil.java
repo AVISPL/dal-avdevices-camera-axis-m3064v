@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
+ * Copyright (c) 2021 AVI-SPL, Inc. All Rights Reserved.
  */
 package com.avispl.symphony.dal.device.axis.m3064.common;
 
@@ -9,12 +9,17 @@ import java.util.Objects;
  * AxisStatisticsUtil class support getting the URL by metric
  *
  * @author Ivan
+ * @version 1.0
  * @since 1.0
  */
 public class AxisStatisticsUtil {
 
 	/**
 	 * Retrieves the URL for monitoring process
+	 *
+	 * @param axisMonitoringMetric is instance of AxisMonitoringMetric
+	 * @return URL is instance of AxisURL
+	 * @throws Exception if the name is not supported
 	 */
 	public static String getMonitorURL(AxisMonitoringMetric axisMonitoringMetric) {
 		Objects.requireNonNull(axisMonitoringMetric);
@@ -33,6 +38,10 @@ public class AxisStatisticsUtil {
 
 	/**
 	 * Retrieves the URL for controlling process
+	 *
+	 * @param axisControllingMetric is instance of AxisControllingMetric
+	 * @return URL is instance of AxisURL
+	 * @throws Exception if the name is not supported
 	 */
 	public static String getControlURL(AxisControllingMetric axisControllingMetric) {
 		Objects.requireNonNull(axisControllingMetric);

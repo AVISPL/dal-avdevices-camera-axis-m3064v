@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
+ * Copyright (c) 2021 AVI-SPL, Inc. All Rights Reserved.
  */
 package com.avispl.symphony.dal.device.axis.m3064;
 
@@ -25,6 +25,7 @@ import com.avispl.symphony.dal.device.axis.m3064.common.AxisMonitoringMetric;
 import com.avispl.symphony.dal.device.axis.m3064.common.AxisPayloadBody;
 import com.avispl.symphony.dal.device.axis.m3064.common.AxisRequest;
 import com.avispl.symphony.dal.device.axis.m3064.common.AxisStatisticsUtil;
+import com.avispl.symphony.dal.device.axis.m3064.common.AxisURL;
 import com.avispl.symphony.dal.device.axis.m3064.common.IRCutFilterDropdown;
 import com.avispl.symphony.dal.device.axis.m3064.common.RotationDropdown;
 import com.avispl.symphony.dal.device.axis.m3064.common.TextOverlayAppearanceDropdown;
@@ -33,6 +34,7 @@ import com.avispl.symphony.dal.device.axis.m3064.common.WhiteBalanceDropdown;
 import com.avispl.symphony.dal.device.axis.m3064.dto.DeviceInfo;
 import com.avispl.symphony.dal.device.axis.m3064.dto.ParameterDefinitions;
 import com.avispl.symphony.dal.device.axis.m3064.dto.SchemaVersionStatus;
+import com.avispl.symphony.dal.device.axis.m3064.dto.SystemParameterDefinitions;
 import com.avispl.symphony.dal.device.axis.m3064.dto.metric.groups.group.Parameter;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -40,7 +42,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import com.avispl.symphony.dal.device.axis.m3064.dto.metric.groups.group.SystemParameter;
 import com.avispl.symphony.dal.device.axis.m3064.dto.metric.groups.groupchild.ChildParameterItem;
+import com.avispl.symphony.dal.device.axis.m3064.dto.metric.groups.groupchild.SystemChildGroupList;
 import com.avispl.symphony.dal.util.StringUtils;
 
 import org.springframework.http.HttpHeaders;
@@ -50,33 +54,37 @@ import org.springframework.util.CollectionUtils;
 /**
  * An implementation of RestCommunicator to provide communication and interaction with AXIS M3064-V Camera.
  * Supported features are:
- *
+ * <p>
  * Monitoring:
- * - Schema versions
- * - Video resolution
- * - Video frame rate
- * - Brand
- * - Build day
- * - Device name
- * - Hardware ID
- * - Serial number
- * - Version
- * - Web URL
- *
+ * <ul>
+ * 		<li>- Schema versions </li>
+ * 		<li>- Video resolution </li>
+ * 		<li>- Video frame rate </li>
+ * 		<li>- Brand </li>
+ * 		<li>- Build day </li>
+ * 		<li>- Device name </li>
+ * 		<li>- Hardware ID </li>
+ * 		<li>- Serial number </li>
+ * 		<li>- Version </li>
+ * 		<li>- Web URL </li>
+ * </ul>
+ * <p>
  * Controlling:
- * - Mirroring
- * - Rotation
- * - Text overlay
- * - Text overlay content
- * - Saturation
- * - Contrast
- * - Brightness
- * - Sharpness
- * - Wide dynamic range
- * - White balance
- * - IR-cut filter
- * - Text overlay size
- * - Text overlay appearance
+ * <ul>
+ * 		<li>- Mirroring </li>
+ * 		<li>- Rotation </li>
+ * 		<li>- Text overlay </li>
+ * 		<li>- Text overlay content </li>
+ * 		<li>- Saturation </li>
+ * 		<li>- Contrast </li>
+ * 		<li>- Brightness </li>
+ * 		<li>- Sharpness </li>
+ * 		<li>- Wide dynamic range </li>
+ * 		<li>- White balance </li>
+ * 		<li>- IR-cut filter </li>
+ * 		<li>- Text overlay size </li>
+ * 		<li>- Text overlay appearance </li>
+ * </ul>
  *
  * @author Ivan
  * @version 1.0
@@ -86,14 +94,30 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 
 	private ExtendedStatistics localExtendedStatistics;
 	private Map<String, String> failedMonitor;
-
 	private Integer numberHistorical = null;
+	private String axisProtocol = AxisConstant.HTTP;
 
+	/**
+	 * AxisCommunicator instantiation
+	 */
+	public AxisCommunicator() {
+		// typically devices do not have trusted certificates, instruct to trust all
+		setTrustAllCertificates(true);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	protected void authenticate() {
 		// The device has its own authentication behavior, do not use the common one
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * <p>
+	 * Set content type into in headers
+	 */
 	@Override
 	protected HttpHeaders putExtraRequestHeaders(HttpMethod httpMethod, String uri, HttpHeaders headers) throws Exception {
 		headers.set("Content-Type", "text/xml");
@@ -101,15 +125,32 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 		return super.putExtraRequestHeaders(httpMethod, uri, headers);
 	}
 
+	/**
+	 * This method is called by Symphony to control the properties in the device
+	 *
+	 * @param list the list ControllableProperty instance
+	 * @throws Exception if ControllableProperty list is empty
+	 */
 	@Override
 	public void controlProperties(List<ControllableProperty> list) {
 		if (CollectionUtils.isEmpty(list)) {
-			throw new IllegalArgumentException("NetGearCommunicator: Controllable properties cannot be null or empty");
+			throw new IllegalArgumentException("AxisCommunicator: Controllable properties cannot be null or empty");
+		}
+		retrieveProtocol();
+		for (ControllableProperty controllableProperty : list) {
+			controlProperty(controllableProperty);
 		}
 	}
 
+	/**
+	 * This method is called by Symphony to control the properties in the device
+	 *
+	 * @param controllableProperty ControllableProperty instance
+	 * @throws Exception if unexpected the value
+	 */
 	@Override
 	public void controlProperty(ControllableProperty controllableProperty) {
+		retrieveProtocol();
 		String property = controllableProperty.getProperty();
 		String value = String.valueOf(controllableProperty.getValue());
 		if (logger.isDebugEnabled()) {
@@ -166,11 +207,12 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * Set value for metric of device
+	 * Set value for metric of the device. The value is a value of the slider
 	 *
-	 * @param axisControllingMetric is metric of the device
+	 * @param axisControllingMetric is the metric of the device
 	 * @param payloadBody is payload action to set the value
-	 * @param value is real value current of metric
+	 * @param value is value current of metric
+	 * @throws Exception if device set the value fails or device can't call URL
 	 */
 	private void setControlSlider(AxisControllingMetric axisControllingMetric, String payloadBody, int value) {
 		try {
@@ -185,11 +227,12 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * Set value for metric of device
+	 * Set value for metric of device. The value is a value of the dropdown
 	 *
-	 * @param axisControllingMetric is metric of the device
+	 * @param axisControllingMetric is the metric of the device
 	 * @param payloadBody is payload action to set the value
-	 * @param value is real value current of metric
+	 * @param value is value current of metric
+	 * @throws Exception if device set the value fails or is device can't call URL
 	 */
 	private void setControlDropdown(AxisControllingMetric axisControllingMetric, String payloadBody, String value) {
 		try {
@@ -206,7 +249,8 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	/**
 	 * Set value for metric of device like saturation, contrast, brightness, sharpness
 	 *
-	 * @param value is real value current of metric
+	 * @param value is value current of metric
+	 * @throws Exception if device set the value fails or is device can't call URL
 	 */
 	private void setControlAppearance(String value) {
 		try {
@@ -227,9 +271,10 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * Set value for metric of device
+	 * Set value for the wide dynamic range of device
 	 *
-	 * @param value is real value current of metric
+	 * @param value is value current of metric
+	 * @throws Exception if device set the value fails or is device can't call URL
 	 */
 	private void setControlWideDynamicRange(int value) {
 		try {
@@ -251,6 +296,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	 * This method is called by Symphony to get the list of statistics to be displayed
 	 *
 	 * @return List<Statistics> This return the list of statistics
+	 * @throws Exception if dynamic statistics can't get data
 	 */
 	@Override
 	public List<Statistics> getMultipleStatistics() {
@@ -290,8 +336,8 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	 * Add AdvancedControllableProperties for the metric
 	 *
 	 * @param control list control property
-	 * @param stats list control property
-	 * @return List<AdvancedControllableProperty> this return list of AdvancedControllableProperty
+	 * @param stats list statistics
+	 * @return List<AdvancedControllableProperty>/null this return list of AdvancedControllableProperty if add property success else will is null
 	 */
 	private List<AdvancedControllableProperty> contributeAdvancedControllableProperties(Map<String, String> control, Map<String, String> stats) {
 		List<AdvancedControllableProperty> advancedControllableProperties = new ArrayList<>();
@@ -349,10 +395,10 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * Add controlProperties for controlling metric
+	 * Add switch is control property for the metric
 	 *
 	 * @param control list control property
-	 * @return AdvancedControllableProperty switch instance
+	 * @return AdvancedControllableProperty switch instance if add switch success else will is null
 	 */
 	private AdvancedControllableProperty controlSwitch(Map<String, String> control, Map<String, String> stats, AxisControllingMetric axisControllingMetric) {
 		stats.put(axisControllingMetric.getName(), control.get(axisControllingMetric.getName()));
@@ -364,8 +410,10 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * Add controlProperties for controlling metric
+	 * Create control slider is control property for the metric
 	 *
+	 * @param name the name of the metric
+	 * @param value the value of the metric
 	 * @return AdvancedControllableProperty slider instance
 	 */
 	private AdvancedControllableProperty createSlider(String name, Float value) {
@@ -379,10 +427,12 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * Add controlProperties for controlling metric
+	 * Create control slider is control property for the metric
 	 *
 	 * @param control list control property
-	 * @return AdvancedControllableProperty switch instance
+	 * @param stats list statistics
+	 * @param axisControllingMetric instance of AxisControllingMetric
+	 * @return AdvancedControllableProperty slider instance if add slider success else will is null
 	 */
 	private AdvancedControllableProperty createControlSlider(Map<String, String> control, Map<String, String> stats, AxisControllingMetric axisControllingMetric) {
 		stats.put(axisControllingMetric.getName(), control.get(axisControllingMetric.getName()));
@@ -393,7 +443,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * Add controlProperties for metric text overlay content
+	 * Add text is control property for metric text overlay content
 	 *
 	 * @param control list control property
 	 * @return AdvancedControllableProperty Text instance
@@ -405,9 +455,13 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * Add controlDropdown
+	 * Add dropdown is control property for metric
 	 *
-	 * @return AdvancedControllableProperty Dropdown instance
+	 * @param control list control property
+	 * @param stats list statistic
+	 * @param options list select
+	 * @param axisControllingMetric String name of metric
+	 * @return AdvancedControllableProperty dropdown instance if add dropdown success else will is null
 	 */
 	private AdvancedControllableProperty controlDropdown(Map<String, String> control, Map<String, String> stats, String[] options, AxisControllingMetric axisControllingMetric) {
 		stats.put(axisControllingMetric.getName(), control.get(axisControllingMetric.getName()));
@@ -418,9 +472,9 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * Create a controllable property Text
+	 * Create text is control property for metric
 	 *
-	 * @param name the name of property
+	 * @param name the name of the property
 	 * @param stringValue character string
 	 * @return AdvancedControllableProperty Text instance
 	 */
@@ -430,7 +484,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * Create a controllable property switch
+	 * Create switch is control property for metric
 	 *
 	 * @param name the name of property
 	 * @param status initial status (0|1)
@@ -451,10 +505,11 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/***
-	 * Create AdvancedControllableProperty preset instance
-	 * @param name name of the control
+	 * Create dropdown advanced controllable property
+	 *
+	 * @param name the name of the control
 	 * @param initialValue initial value of the control
-	 * @return AdvancedControllableProperty preset instance
+	 * @return AdvancedControllableProperty dropdown instance
 	 */
 	private AdvancedControllableProperty createDropdown(String name, String[] values, String initialValue) {
 		AdvancedControllableProperty.DropDown dropDown = new AdvancedControllableProperty.DropDown();
@@ -468,13 +523,14 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	 * Retrieve data and add to stats and dynamic
 	 *
 	 * @param stats list statistics property
-	 * @param dynamicStatistic list statistics property
+	 * @param dynamicStatistic list dynamic statistics
 	 * @param control list statistics property
 	 */
 	private void populateAxisStatisticsMetric(Map<String, String> stats, Map<String, String> dynamicStatistic, Map<String, String> control) {
 		Objects.requireNonNull(stats);
 		Objects.requireNonNull(dynamicStatistic);
 		Objects.requireNonNull(control);
+		retrieveProtocol();
 
 		if (isRetrieveDeviceInfoFirstTime()) {
 			retrieveDeviceInfo(stats);
@@ -515,6 +571,11 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 		}
 	}
 
+	/**
+	 * Check device information before getting data the first time
+	 *
+	 * @return true if localExtendedStatistics is null or device information not null else is false
+	 */
 	private boolean isRetrieveDeviceInfoFirstTime() {
 		Map<String, String> stats = localExtendedStatistics.getStatistics();
 		return stats == null || stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.BRAND).equals(AxisConstant.NONE)
@@ -527,10 +588,10 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * Retrieve data from device
+	 * Retrieve data from the device
 	 *
 	 * @param metric list metric of device
-	 * @return data from metric of device or null
+	 * @return data from metric of device or none if metric does not exist
 	 */
 	private String retrieveDataByMetric(AxisMonitoringMetric metric) {
 		Objects.requireNonNull(metric);
@@ -548,10 +609,10 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * Retrieve data from device
+	 * Retrieve data from the device
 	 *
 	 * @param metric list metric of device
-	 * @return data from metric of device or null
+	 * @return data from metric of device or none if metric does not exist
 	 */
 	private String retrieveDataControlByMetric(AxisControllingMetric metric) {
 		Objects.requireNonNull(metric);
@@ -588,7 +649,9 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * @param path url of the request
+	 * Build full URL for the device
+	 *
+	 * @param path URL of the request
 	 * @return String full path of the device
 	 */
 	private String buildDeviceFullPath(String path) {
@@ -598,7 +661,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 		String password = getPassword();
 
 		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append(AxisConstant.HTTP);
+		stringBuilder.append(axisProtocol);
 		if (!StringUtils.isNullOrEmpty(login) && !StringUtils.isNullOrEmpty(password)) {
 			stringBuilder.append(login);
 			stringBuilder.append(AxisConstant.COLON);
@@ -624,8 +687,8 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 		try {
 			JsonNode responseData = doPost(buildDeviceFullPath(AxisStatisticsUtil.getMonitorURL(AxisMonitoringMetric.DEVICE_INFO)), request, JsonNode.class);
 			if (responseData != null) {
-				ObjectMapper mapper =new ObjectMapper();
-				DeviceInfo deviceInfo =mapper.readerFor(DeviceInfo.class).readValue(responseData.get(DeviceInfo.DATA).get(DeviceInfo.PROPERTIES).toString());
+				ObjectMapper mapper = new ObjectMapper();
+				DeviceInfo deviceInfo = mapper.readerFor(DeviceInfo.class).readValue(responseData.get(DeviceInfo.DATA).get(DeviceInfo.PROPERTIES).toString());
 
 				stats.put(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.BRAND, checkNoneData(deviceInfo.getBrand()));
 				stats.put(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.BUILD_DATE, checkNoneData(deviceInfo.getBuildDate()));
@@ -643,9 +706,9 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * Value of list statistics property of device info is NONE
+	 * Value of list statistics property of device info is none
 	 *
-	 * @param stats list statistics property
+	 * @param stats list statistics
 	 */
 	private void contributeNoneValueForDeviceStatistics(Map<String, String> stats) {
 		stats.put(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.BRAND, AxisConstant.NONE);
@@ -658,9 +721,73 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
+	 * Retrieve the protocol from the device, try with http first, if any failed, continue try with https
+	 *
+	 * set the axisProtocol information if retrieving success else is none
+	 */
+	private void retrieveProtocol() {
+		try {
+			axisProtocol = getAxisProtocol();
+		} catch (Exception e) {
+			axisProtocol = AxisConstant.HTTPS;
+			try {
+				axisProtocol = getAxisProtocol();
+			} catch (Exception ex) {
+				throw new ResourceNotReachableException(AxisConstant.ERR_PROTOCOL);
+			}
+		}
+	}
+
+	/**
+	 * Retrieve the protocol configuration of the device (HTTP, HTTPs or both)
+	 *
+	 * @return the protocol information if retrieving success else is none
+	 */
+	public String getAxisProtocol() {
+		try {
+			SystemParameterDefinitions response = doGet(buildDeviceFullPath(AxisURL.URL_PARAM_CGI) + AxisConstant.QUESTION_MARK + AxisPayloadBody.ACTION + AxisPayloadBody.GET_PROTOCOL,
+					SystemParameterDefinitions.class);
+			SystemChildGroupList[] systemChildGroup1 = response.getGroup().getGroupChildren().getSystemChildGroupLists();
+			for (int i = 0; i < systemChildGroup1.length; i++) {
+				SystemChildGroupList systemChildGroup11 = systemChildGroup1[i];
+				if (AxisConstant.BOA_GROUP_POLICY.equals(systemChildGroup11.getName())) {
+					SystemParameter[] paramSystems = systemChildGroup11.getSystemParameters();
+					String deviceAdminProtocol = getAdminProtocol(paramSystems);
+					if (deviceAdminProtocol == null) {
+						throw new IllegalStateException("Protocol not found");
+					}
+					if (AxisConstant.BOTH.equals(deviceAdminProtocol)) {
+						return AxisConstant.HTTP;
+					} else {
+						return deviceAdminProtocol + AxisConstant.PROTOCOL_PREFIX;
+					}
+				}
+			}
+			throw new ResourceNotReachableException("Error when getting protocol for " + axisProtocol);
+		} catch (Exception e) {
+			throw new ResourceNotReachableException("Error when getting protocol for " + axisProtocol);
+		}
+	}
+
+	/**
+	 * Retrieve the protocol for admin only
+	 *
+	 * @return the protocol information if retrieving success else is none
+	 */
+	private String getAdminProtocol(SystemParameter[] paramSystems) {
+		for (int i = 0; i < paramSystems.length; i++) {
+			SystemParameter paramSystem = paramSystems[i];
+			if (AxisConstant.ADMIN.equals(paramSystem.getName())) {
+				return paramSystem.getValue();
+			}
+		}
+		return null;
+	}
+
+	/**
 	 * Retrieve schema version information
 	 *
-	 * @return schema version  information
+	 * @return schema version information if retrieving success else is none
 	 */
 	private String retrieveSchemaVersion() {
 		try {
@@ -675,7 +802,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	}
 
 	/**
-	 * @param value value of device info
+	 * @param value value of device information
 	 * @return String (none/value)
 	 */
 	private String checkNoneData(String value) {
@@ -685,7 +812,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	/**
 	 * Retrieve rotation information
 	 *
-	 * @return rotation degrees information
+	 * @return rotation degrees information if retrieving success else is none
 	 */
 	private String retrieveRotation() {
 		try {
@@ -704,7 +831,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	/**
 	 * Retrieve text overlay enable information
 	 *
-	 * @return boolean
+	 * @return text overlay enable is boolean if retrieving success else is none
 	 */
 	private String retrieveTextOverlayEnable() {
 		try {
@@ -724,7 +851,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	/**
 	 * Retrieve text overlay information
 	 *
-	 * @return the text overlay information
+	 * @return the text overlay information if retrieving success else is none
 	 */
 	private String retrieveTextOverlay() {
 		try {
@@ -744,7 +871,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	/**
 	 * Retrieve mirroring information
 	 *
-	 * @return mirroring enable information
+	 * @return mirroring enable information if retrieving success else is none
 	 */
 	private String retrieveMirroring() {
 		try {
@@ -763,7 +890,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	/**
 	 * Retrieve video input frame rate information
 	 *
-	 * @return video input frame rate information
+	 * @return video input frame rate information if retrieving success else is none
 	 */
 	private String retrieveVideoFrameRate() {
 		try {
@@ -788,7 +915,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	/**
 	 * Retrieve resolution information
 	 *
-	 * @return resolution information
+	 * @return resolution information if retrieving success else is none
 	 */
 	private String retrieveResolution() {
 		try {
@@ -810,6 +937,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	 * Set text for text overlay
 	 *
 	 * @param value this is the value to set for text overlay
+	 * @throws Exception if device set the value fails or is device can't call URL
 	 */
 	private void setControlTextOverlay(String value) {
 		try {
@@ -829,6 +957,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	 * Set text for text overlay enable
 	 *
 	 * @param value this is the value to set for text overlay enable
+	 * @throws Exception if device set the value fails or is device can't call URL
 	 */
 	private void setControlTextOverlayEnable(int value) {
 		try {
@@ -849,6 +978,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	 * Set mirroring
 	 *
 	 * @param value this is the value to set for mirroring
+	 * @throws Exception if device set the value fails or is device can't call URL
 	 */
 	private void setControlMirroring(int value) {
 		try {
@@ -869,6 +999,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	 * Set rotation
 	 *
 	 * @param value this is the value to set for rotation
+	 * @throws Exception if device set the value fails or is device can't call URL
 	 */
 	private void setControlRotation(String value) {
 		try {
@@ -887,6 +1018,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	 * Retrieve multiple information like saturation, contrast, brightness, sharpness
 	 *
 	 * @return saturation, contrast, brightness, sharpness information
+	 * @throws Exception if device set the value fails or is device can't call URL
 	 */
 	private String retrieveMultipleMetric(AxisControllingMetric axisControllingMetric, String payloadBody) {
 		try {
@@ -903,7 +1035,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	/**
 	 * Retrieve wide dynamic range information
 	 *
-	 * @return wide dynamic range information
+	 * @return wide dynamic range information if retrieving success else is none
 	 */
 	private String retrieveWideDynamicRange() {
 		try {
@@ -928,7 +1060,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	/**
 	 * Retrieve white balance information
 	 *
-	 * @return white balance information
+	 * @return white balance information if retrieving success else is none
 	 */
 	private String retrieveWhiteBalance() {
 		try {
@@ -947,7 +1079,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	/**
 	 * Retrieve IR-cut filter information
 	 *
-	 * @return IR-cut filter information
+	 * @return IR-cut filter information if retrieving success else is none
 	 */
 	private String retrieveIRCutFilter() {
 		try {
@@ -966,7 +1098,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	/**
 	 * Retrieve text overlay size information
 	 *
-	 * @return text overlay size information
+	 * @return text overlay size information if retrieving success else is none
 	 */
 	private String retrieveTextOverlaySize() {
 		try {
@@ -985,7 +1117,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	/**
 	 * Retrieve text overlay appearance information
 	 *
-	 * @return text overlay appearance information
+	 * @return text overlay appearance information if retrieving success else is none
 	 */
 	private String retrieveTextOverlayAppearance() {
 		try {

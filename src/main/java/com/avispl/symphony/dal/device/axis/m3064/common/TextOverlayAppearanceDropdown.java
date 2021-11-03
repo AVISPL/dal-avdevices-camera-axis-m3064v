@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
+ * Copyright (c) 2021 AVI-SPL, Inc. All Rights Reserved.
  */
 package com.avispl.symphony.dal.device.axis.m3064.common;
 
@@ -12,6 +12,7 @@ import java.util.Map;
  * TextOverlayAppearanceDropdown class defined the enum for controlling process
  *
  * @author Ivan
+ * @version 1.0
  * @since 1.0
  */
 public enum TextOverlayAppearanceDropdown {
@@ -25,6 +26,12 @@ public enum TextOverlayAppearanceDropdown {
 
 	private final String value;
 
+	/**
+	 * TextOverlayAppearanceDropdown instantiation
+	 *
+	 * @param name {@code {@link #name}}
+	 * @param value {@code {@link #value}}
+	 */
 	TextOverlayAppearanceDropdown(String name, String value) {
 		this.name = name;
 		this.value = value;
@@ -50,6 +57,7 @@ public enum TextOverlayAppearanceDropdown {
 
 	/**
 	 * Retrieves name to value map of TextOverlayAppearanceDropdown
+	 * @return Map<String,String> are name and value
 	 */
 	public static Map<String, String> getNameToValueMap() {
 		Map<String, String> nameToValue = new HashMap<>();
@@ -61,6 +69,7 @@ public enum TextOverlayAppearanceDropdown {
 
 	/**
 	 * Retrieves value to name map of TextOverlayAppearanceDropdown
+	 * @return Map<String,String> are value and name
 	 */
 	public static Map<String, String> getValueToNameMap() {
 		Map<String, String> valueToName = new HashMap<>();
@@ -72,6 +81,7 @@ public enum TextOverlayAppearanceDropdown {
 
 	/**
 	 * Retrieves all name of TextOverlayAppearanceDropdown
+	 * @return list name of text overlay appearance dropdown
 	 */
 	public static String[] names() {
 		List<String> list = new LinkedList<>();

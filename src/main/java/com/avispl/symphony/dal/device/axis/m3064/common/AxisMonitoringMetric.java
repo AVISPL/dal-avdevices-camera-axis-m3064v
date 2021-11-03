@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
+ * Copyright (c) 2021 AVI-SPL, Inc. All Rights Reserved.
  */
 package com.avispl.symphony.dal.device.axis.m3064.common;
 
@@ -7,6 +7,7 @@ package com.avispl.symphony.dal.device.axis.m3064.common;
  * AxisMonitoringMetric class defined the enum for the monitoring process
  *
  * @author Ivan
+ * @version 1.0
  * @since 1.0
  */
 public enum AxisMonitoringMetric {
@@ -19,6 +20,12 @@ public enum AxisMonitoringMetric {
 	private final String name;
 	private final boolean isHistorical;
 
+	/**
+	 * AxisMonitoringMetric instantiation
+	 *
+	 * @param name {@code {@link #name}}
+	 * @param isHistorical {@code {@link #isHistorical}}
+	 */
 	AxisMonitoringMetric(String name, boolean isHistorical) {
 		this.name = name;
 		this.isHistorical = isHistorical;

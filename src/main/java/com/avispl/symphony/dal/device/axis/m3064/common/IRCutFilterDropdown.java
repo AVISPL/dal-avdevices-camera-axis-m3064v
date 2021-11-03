@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
+ * Copyright (c) 2021 AVI-SPL, Inc. All Rights Reserved.
  */
 package com.avispl.symphony.dal.device.axis.m3064.common;
 
@@ -12,6 +12,7 @@ import java.util.Map;
  * IRCutFilterDropdown class defined the enum for controlling process
  *
  * @author Ivan
+ * @version 1.0
  * @since 1.0
  */
 public enum IRCutFilterDropdown {
@@ -24,6 +25,12 @@ public enum IRCutFilterDropdown {
 
 	private final String value;
 
+	/**
+	 * IRCutFilterDropdown instantiation
+	 *
+	 * @param name {@code {@link #name}}
+	 * @param value {@code {@link #value}}
+	 */
 	IRCutFilterDropdown(String name, String value) {
 		this.name = name;
 		this.value = value;
@@ -49,6 +56,7 @@ public enum IRCutFilterDropdown {
 
 	/**
 	 * Retrieves name to value map of IRCut metric
+	 * @return Map<String,String> are name and value
 	 */
 	public static Map<String, String> getNameToValueMap() {
 		Map<String, String> nameToValue = new HashMap<>();
@@ -60,6 +68,7 @@ public enum IRCutFilterDropdown {
 
 	/**
 	 * Retrieves value to name map of IRCut metric
+	 * @return Map<String,String> are value and name
 	 */
 	public static Map<String, String> getValueToNameMap() {
 		Map<String, String> valueToName = new HashMap<>();
@@ -71,6 +80,7 @@ public enum IRCutFilterDropdown {
 
 	/**
 	 * Retrieves all name of IRCut metric
+	 * @return list name of IR cut filter
 	 */
 	public static String[] names() {
 		List<String> list = new LinkedList<>();

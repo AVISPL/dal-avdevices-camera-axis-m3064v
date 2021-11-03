@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015-2021 AVI-SPL, Inc. All Rights Reserved.
+ * Copyright (c) 2021 AVI-SPL, Inc. All Rights Reserved.
  */
 package com.avispl.symphony.dal.device.axis.m3064;
 
@@ -31,22 +31,23 @@ import java.util.Map;
  * ExtendedStatistics and DynamicStatistics retrieve data success
  *
  * @author Ivan
+ * @version 1.0
  * @since 1.0
  */
 public class AxisCommunicatorTest {
 
 	AxisCommunicator axisCommunicator = new AxisCommunicator();
 	@Rule
-	public WireMockRule wireMockRule = new WireMockRule(options().port(80).httpsPort(8088)
+	public WireMockRule wireMockRule = new WireMockRule(options().port(80).httpsPort(443)
 			.bindAddress("127.0.0.1"));
 
 	@Before
 	public void setUp() throws Exception {
 		axisCommunicator.setHost("127.0.0.1");
-		axisCommunicator.setProtocol("http");
+		axisCommunicator.setProtocol("https");
 		axisCommunicator.setLogin("root");
 		axisCommunicator.setPassword("1234");
-		axisCommunicator.setPort(80);
+		axisCommunicator.setPort(433);
 		axisCommunicator.init();
 	}
 
