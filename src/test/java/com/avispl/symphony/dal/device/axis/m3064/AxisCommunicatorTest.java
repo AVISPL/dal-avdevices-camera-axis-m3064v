@@ -47,7 +47,7 @@ public class AxisCommunicatorTest {
 		axisCommunicator.setProtocol("https");
 		axisCommunicator.setLogin("root");
 		axisCommunicator.setPassword("1234");
-		axisCommunicator.setPort(433);
+		axisCommunicator.setPort(443);
 		axisCommunicator.init();
 	}
 

@@ -669,6 +669,8 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 			stringBuilder.append(AxisConstant.AT);
 		}
 		stringBuilder.append(getHost());
+		stringBuilder.append(AxisConstant.COLON);
+		stringBuilder.append(getPort());
 		stringBuilder.append(path);
 
 		return stringBuilder.toString();
