@@ -34,7 +34,6 @@ public final class AxisConstant {
 	public static final String HARD_WARE_ID = "#HardwareID";
 	public static final String SERIAL_NUMBER = "#SerialNumber";
 	public static final String VERSION = "#Version";
-	public static final String WEB_URL = "#WebURL";
 	public static final String DEVICE_NAME = "#DeviceName";
 	public static final String NO_SET_ERR = "The request is failed. Can not control the value: ";
 	public static final String NO_RESPONSE_ERR = "The request success but it has no response body";
