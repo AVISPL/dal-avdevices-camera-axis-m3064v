@@ -417,8 +417,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	 */
 	private AdvancedControllableProperty controlSwitch(Map<String, String> control, Map<String, String> stats, AxisControllingMetric axisControllingMetric) {
 		stats.put(axisControllingMetric.getName(), control.get(axisControllingMetric.getName()));
-		if (!control.get(axisControllingMetric.getName()).equals(AxisConstant.NONE)
-					&& control.get(axisControllingMetric.getName()).equals(AxisConstant.YES)) {
+		if (control.get(axisControllingMetric.getName()).equals(AxisConstant.YES)) {
 			return createSwitch(axisControllingMetric.getName(), 1);
 		}
 		return createSwitch(axisControllingMetric.getName(), 0);
