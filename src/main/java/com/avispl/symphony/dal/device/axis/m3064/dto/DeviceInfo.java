@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * @version 1.0
  * @since 1.0
  */
-@JsonIgnoreProperties( { "Architecture", "ProdNbr", "ProdShortName", "ProdType", "ProdVariant", "Soc", "SocSerialNumber" })
+@JsonIgnoreProperties( { "Architecture", "ProdNbr", "ProdShortName", "ProdType", "ProdVariant", "Soc", "SocSerialNumber","WebURL" })
 public class DeviceInfo {
 
 	public static final String DATA = "data";
@@ -38,9 +38,6 @@ public class DeviceInfo {
 
 	@JsonAlias("Version")
 	private String version;
-
-	@JsonAlias("WebURL")
-	private String webURL;
 
 	/**
 	 * DeviceInfo instantiation
@@ -156,24 +153,6 @@ public class DeviceInfo {
 		this.version = version;
 	}
 
-	/**
-	 * Retrieves {@code {@link #webURL}}
-	 *
-	 * @return value of {@link #webURL}
-	 */
-	public String getWebURL() {
-		return webURL;
-	}
-
-	/**
-	 * Sets {@code webURL}
-	 *
-	 * @param webURL the {@code java.lang.String} field
-	 */
-	public void setWebURL(String webURL) {
-		this.webURL = webURL;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -187,13 +166,12 @@ public class DeviceInfo {
 				&& Objects.equals(buildDate, that.buildDate)
 				&& Objects.equals(hardwareID, that.hardwareID)
 				&& Objects.equals(prodFullName, that.prodFullName)
-				&& Objects.equals(version, that.version)
-				&& Objects.equals(webURL, that.webURL);
+				&& Objects.equals(version, that.version);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(brand, buildDate, hardwareID, prodFullName, serialNumber, version, webURL);
+		return Objects.hash(brand, buildDate, hardwareID, prodFullName, serialNumber, version);
 	}
 
 	@Override
@@ -205,7 +183,6 @@ public class DeviceInfo {
 				", prodFullName='" + prodFullName + '\'' +
 				", serialNumber='" + serialNumber + '\'' +
 				", version='" + version + '\'' +
-				", webURL='" + webURL + '\'' +
 				'}';
 	}
 }

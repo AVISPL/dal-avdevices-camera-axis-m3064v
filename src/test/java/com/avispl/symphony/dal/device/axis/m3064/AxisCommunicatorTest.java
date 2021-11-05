@@ -69,7 +69,6 @@ public class AxisCommunicatorTest {
 			Assert.assertEquals("AXIS Q3505 Mk II Fixed Dome Network Camera", stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.DEVICE_NAME));
 			Assert.assertEquals("714.4", stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.HARD_WARE_ID));
 			Assert.assertEquals("8.20.1", stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.VERSION));
-			Assert.assertEquals("http://www.axis.com", stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.WEB_URL));
 			Assert.assertEquals("ACCC8E78B977", stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.SERIAL_NUMBER));
 		}
 	}
@@ -196,7 +195,6 @@ public class AxisCommunicatorTest {
 			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.DEVICE_NAME));
 			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.HARD_WARE_ID));
 			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.VERSION));
-			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.WEB_URL));
 			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.SERIAL_NUMBER));
 		}
 	}
@@ -219,7 +217,6 @@ public class AxisCommunicatorTest {
 			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.DEVICE_NAME));
 			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.HARD_WARE_ID));
 			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.VERSION));
-			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.WEB_URL));
 			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.SERIAL_NUMBER));
 		}
 	}
@@ -375,7 +372,6 @@ public class AxisCommunicatorTest {
 			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.DEVICE_NAME));
 			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.HARD_WARE_ID));
 			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.VERSION));
-			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.WEB_URL));
 			Assert.assertEquals(AxisConstant.NONE, stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.SERIAL_NUMBER));
 		}
 	}

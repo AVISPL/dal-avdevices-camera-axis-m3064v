@@ -544,7 +544,6 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 			stats.put(deviceInfo + AxisConstant.DEVICE_NAME, localStatistics.get(deviceInfo + AxisConstant.DEVICE_NAME));
 			stats.put(deviceInfo + AxisConstant.SERIAL_NUMBER, localStatistics.get(deviceInfo + AxisConstant.SERIAL_NUMBER));
 			stats.put(deviceInfo + AxisConstant.VERSION, localStatistics.get(deviceInfo + AxisConstant.VERSION));
-			stats.put(deviceInfo + AxisConstant.WEB_URL, localStatistics.get(deviceInfo + AxisConstant.WEB_URL));
 		}
 
 		for (AxisMonitoringMetric monitoringMetric : AxisMonitoringMetric.values()) {
@@ -583,8 +582,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 				|| stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.HARD_WARE_ID).equals(AxisConstant.NONE)
 				|| stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.DEVICE_NAME).equals(AxisConstant.NONE)
 				|| stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.SERIAL_NUMBER).equals(AxisConstant.NONE)
-				|| stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.VERSION).equals(AxisConstant.NONE)
-				|| stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.WEB_URL).equals(AxisConstant.NONE);
+				|| stats.get(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.VERSION).equals(AxisConstant.NONE);
 	}
 
 	/**
@@ -696,7 +694,6 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 				stats.put(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.DEVICE_NAME, checkNoneData(deviceInfo.getProdFullName()));
 				stats.put(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.SERIAL_NUMBER, checkNoneData(deviceInfo.getSerialNumber()));
 				stats.put(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.VERSION, checkNoneData(deviceInfo.getVersion()));
-				stats.put(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.WEB_URL, checkNoneData(deviceInfo.getWebURL()));
 			} else {
 				contributeNoneValueForDeviceStatistics(stats);
 			}
@@ -717,7 +714,6 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 		stats.put(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.DEVICE_NAME, AxisConstant.NONE);
 		stats.put(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.SERIAL_NUMBER, AxisConstant.NONE);
 		stats.put(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.VERSION, AxisConstant.NONE);
-		stats.put(AxisMonitoringMetric.DEVICE_INFO.getName() + AxisConstant.WEB_URL, AxisConstant.NONE);
 	}
 
 	/**
