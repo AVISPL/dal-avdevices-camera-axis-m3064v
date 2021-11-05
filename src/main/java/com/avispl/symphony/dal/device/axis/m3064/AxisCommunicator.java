@@ -348,23 +348,38 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 					break;
 				case ROTATION:
 					String[] dropdown = RotationDropdown.names();
-					advancedControllableProperties.add(controlDropdown(control, stats, dropdown, AxisControllingMetric.ROTATION));
+					AdvancedControllableProperty dropdownRotation = controlDropdown(control, stats, dropdown, AxisControllingMetric.ROTATION);
+					if (dropdownRotation != null) {
+						advancedControllableProperties.add(dropdownRotation);
+					}
 					break;
 				case WHITE_BALANCE:
 					String[] dropdownWhiteBalance = WhiteBalanceDropdown.names();
-					advancedControllableProperties.add(controlDropdown(control, stats, dropdownWhiteBalance, AxisControllingMetric.WHITE_BALANCE));
+					AdvancedControllableProperty dropdownControlProperty = controlDropdown(control, stats, dropdownWhiteBalance, AxisControllingMetric.WHITE_BALANCE);
+					if (dropdownControlProperty != null) {
+						advancedControllableProperties.add(dropdownControlProperty);
+					}
 					break;
 				case IR_CUT_FILTER:
 					String[] dropdownIRCutFilter = IRCutFilterDropdown.names();
-					advancedControllableProperties.add(controlDropdown(control, stats, dropdownIRCutFilter, AxisControllingMetric.IR_CUT_FILTER));
+					AdvancedControllableProperty dropdownIRCutFilterControlProperty = controlDropdown(control, stats, dropdownIRCutFilter, AxisControllingMetric.IR_CUT_FILTER);
+					if (dropdownIRCutFilterControlProperty != null) {
+						advancedControllableProperties.add(dropdownIRCutFilterControlProperty);
+					}
 					break;
 				case TEXT_OVERLAY_APPEARANCE:
 					String[] dropdownTextOverlayAppearance = TextOverlayAppearanceDropdown.names();
-					advancedControllableProperties.add(controlDropdown(control, stats, dropdownTextOverlayAppearance, AxisControllingMetric.TEXT_OVERLAY_APPEARANCE));
+					AdvancedControllableProperty dropdownTextOverlayControlProperty = controlDropdown(control, stats, dropdownTextOverlayAppearance, AxisControllingMetric.TEXT_OVERLAY_APPEARANCE);
+					if (dropdownTextOverlayControlProperty != null) {
+						advancedControllableProperties.add(dropdownTextOverlayControlProperty);
+					}
 					break;
 				case TEXT_OVERLAY_SIZE:
 					String[] dropdownTextOverlaySize = TextOverlaySizeDropdown.names();
-					advancedControllableProperties.add(controlDropdown(control, stats, dropdownTextOverlaySize, AxisControllingMetric.TEXT_OVERLAY_SIZE));
+					AdvancedControllableProperty dropdownTextOverlaySizeControlProperty = controlDropdown(control, stats, dropdownTextOverlaySize, AxisControllingMetric.TEXT_OVERLAY_SIZE);
+					if (dropdownTextOverlaySizeControlProperty != null) {
+						advancedControllableProperties.add(dropdownTextOverlaySizeControlProperty);
+					}
 					break;
 				case TEXT_OVERLAY_CONTENT:
 					advancedControllableProperties.add(controlPropertiesByTextOverlayContent(control, stats));
@@ -402,11 +417,10 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	 */
 	private AdvancedControllableProperty controlSwitch(Map<String, String> control, Map<String, String> stats, AxisControllingMetric axisControllingMetric) {
 		stats.put(axisControllingMetric.getName(), control.get(axisControllingMetric.getName()));
-		if (!control.get(axisControllingMetric.getName()).equals(AxisConstant.NONE)) {
-			return control.get(axisControllingMetric.getName()).equals(AxisConstant.YES) ? createSwitch(axisControllingMetric.getName(), 1)
-					: createSwitch(axisControllingMetric.getName(), 0);
+		if (control.get(axisControllingMetric.getName()).equals(AxisConstant.YES)) {
+			return createSwitch(axisControllingMetric.getName(), 1);
 		}
-		return null;
+		return createSwitch(axisControllingMetric.getName(), 0);
 	}
 
 	/**
@@ -439,7 +453,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 		if (!control.get(axisControllingMetric.getName()).equals(AxisConstant.NONE)) {
 			return createSlider(axisControllingMetric.getName(), Float.valueOf(control.get(axisControllingMetric.getName())));
 		}
-		return null;
+		return createSlider(axisControllingMetric.getName(), 0f);
 	}
 
 	/**
@@ -667,6 +681,8 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 			stringBuilder.append(AxisConstant.AT);
 		}
 		stringBuilder.append(getHost());
+		stringBuilder.append(AxisConstant.COLON);
+		stringBuilder.append(getPort());
 		stringBuilder.append(path);
 
 		return stringBuilder.toString();

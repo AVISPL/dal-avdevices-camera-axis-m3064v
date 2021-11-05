@@ -46,7 +46,7 @@ public class AxisCommunicatorControlTest {
 	@Before
 	public void setUp() throws Exception {
 		axisCommunicator.setHost("127.0.0.1");
-		axisCommunicator.setProtocol("http");
+		axisCommunicator.setProtocol("https");
 		axisCommunicator.setPort(443);
 		axisCommunicator.init();
 	}
@@ -63,7 +63,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.TEXT_OVERLAY.getName());
 		controllableProperty.setValue(1);
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&Image.I0.Text.TextEnabled=yes");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&Image.I0.Text.TextEnabled=yes");
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.TEXT_OVERLAY.getName());
 		controllableProperty.setValue(0);
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&Image.I0.Text.TextEnabled=no");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&Image.I0.Text.TextEnabled=no");
 	}
 
 	/**
@@ -93,7 +93,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.TEXT_OVERLAY_CONTENT.getName());
 		controllableProperty.setValue("The text overlay");
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&Image.I0.Text.String=The text overlay");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&Image.I0.Text.String=The text overlay");
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.ROTATION.getName());
 		controllableProperty.setValue(0);
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=0");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=0");
 	}
 
 	/**
@@ -123,7 +123,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.ROTATION.getName());
 		controllableProperty.setValue(90);
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=90");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=90");
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.ROTATION.getName());
 		controllableProperty.setValue(180);
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=180");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=180");
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.ROTATION.getName());
 		controllableProperty.setValue(270);
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=270");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=270");
 	}
 
 	/**
@@ -168,7 +168,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.MIRRORING.getName());
 		controllableProperty.setValue(1);
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&Image.I0.Appearance.MirrorEnabled=yes");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&Image.I0.Appearance.MirrorEnabled=yes");
 	}
 
 	/**
@@ -183,7 +183,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.MIRRORING.getName());
 		controllableProperty.setValue(0);
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&Image.I0.Appearance.MirrorEnabled=no");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&Image.I0.Appearance.MirrorEnabled=no");
 	}
 
 	/**
@@ -196,7 +196,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.ROTATION.getName());
 		controllableProperty.setValue(100);
 		assertThrows(ResourceNotReachableException.class, () -> axisCommunicator.controlProperty(controllableProperty),
-				"Error response received from: 127.0.0.1. Request: https://127.0.0.1/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=100; status: 400; response: Error");
+				"Error response received from: 127.0.0.1. Request: https://127.0.0.1:443/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=100; status: 400; response: Error");
 	}
 
 	/**
@@ -209,7 +209,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.TEXT_OVERLAY_CONTENT.getName());
 		controllableProperty.setValue("none");
 		assertThrows(ResourceNotReachableException.class, () -> axisCommunicator.controlProperty(controllableProperty),
-				"Error response received from: 127.0.0.1. Request: https://127.0.0.1/axis-cgi/param.cgi?action=update&Image.I0.Text.String=none; status: 400; response: Error");
+				"Error response received from: 127.0.0.1. Request: https://127.0.0.1:443/axis-cgi/param.cgi?action=update&Image.I0.Text.String=none; status: 400; response: Error");
 	}
 
 	/**
@@ -224,7 +224,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.SATURATION.getName());
 		controllableProperty.setValue(50);
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.ColorLevel=50");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.ColorLevel=50");
 	}
 
 	/**
@@ -239,7 +239,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.SHARPNESS.getName());
 		controllableProperty.setValue(50);
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.Sharpness=50");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.Sharpness=50");
 	}
 
 	/**
@@ -254,7 +254,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.WIDE_DYNAMIC_RANGE.getName());
 		controllableProperty.setValue("1");
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.WDR=on");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.WDR=on");
 	}
 
 	/**
@@ -269,7 +269,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.WHITE_BALANCE.getName());
 		controllableProperty.setValue("Auto");
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.WhiteBalance=auto");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.WhiteBalance=auto");
 	}
 
 	/**
@@ -284,7 +284,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.IR_CUT_FILTER.getName());
 		controllableProperty.setValue("Auto");
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&ImageSource.I0.DayNight.IrCutFilter=auto");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&ImageSource.I0.DayNight.IrCutFilter=auto");
 	}
 
 	/**
@@ -299,7 +299,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.TEXT_OVERLAY_SIZE.getName());
 		controllableProperty.setValue("Small");
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&Image.I0.Text.TextSize=small");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&Image.I0.Text.TextSize=small");
 	}
 
 	/**
@@ -314,7 +314,7 @@ public class AxisCommunicatorControlTest {
 		controllableProperty.setProperty(AxisControllingMetric.TEXT_OVERLAY_APPEARANCE.getName());
 		controllableProperty.setValue("White on Black");
 		axisCommunicator.controlProperty(controllableProperty);
-		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1/axis-cgi/param.cgi?action=update&Image.I0.Text.Color=white&Image.I0.Text.BGColor=black");
+		Mockito.verify(axisCommunicator, times(1)).doGet("https://127.0.0.1:443/axis-cgi/param.cgi?action=update&Image.I0.Text.Color=white&Image.I0.Text.BGColor=black");
 	}
 
 
