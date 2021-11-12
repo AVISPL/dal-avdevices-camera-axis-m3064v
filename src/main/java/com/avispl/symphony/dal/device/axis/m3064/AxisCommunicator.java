@@ -3,6 +3,7 @@
  */
 package com.avispl.symphony.dal.device.axis.m3064;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -952,6 +953,10 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	 * @throws Exception if device set the value fails or is device can't call URL
 	 */
 	private void setControlTextOverlay(String value) {
+		if (!StringUtils.isNullOrEmpty(value) && value.getBytes(StandardCharsets.UTF_8).length > AxisConstant.MAX_TEXT_LENGTH) {
+			throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR + AxisControllingMetric.TEXT_OVERLAY_CONTENT.getName() + AxisConstant.TEXT_LENGTH_EXCEEDS_80.replaceAll(
+					AxisConstant.NUM_OF_BYTES, String.valueOf(value.length())));
+		}
 		try {
 			String responseData = doGet(buildDeviceFullPath(
 					AxisStatisticsUtil.getControlURL(AxisControllingMetric.TEXT_OVERLAY_CONTENT) + AxisConstant.QUESTION_MARK + AxisPayloadBody.SET_TEXT_OVERLAY_CONTENT + AxisConstant.EQUALS_SIGN

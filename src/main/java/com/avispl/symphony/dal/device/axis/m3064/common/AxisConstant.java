@@ -36,6 +36,8 @@ public final class AxisConstant {
 	public static final String VERSION = "#Version";
 	public static final String DEVICE_NAME = "#DeviceName";
 	public static final String NO_SET_ERR = "The request is failed. Can not control the value: ";
+	public static final String NUM_OF_BYTES = "numOfBytes";
+	public static final String TEXT_LENGTH_EXCEEDS_80 = ". Text length of " + NUM_OF_BYTES + " bytes exceeds the limit of 80 bytes. Please reduce the text length";
 	public static final String NO_RESPONSE_ERR = "The request success but it has no response body";
 	public static final String ERR_PROTOCOL = "The device is being down. Can not request the data from device";
 	public static final String NAME_SPACE = "http://www.axis.com/ParameterDefinitionsSchema";
@@ -50,5 +52,6 @@ public final class AxisConstant {
 	public static final String ADMIN = "admin";
 	public static final String BOTH = "both";
 	public static final String PROTOCOL_PREFIX = "://";
+	public static final int MAX_TEXT_LENGTH = 80; // bytes
 
 }

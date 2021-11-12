@@ -213,6 +213,21 @@ public class AxisCommunicatorControlTest {
 	}
 
 	/**
+	 * Set text overlay too long
+	 * Expect throw exception can't set value
+	 */
+	@Test
+	public void testTextOverlayContentFailBecauseTheTextIsTooLong() {
+		String tooLongText = "longtext_longtext_longtext_longtext_longtext_longtext_longtext_longtext_longtext_lo"; // 83 characters
+		ControllableProperty controllableProperty = new ControllableProperty();
+		controllableProperty.setProperty(AxisControllingMetric.TEXT_OVERLAY_CONTENT.getName());
+		controllableProperty.setValue(tooLongText);
+		assertThrows(ResourceNotReachableException.class, () -> axisCommunicator.controlProperty(controllableProperty),
+				"Error response received from: 127.0.0.1. Request: https://127.0.0.1:443/axis-cgi/param.cgi?action=update&Image.I0.Text.String=none; status: 400; response: Error. Text length of 83 "
+						+ "bytes exceeds the limit of 80 bytes. Please reduce the text length");
+	}
+
+	/**
 	 * Set brightness with value is 50
 	 * Expect verify with url with argument brightness=50
 	 *
