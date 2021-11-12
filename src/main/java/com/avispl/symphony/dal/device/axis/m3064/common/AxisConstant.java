@@ -52,5 +52,6 @@ public final class AxisConstant {
 	public static final String ADMIN = "admin";
 	public static final String BOTH = "both";
 	public static final String PROTOCOL_PREFIX = "://";
+	public static final int MAX_TEXT_LENGTH = 80; // bytes
 
 }

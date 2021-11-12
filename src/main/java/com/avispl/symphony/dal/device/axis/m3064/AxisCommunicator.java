@@ -953,7 +953,7 @@ public class AxisCommunicator extends RestCommunicator implements Monitorable, C
 	 * @throws Exception if device set the value fails or is device can't call URL
 	 */
 	private void setControlTextOverlay(String value) {
-		if (!StringUtils.isNullOrEmpty(value) && value.getBytes(StandardCharsets.UTF_8).length > 80) {
+		if (!StringUtils.isNullOrEmpty(value) && value.getBytes(StandardCharsets.UTF_8).length > AxisConstant.MAX_TEXT_LENGTH) {
 			throw new ResourceNotReachableException(AxisConstant.NO_SET_ERR + AxisControllingMetric.TEXT_OVERLAY_CONTENT.getName() + AxisConstant.TEXT_LENGTH_EXCEEDS_80.replaceAll(
 					AxisConstant.NUM_OF_BYTES, String.valueOf(value.length())));
 		}
