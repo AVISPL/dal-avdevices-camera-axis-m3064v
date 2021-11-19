@@ -1,0 +1,848 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Text.TextEnabled=yes"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Text.TextEnabled=no"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Text.String=The%20text%20overlay"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Text.String=none"
+      },
+      "response": {
+        "status": 400,
+        "body": "Error",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=100"
+      },
+      "response": {
+        "status": 400,
+        "body": "Error",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=0"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=90"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=180"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Rotation=270"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.ColorLevel=50"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.Brightness=40"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.Brightness=120"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.Brightnes' to '120'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.ColorLevel=120"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.ColorLevel' to '120'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.Contrast=120"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.Contrast' to '120'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.Sharpness=50"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.Sharpness=120"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.Sharpness' to '120'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.WDR=on"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.Sensor.WhiteBalance=auto"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/white-balance?action=update&ImageSource.I0.Sensor.WhiteBalance=auto"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/dynamic-range?action=update&ImageSource.I0.Sensor.WDR=off"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.WDR' to 'off'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/dynamic-range?action=update&ImageSource.I0.Sensor.WDR=on"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.WDR' to 'on'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&ImageSource.I0.DayNight.IrCutFilter=auto"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/air-cut-filter?action=update&ImageSource.I0.DayNight.IrCutFilter=auto"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.IrCutFilter' to 'auto'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Text.TextSize=small"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/text-overlay-size?action=update&Image.I0.Text.TextSize=small"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'root.ImageSource.I0.Sensor.TextSize' to 'small'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Text.Color=white&Image.I0.Text.BGColor=black"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/text-overlay-appearance?action=update&Image.I0.Text.Color=white&Image.I0.Text.BGColor=black"
+      },
+      "response": {
+        "status": 200,
+        "body": "#Error: Error setting 'Image.I0.Text.Color=white&Image.I0.Text.BGColor=black' to ''!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Appearance.MirrorEnabled=yes"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=update&Image.I0.Appearance.MirrorEnabled=no"
+      },
+      "response": {
+        "status": 200,
+        "body": "OK",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/axis-cgi/basicdeviceinfo.cgi"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n      \"apiVersion\": \"1.0\",\n      \"context\": \"Client defined request ID\",\n      \"brand\": \"AXIS\",\n      \"data\": {\n      \"propertyList\": {\n          \"Architecture\": \"mips\",\n          \"Brand\": \"AXIS\",\n          \"BuildDate\": \"Feb 14 2018 13:08\",\n          \"HardwareID\": \"714.4\",\n          \"ProdFullName\": \"AXIS Q3505 Mk II Fixed Dome Network Camera\",\n          \"ProdNbr\": \"Q3505 Mk II\",\n          \"ProdShortName\": \"AXIS Q3505 Mk II\",\n          \"ProdType\": \"Network Camera\",\n          \"ProdVariant\": \"\",\n          \"SerialNumber\": \"ACCC8E78B977\",\n          \"Soc\": \"Axis Artpec-5\",\n          \"SocSerialNumber\": \"00000000-00000000-44123C08-C840037D\",\n          \"Version\": \"8.20.1\",\n          \"WebURL\": \"http://www.axis.com\"\n        }\n      }\n    }",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/device-error"
+      },
+      "response": {
+        "status": 400,
+        "body": "", "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/device-error-null"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n      \"apiVersion\": \"1.0\",\n      \"context\": \"Client defined request ID\",\n      \"brand\": \"AXIS\",\n      \"data\": {\n      \"propertyList\": {\n          \"Archtecture\": \"\",\n          \"Brand\": \"\",\n          \"BuildDate\": \"\",\n          \"HardwareID\": \"\",\n          \"ProdFullName\": \"\",\n          \"ProdNbr\": \"\",\n          \"ProdShortName\": \"\",\n          \"ProdType\": \"\",\n          \"ProdVariant\": \"\",\n          \"SerialNumber\": \"\",\n          \"Soc\": \"\",\n          \"SocSerialNumber\": \"\",\n          \"Version\": \"\",\n          \"WebURL\": \"\"\n        }\n      }\n    }",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/device-error-null-body"
+      },
+      "response": {
+        "status": 200,
+        "body": "",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/videooutput/getschemaversions.cgi"
+      },
+      "response": {
+        "status": 200,
+        "body": "<VideoOutputResponse xmlns=\"http://www.axis.com/vapix/http_cgi/videooutput1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" SchemaVersion=\"1.6.0\" xsi:schemaLocation=\"http://www.axis.com/vapix/http_cgi/videooutput1 http://www.axis.com/vapix/http_cgi/videooutput1\">\n<Success>\n<GetSchemaVersionsSuccess>\n<SchemaVersion>\n<VersionNumber>1.6.0</VersionNumber>\n<Deprecated/>\n</SchemaVersion>\n</GetSchemaVersionsSuccess>\n</Success>\n</VideoOutputResponse>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/schema-version-error-null"
+      },
+      "response": {
+        "status": 200,
+        "body": "",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/schema-version-error"
+      },
+      "response": {
+        "status": 400,
+        "body": "",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/schema-version-error"
+      },
+      "response": {
+        "status": 400,
+        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n  <RecordingGroupResponse schemaversion=\"1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNameSpaceSchemaLocation=\"http://www.axis.com/vapix/http_cgi/recording_group.xsd\">\n    <GeneralError>\n      <ErrorCode>[code]</ErrorCode>\n      <ErrorDescription>[Description]</ErrorDescription>\n    </GeneralError>\n  </RecordingGroupResponse>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/rotation"
+      },
+      "response": {
+        "status": 200,
+        "body":"<?xml version=\"1.0\" encoding=\"utf8\" ?>\n  <parameterDefinitions xmlns=\"http://www.axis.com/ParameterDefinitionsSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.axis.com/ParameterDefinitionsSchema http://172.31.254.207/pub/parameterdefinitions.xsd\" version=\"1.0\">\n  <model>AXIS M3064-V</model>\n  <firmwareVersion>9.80.2.2</firmwareVersion>\n  <group name=\"ImageSource\">\n  <group name=\"I0\">\n  <parameter name=\"Rotation\" value=\"0\" securityLevel=\"7714\" niceName=\"Rotation\">\n  <type>\n  <enum>\n  <entry value=\"0\" niceValue=\"0\"/>\n  <entry value=\"90\" niceValue=\"90\"/>\n  <entry value=\"180\" niceValue=\"180\"/>\n  <entry value=\"270\" niceValue=\"270\"/>\n  </enum>\n  </type>\n  </parameter>\n  </group>\n  </group>\n  </parameterDefinitions>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/rotation-error-null"
+      },
+      "response": {
+        "status": 200,
+        "body":"",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/rotation-error"
+      },
+      "response": {
+        "status": 400,
+        "body": "",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/mirroring"
+      },
+      "response": {
+        "status": 200,
+        "body":"<?xml version=\"1.0\" encoding=\"utf8\" ?>\n<parameterDefinitions xmlns=\"http://www.axis.com/ParameterDefinitionsSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.axis.com/ParameterDefinitionsSchema http://172.31.254.207/pub/parameterdefinitions.xsd\" version=\"1.0\">\n<model>AXIS M3064-V</model>\n<firmwareVersion>9.80.2.2</firmwareVersion>\n<group name=\"Image\">\n<group name=\"I0\">\n<group name=\"Appearance\">\n<parameter name=\"MirrorEnabled\" value=\"no\" securityLevel=\"7714 \" niceName=\"Mirror enabled\">\n<type>\n<bool true=\"yes\" false=\"no\"/>\n</type>\n</parameter>\n</group>\n</group>\n</group>\n</parameterDefinitions>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/mirroring-error"
+      },
+      "response": {
+        "status": 400,
+        "body":"",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/text-overlay-content"
+      },
+      "response": {
+        "status": 200,
+        "body":"<?xml version=\"1.0\" encoding=\"utf8\" ?>\n<parameterDefinitions xmlns=\"http://www.axis.com/ParameterDefinitionsSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.axis.com/ParameterDefinitionsSchema http://172.31.254.207/pub/parameterdefinitions.xsd\" version=\"1.0\">\n<model>AXIS M3064-V</model>\n<firmwareVersion>9.80.2.2</firmwareVersion>\n<group name=\"Image\">\n<group name=\"I0\">\n<group name=\"Text\">\n<parameter name=\"String\" value=\"new text\" securityLevel=\"7744\" niceName=\"String\">\n<type>\n<string maxlen=\"80\"/>\n</type>\n</parameter>\n</group>\n</group>\n</group>\n</parameterDefinitions>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/text-overlay-content-error"
+      },
+      "response": {
+        "status": 400,
+        "body":"",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/videooutput/getdynamicoverlays.cgi?schemaversion=1"
+      },
+      "response": {
+        "status": 200,
+        "body": "<VideoOutputResponse xmlns=\"http://www.axis.com/vapix/http_cgi/videooutput1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" SchemaVersion=\"1.6.0\" xsi:schemaLocation=\"http://www.axis.com/vapix/http_cgi/videooutput1 http://www.axis.com/vapix/http_cgi/videooutput1\">\n<Success>\n<GetDynamicOverlaysSuccess>\n<DynamicOverlaysEnabled>false</DynamicOverlaysEnabled>\n</GetDynamicOverlaysSuccess>\n</Success>\n</VideoOutputResponse>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/param.cgi?action=listdefinitions&listformat=xmlschema&responseformat=rfc&responsecharset=utf8&group=root.System"
+      },
+      "response": {
+        "status": 200,
+        "body": "<?xml version=\"1.0\" encoding=\"utf8\" ?>\n<parameterDefinitions xmlns=\"http://www.axis.com/ParameterDefinitionsSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.axis.com/ParameterDefinitionsSchema https://172.31.254.207/pub/parameterdefinitions.xsd\" version=\"1.0\">\n    <model>AXIS M3064-V</model>\n    <firmwareVersion>9.80.2.2</firmwareVersion>\n    <group name=\"root\">\n        <group name=\"System\">\n            <parameter name=\"AccessLog\" value=\"Off\" securityLevel=\"7766\" niceName=\"Access Log\">\n                <type>\n                    <bool true=\"On\" false=\"Off\"/>\n                </type>\n            </parameter>\n            <parameter name=\"AlternateBoaPort\" value=\"0\" securityLevel=\"7766\" niceName=\"Alternate HTTP port\">\n                <type>\n                    <int min=\"0\" max=\"65535\"/>\n                </type>\n            </parameter>\n            <parameter name=\"BoaDSCP\" value=\"0\" securityLevel=\"7766\" niceName=\"HTTP DSCP\">\n                <type>\n                    <int min=\"0\" max=\"63\"/>\n                </type>\n            </parameter>\n            <parameter name=\"BoaKeepAliveTimeout\" value=\"180\" securityLevel=\"7746\" niceName=\"HTTP Server Timeout\">\n                <type>\n                    <int min=\"60\" max=\"600\"/>\n                </type>\n            </parameter>\n            <parameter name=\"BoaPort\" value=\"80\" securityLevel=\"7706\" niceName=\"HTTP port\">\n                <type>\n                    <int min=\"1\" max=\"65535\"/>\n                </type>\n            </parameter>\n            <parameter name=\"BoaProtViewer\" value=\"password\" securityLevel=\"7716\" niceName=\"Allow anonymous viewers\">\n                <type>\n                    <bool true=\"anonymous\" false=\"password\"/>\n                </type>\n            </parameter>\n            <parameter name=\"CaptureFrequencySet\" value=\"yes\" securityLevel=\"7716\" niceName=\"Capture frequency set\">\n                <type>\n                    <bool true=\"yes\" false=\"no\"/>\n                </type>\n            </parameter>\n            <parameter name=\"CaptureModeSet\" value=\"yes\" securityLevel=\"7716\" niceName=\"Capture mode set\">\n                <type>\n                    <bool true=\"yes\" false=\"no\"/>\n                </type>\n            </parameter>\n            <parameter name=\"EditCgi\" value=\"no\" securityLevel=\"7766\" niceName=\"Enable the script editor (editcgi)\">\n                <type>\n                    <bool true=\"yes\" false=\"no\"/>\n                </type>\n            </parameter>\n            <parameter name=\"HTTPAuthRTSPOverHTTP\" value=\"no\" securityLevel=\"7766\" niceName=\"HTTP Auth RTSP Over HTTP request\">\n                <type>\n                    <bool true=\"yes\" false=\"no\"/>\n                </type>\n            </parameter>\n            <parameter name=\"HTTPWatchDog\" value=\"yes\" securityLevel=\"7716\" niceName=\"HTTP WatchDog\">\n                <type>\n                    <bool true=\"yes\" false=\"no\"/>\n                </type>\n            </parameter>\n            <parameter name=\"RootPwdSet\" value=\"yes\" securityLevel=\"7716\" niceName=\"Administrator password set\">\n                <type>\n                    <bool true=\"yes\" false=\"no\"/>\n                </type>\n            </parameter>\n            <parameter name=\"SkipDigestUriValidation\" value=\"User-Agent HttpClient\" securityLevel=\"7766\" niceName=\"Match to skip digest uri validation\">\n                <type>\n                    <string/>\n                </type>\n            </parameter>\n            <parameter name=\"WebInterfaceDisabled\" value=\"no\" securityLevel=\"7766\" niceName=\"Web Interface Disabled\">\n                <type>\n                    <bool true=\"yes\" false=\"no\"/>\n                </type>\n            </parameter>\n            <group name=\"BoaGroupPolicy\">\n                <parameter name=\"admin\" value=\"https\" securityLevel=\"7706\" niceName=\"Administrator connection policy\">\n                    <type>\n                        <enum>\n                            <entry value=\"http\" niceValue=\"HTTP\"/>\n                            <entry value=\"https\" niceValue=\"HTTPS\"/>\n                            <entry value=\"both\" niceValue=\"HTTP &amp; HTTPS\"/>\n                        </enum>\n                    </type>\n                </parameter>\n                <parameter name=\"operator\" value=\"https\" securityLevel=\"7706\" niceName=\"Operator connection policy\">\n                    <type>\n                        <enum>\n                            <entry value=\"http\" niceValue=\"HTTP\"/>\n                            <entry value=\"https\" niceValue=\"HTTPS\"/>\n                            <entry value=\"both\" niceValue=\"HTTP &amp; HTTPS\"/>\n                        </enum>\n                    </type>\n                </parameter>\n                <parameter name=\"viewer\" value=\"https\" securityLevel=\"7706\" niceName=\"Viewer connection policy\">\n                    <type>\n                        <enum>\n                            <entry value=\"http\" niceValue=\"HTTP\"/>\n                            <entry value=\"https\" niceValue=\"HTTPS\"/>\n                            <entry value=\"both\" niceValue=\"HTTP &amp; HTTPS\"/>\n                        </enum>\n                    </type>\n                </parameter>\n            </group>\n            <group name=\"EmbeddedDevelopment\">\n                <parameter name=\"VaconfigFilter\" value=\"Omnicast\" securityLevel=\"7716\" niceName=\"Vaconfig filter\">\n                    <type>\n                        <string/>\n                    </type>\n                </parameter>\n            </group>\n            <group name=\"PreventDoSAttack\">\n                <parameter name=\"ActivatePasswordThrottling\" value=\"Off\" securityLevel=\"7766\" niceName=\"Activate Password Throttling\">\n                    <type>\n                        <bool true=\"On\" false=\"Off\"/>\n                    </type>\n                </parameter>\n                <parameter name=\"DoSBlockingPeriod\" value=\"10\" securityLevel=\"7766\" niceName=\"DoS Blocking Period(sec)\">\n                    <type>\n                        <int min=\"0\" max=\"1000\"/>\n                    </type>\n                </parameter>\n                <parameter name=\"DoSPageCount\" value=\"20\" securityLevel=\"7766\" niceName=\"DoS Page Count(req/sec)\">\n                    <type>\n                        <int min=\"0\" max=\"1000\"/>\n                    </type>\n                </parameter>\n                <parameter name=\"DoSPageInterval\" value=\"1\" securityLevel=\"7766\" niceName=\"DoS Page Interval(sec)\">\n                    <type>\n                        <int min=\"0\" max=\"100\"/>\n                    </type>\n                </parameter>\n                <parameter name=\"DoSSiteCount\" value=\"50\" securityLevel=\"7766\" niceName=\"DOS Site Count(req/sec)\">\n                    <type>\n                        <int min=\"0\" max=\"1000\"/>\n                    </type>\n                </parameter>\n                <parameter name=\"DoSSiteInterval\" value=\"1\" securityLevel=\"7766\" niceName=\"DoS Site Interval(sec)\">\n                    <type>\n                        <int min=\"0\" max=\"100\"/>\n                    </type>\n                </parameter>\n            </group>\n        </group>\n    </group>\n</parameterDefinitions>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/axis-cgi/videooutput/getvideosources.cgi?schemaversion=1&camera=1"
+      },
+      "response": {
+        "status": 200,
+        "body": "<VideoOutputResponse xmlns=\"http://www.axis.com/vapix/http_cgi/videooutput1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" SchemaVersion=\"1.6.0\" xsi:schemaLocation=\"http://www.axis.com/vapix/http_cgi/videooutput1 http://www.axis.com/vapix/http_cgi/videooutput1\">\n<Success>\n<GetVideoSourcesSuccess>\n<VideoSource>\n<Name>View ABC</Name>\n<Id>1</Id>\n<Active>false</Active>\n</VideoSource>\n<VideoSource>\n<Name>View area 2</Name>\n<Id>2</Id>\n<Active>false</Active>\n</VideoSource>\n</GetVideoSourcesSuccess>\n</Success>\n</VideoOutputResponse>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "GET",
+        "url": "/video-source-error?schemaversion=1&camera=1"
+      },
+      "response": {
+        "status": 400,
+        "body": "",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/video-frame-rate"
+      },
+      "response": {
+        "status": 200,
+        "body":"Image.I0.Stream.FPS=25",
+        "headers": {
+          "Content-Type": "text/plain"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/video-frame-rate-error-null"
+      },
+      "response": {
+        "status": 200,
+        "body":null,
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/video-frame-rate-error"
+      },
+      "response": {
+        "status": 400,
+        "body":"",
+        "headers": {
+          "Content-Type": "text/plain"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/video-resolution"
+      },
+      "response": {
+        "status": 200,
+        "body":"<?xml version=\"1.0\" encoding=\"utf8\" ?>\n<parameterDefinitions xmlns=\"http://www.axis.com/ParameterDefinitionsSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.axis.com/ParameterDefinitionsSchema http://172.31.254.207/pub/parameterdefinitions.xsd\" version=\"1.0\">\n<model>AXIS M3064-V</model>\n<firmwareVersion>9.80.2.2</firmwareVersion>\n<group name=\"Image\">\n<group name=\"I0\">\n<group name=\"Appearance\">\n<parameter name=\"Resolution\" value=\"1280x720\" securityLevel=\"7714\" niceName=\"Resolution\">\n<type>\n<enum>\n<entry value=\"800x600\" niceValue=\"800x600 (4:3)\" />\n<entry value=\"640x480\" niceValue=\"640x480 (4:3)\" />\n<entry value=\"320x240\" niceValue=\"320x240 (4:3)\" />\n<entry value=\"1280x720\" niceValue=\"1280x720 (16:9)\" />\n<entry value=\"1024x576\" niceValue=\"1024x576 (16:9)\" />\n<entry value=\"640x360\" niceValue=\"640x360 (16:9)\" />\n</enum>\n</type>\n</parameter>\n</group>\n</group>\n</group>\n</parameterDefinitions>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/video-resolution-error"
+      },
+      "response": {
+        "status": 400,
+        "body":"",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/text-overlay-enable"
+      },
+      "response": {
+        "status": 200,
+        "body":"<?xml version=\"1.0\" encoding=\"utf8\" ?>\n<parameterDefinitions xmlns=\"http://www.axis.com/ParameterDefinitionsSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:schemaLocation=\"http://www.axis.com/ParameterDefinitionsSchema http://172.31.254.207/pub/parameterdefinitions.xsd\" version=\"1.0\">\n<model>AXIS M3064-V</model>\n<firmwareVersion>9.80.2.2</firmwareVersion>\n<group name=\"Image\">\n<group name=\"I0\">\n<group name=\"Text\">\n<parameter name=\"TextEnabled\" value=\"no\" securityLevel=\"7744\" niceName=\"Text enabled\">\n<type>\n<bool true=\"yes\" false=\"no\"/>\n</type>\n</parameter>\n</group>\n</group>\n</group>\n</parameterDefinitions>",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/text-overlay-enable-error"
+      },
+      "response": {
+        "status": 400,
+        "body":"",
+        "headers": {
+          "Content-Type": "text/xml"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/saturation"
+      },
+      "response": {
+        "status": 200,
+        "body": "ImageSource.I0.Sensor.ColorLevel=50\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/contrast"
+      },
+      "response": {
+        "status": 200,
+        "body": "ImageSource.I0.Sensor.Contrast=50\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/brightness"
+      },
+      "response": {
+        "status": 200,
+        "body": "ImageSource.I0.Sensor.Brightness=50\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/sharpness"
+      },
+      "response": {
+        "status": 200,
+        "body": "ImageSource.I0.Sensor.Sharpness=50\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/wide-dynamic-range"
+      },
+      "response": {
+        "status": 200,
+        "body": "ImageSource.I0.Sensor.WhiteBalance=on\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/white-balance"
+      },
+      "response": {
+        "status": 200,
+        "body": "ImageSource.I0.Sensor.WDR=auto\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/ir-cut-filter"
+      },
+      "response": {
+        "status": 200,
+        "body": "ImageSource.I0.DayNight.IrCutFilter=auto\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/text-overlay-size"
+      },
+      "response": {
+        "status": 200,
+        "body": "Image.I0.Text.TextSize=small\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/text-overlay-appearance"
+      },
+      "response": {
+        "status": 200,
+        "body": "Image.I0.Text.Color=white\nImage.I0.Text.BGColor=black\n",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    },
+    {
+      "request": {
+        "method": "POST",
+        "url": "/text-overlay-appearance-null"
+      },
+      "response": {
+        "status": 200,
+        "body": " #Error: Error setting 'root.ImageSource.I0.Sensor.TextSize' to 'small'!",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      }
+    }
+  ]
+}
