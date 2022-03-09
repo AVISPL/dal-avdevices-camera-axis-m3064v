@@ -31,23 +31,23 @@
         <dependency>
             <groupId>com.avispl.symphony.api</groupId>
             <artifactId>symphony-api-commons</artifactId>
-            <version>5.3.0</version>
+            <version>5.4.0</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/symphony-api-commons-5.3.0.jar</systemPath>
+            <systemPath>${basedir}/lib/symphony-api-commons-5.4.0.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.avispl.symphony.api</groupId>
             <artifactId>symphony-api-dal</artifactId>
-            <version>5.3.0</version>
+            <version>5.4.0</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/symphony-api-dal-5.3.0.jar</systemPath>
+            <systemPath>${basedir}/lib/symphony-api-dal-5.4.0.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>com.avispl.symphony.dal</groupId>
             <artifactId>symphony-dal-commons</artifactId>
-            <version>5.3.0</version>
+            <version>5.4.0</version>
             <scope>system</scope>
-            <systemPath>${basedir}/lib/symphony-dal-commons-5.3.0.jar</systemPath>
+            <systemPath>${basedir}/lib/symphony-dal-commons-5.4.0.jar</systemPath>
         </dependency>
         <dependency>
             <groupId>org.icmp4j</groupId>
@@ -61,13 +61,13 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <scope>provided</scope>
-            <version>2.11.1</version>
+            <version>2.12.5</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <scope>provided</scope>
-            <version>2.11.1</version>
+            <version>2.12.5</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -86,12 +86,12 @@
             <groupId>org.snmp4j</groupId>
             <artifactId>snmp4j</artifactId>
             <scope>test</scope>
-            <version>2.6.3</version>
+            <version>3.5.1</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
