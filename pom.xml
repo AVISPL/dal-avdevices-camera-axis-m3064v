@@ -6,7 +6,7 @@
 
     <groupId>com.avispl.symphony.dal.device.axis.m3064</groupId>
     <artifactId>symphony-dal-communicator-axis-m3064</artifactId>
-    <version>1.1.0</version>
+    <version>1.0.1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
