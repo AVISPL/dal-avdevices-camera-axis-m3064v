@@ -81,13 +81,20 @@
             <scope>provided</scope>
             <version>2.3.1</version>
         </dependency>
-        <!--scope test-->
         <dependency>
             <groupId>org.snmp4j</groupId>
             <artifactId>snmp4j</artifactId>
-            <scope>test</scope>
-            <version>2.6.3</version>
+            <version>3.5.1</version>
+            <scope>provided</scope>
+            <!-- exclude log4j - we use log4j2 -->
+            <exclusions>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+        <!--scope test-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
