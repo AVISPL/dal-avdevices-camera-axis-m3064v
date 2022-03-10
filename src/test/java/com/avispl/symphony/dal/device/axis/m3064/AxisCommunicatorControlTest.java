@@ -40,14 +40,14 @@ public class AxisCommunicatorControlTest {
 	private AxisCommunicator axisCommunicator;
 
 	@Rule
-	public WireMockRule wireMockRule = new WireMockRule(options().port(80).httpsPort(443)
+	public WireMockRule wireMockRule = new WireMockRule(options().port(8080).httpsPort(4443)
 			.bindAddress("127.0.0.1"));
 
 	@Before
 	public void setUp() throws Exception {
 		axisCommunicator.setHost("127.0.0.1");
 		axisCommunicator.setProtocol("https");
-		axisCommunicator.setPort(443);
+		axisCommunicator.setPort(4443);
 		axisCommunicator.init();
 	}
 
