@@ -52,8 +52,8 @@
         <dependency>
             <groupId>org.icmp4j</groupId>
             <artifactId>icmp4j</artifactId>
-            <systemPath>${basedir}/lib/icmp4j-1018.jar</systemPath>
             <scope>system</scope>
+            <systemPath>${basedir}/lib/icmp4j-1018.jar</systemPath>
             <version>1018</version>
         </dependency>
         <!--provided scope-->
