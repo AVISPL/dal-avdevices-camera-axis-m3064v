@@ -6,7 +6,7 @@
 
     <groupId>com.avispl.symphony.dal.device.axis.m3064</groupId>
     <artifactId>symphony-dal-communicator-axis-m3064</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -52,8 +52,8 @@
         <dependency>
             <groupId>org.icmp4j</groupId>
             <artifactId>icmp4j</artifactId>
-            <systemPath>${basedir}/lib/icmp4j-1018.jar</systemPath>
             <scope>system</scope>
+            <systemPath>${basedir}/lib/icmp4j-1018.jar</systemPath>
             <version>1018</version>
         </dependency>
         <!--provided scope-->
@@ -86,7 +86,7 @@
             <groupId>org.snmp4j</groupId>
             <artifactId>snmp4j</artifactId>
             <scope>test</scope>
-            <version>3.5.1</version>
+            <version>2.8.9</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
