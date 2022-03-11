@@ -38,7 +38,7 @@ public class AxisCommunicatorTest {
 
 	AxisCommunicator axisCommunicator = new AxisCommunicator();
 	@Rule
-	public WireMockRule wireMockRule = new WireMockRule(options().port(80).httpsPort(443)
+	public WireMockRule wireMockRule = new WireMockRule(options().port(8080).httpsPort(4443)
 			.bindAddress("127.0.0.1"));
 
 	@Before
@@ -47,7 +47,7 @@ public class AxisCommunicatorTest {
 		axisCommunicator.setProtocol("https");
 		axisCommunicator.setLogin("root");
 		axisCommunicator.setPassword("1234");
-		axisCommunicator.setPort(443);
+		axisCommunicator.setPort(4443);
 		axisCommunicator.init();
 	}
 
